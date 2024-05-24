@@ -2,7 +2,7 @@
     <div class="pcoded-navigatio-lavel">Navigation</div>
     <ul class="pcoded-item pcoded-left-item">
 
-        <li class="active">
+        <li class="{{ Request::is('/') ? 'active' : '' }}">
             <a href="index.htm">
                 <span class="pcoded-micon"><i class="feather icon-home"></i></span>
                 <span class="pcoded-mtext">Dashboard</span>
@@ -90,8 +90,8 @@
                 </li>
             </ul>
         </li>
-        <li class="">
-            <a href="navbar-light.htm">
+        <li class="{{ Request::is('/test') ? 'active' : '' }}">
+            <a href="/test">
                 <span class="pcoded-micon"><i class="feather icon-menu"></i></span>
                 <span class="pcoded-mtext">Navigation</span>
             </a>
