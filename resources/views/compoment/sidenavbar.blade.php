@@ -3,7 +3,7 @@
     <ul class="pcoded-item pcoded-left-item">
 
         <li class="{{ Request::is('/') ? 'active' : '' }}">
-            <a href="index.htm">
+            <a href="{{ url('/') }}">
                 <span class="pcoded-micon"><i class="feather icon-home"></i></span>
                 <span class="pcoded-mtext">Dashboard</span>
             </a>
@@ -90,8 +90,8 @@
                 </li>
             </ul>
         </li>
-        <li class="{{ Request::is('/test') ? 'active' : '' }}">
-            <a href="/test">
+        <li class="{{ Request::is('test') ? 'active' : '' }}">
+            <a href="{{ url('/test') }}">
                 <span class="pcoded-micon"><i class="feather icon-menu"></i></span>
                 <span class="pcoded-mtext">Navigation</span>
             </a>
