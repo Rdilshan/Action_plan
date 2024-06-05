@@ -40,6 +40,20 @@
                                             <h3 class="text-center">Sign In</h3>
                                         </div>
                                     </div>
+                                     <!-- Display error message -->
+                                @if(session('error'))
+                                <div class="alert alert-danger" role="alert">
+                                    {{ session('error') }}
+                                </div>
+                                @endif
+
+                                <!-- Display success message -->
+                                @if(session('success'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ session('success') }}
+                                </div>
+                                @endif
+
                                     <div class="form-group form-primary">
                                         <input type="text" name="email" class="form-control" required="" placeholder="Your Email Address">
                                         <span class="form-bar"></span>

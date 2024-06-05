@@ -15,9 +15,12 @@ class UserController extends Controller
 
         if ($user && Hash::check($request->password, $user->password)) {
             Auth::login($user);
-            return view('welcome');
+            return redirect()->intended('/')
+                             ->with('success', 'Login successful!');
         } else {
-            return view('test');
+            return redirect()->back()
+                             ->withInput($request->only('email'))
+                             ->with('error', 'Invalid email or password.');
 
         }
     }
