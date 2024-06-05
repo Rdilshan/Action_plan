@@ -77,16 +77,16 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Role</label>
                                             <div class="col-sm-10">
-                                            <select name="select" class="form-control form-control-primary">
-                                                                <option value="opt1">Select One Value Only</option>
-                                                                <option value="opt2">Type 2</option>
-                                                                <option value="opt3">Type 3</option>
-                                                                <option value="opt4">Type 4</option>
-                                                                <option value="opt5">Type 5</option>
-                                                                <option value="opt6">Type 6</option>
-                                                                <option value="opt7">Type 7</option>
-                                                                <option value="opt8">Type 8</option>
-                                                            </select>
+                                                <select name="select" class="form-control form-control-primary">
+                                                    <option value="opt1">Select One Value Only</option>
+                                                    <option value="opt2">Type 2</option>
+                                                    <option value="opt3">Type 3</option>
+                                                    <option value="opt4">Type 4</option>
+                                                    <option value="opt5">Type 5</option>
+                                                    <option value="opt6">Type 6</option>
+                                                    <option value="opt7">Type 7</option>
+                                                    <option value="opt8">Type 8</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -96,7 +96,9 @@
                                                     placeholder="Enter your password">
                                             </div>
                                         </div>
-                                        <button class="btn btn-primary" style="position: absolute; right: 0; margin: 10px 20px 20px 25px;">Sign Up</button>
+                                        <button class="btn btn-primary"
+                                            style="position: absolute; right: 0; margin: 10px 20px 20px 25px;">Sign
+                                            Up</button>
                                     </form>
                                 </div>
                             </div>
