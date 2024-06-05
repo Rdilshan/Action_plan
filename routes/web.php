@@ -4,13 +4,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::middleware(['login'])->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
 
-Route::get('/test', function () {
-    return view('test');
-})->middleware('login');
+    Route::get('/test', function () {
+        return view('test');
+    });
+});
 
 
 Route::get('/login', function () {
