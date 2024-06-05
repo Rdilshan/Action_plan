@@ -16,4 +16,4 @@ Route::get('/login', function () {
     return view('login');
 });
 
-Route::post('/login',  [UserController::class, 'show']);
+Route::post('/login',  [UserController::class, 'login']);

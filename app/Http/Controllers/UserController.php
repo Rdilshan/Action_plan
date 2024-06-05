@@ -1,11 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use App\Models\User;
+
 
 class UserController extends Controller
 {
-    public function show()
+    public function login(Request $request)
     {
-        return view('test');
+        $user = User::where('email', $request->email)->first();
+
+        if ($user && Hash::check($request->password, $user->password)) {
+            return view('welcome');
+        } else {
+            return view('test');
+
+        }
     }
 }
