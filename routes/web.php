@@ -10,7 +10,8 @@ Route::get('/', function () {
 
 Route::get('/test', function () {
     return view('test');
-});
+})->middleware('login');
+
 
 Route::get('/login', function () {
     return view('login');
