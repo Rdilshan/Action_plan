@@ -20,3 +20,6 @@ Route::get('/login', function () {
 });
 
 Route::post('/login',  [UserController::class, 'login']);
+Route::get('/useradding', function () {
+    return view('useradding');
+});
