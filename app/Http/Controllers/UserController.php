@@ -28,4 +28,9 @@ class UserController extends Controller
     public function register(Request $request){
         dd($request->all());
     }
+
+    public function logout(Request $request){
+        Auth::logout();
+        return redirect('/');
+    }
 }

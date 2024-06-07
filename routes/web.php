@@ -25,6 +25,8 @@ Route::get('/login', function () {
 });
 
 Route::post('/login',  [UserController::class, 'login']);
+Route::get('/logout',  [UserController::class, 'logout']);
+
 Route::post('/useradding',  [UserController::class, 'register']);
 
 
