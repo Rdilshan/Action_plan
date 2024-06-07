@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\userRegMail;
+
 
 class UserController extends Controller
 {
@@ -53,6 +56,13 @@ class UserController extends Controller
             'role' => $request->selectrole,
             'password' => Hash::make($request->password),
         ]);
+
+        $data = [
+            'password' => $request->password
+        ];
+
+        Mail::to($request->email)
+        ->send(new userRegMail($data));
 
         return response()->json(['success' => 'User created successfully!', 'user' => $user], 201);
     } catch (\Exception $e) {
