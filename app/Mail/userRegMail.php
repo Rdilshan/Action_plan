@@ -27,7 +27,7 @@ class userRegMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'User Reg Mail',
+            subject: 'Account creation successful',
         );
     }
 
