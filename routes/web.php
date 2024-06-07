@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
+
 
 
 Route::middleware(['login'])->group(function () {
@@ -12,12 +14,12 @@ Route::middleware(['login'])->group(function () {
     Route::get('/test', function () {
         return view('test');
     });
-    Route::get('/useradding', function () {
-        return view('useradding');
-    });
+    // Route::get('/useradding', function () {
+    //     return view('useradding');
+    // });
+    Route::get('/useradding', [RoleController::class,'index']);
+
 });
-
-
 Route::get('/login', function () {
     return view('login');
 });
