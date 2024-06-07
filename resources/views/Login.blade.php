@@ -28,7 +28,8 @@
                 <div class="col-sm-12">
 
 
-                        <form class="md-float-material form-material">
+                        <form method="POST" action="/login" class="md-float-material form-material">
+                            @csrf
                             <div class="text-center">
                                 <img src="{{url('assets\images\logo.png')}}" alt="logo.png">
                             </div>
@@ -39,6 +40,20 @@
                                             <h3 class="text-center">Sign In</h3>
                                         </div>
                                     </div>
+                                     <!-- Display error message -->
+                                @if(session('error'))
+                                <div class="alert alert-danger" role="alert">
+                                    {{ session('error') }}
+                                </div>
+                                @endif
+
+                                <!-- Display success message -->
+                                @if(session('success'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ session('success') }}
+                                </div>
+                                @endif
+
                                     <div class="form-group form-primary">
                                         <input type="text" name="email" class="form-control" required="" placeholder="Your Email Address">
                                         <span class="form-bar"></span>
@@ -63,7 +78,7 @@
                                     </div>
                                     <div class="row m-t-30">
                                         <div class="col-md-12">
-                                            <button type="button" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">Sign in</button>
+                                            <button type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">Sign in</button>
                                         </div>
                                     </div>
                                     <hr>
