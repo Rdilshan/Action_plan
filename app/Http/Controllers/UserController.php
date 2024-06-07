@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -26,7 +26,39 @@ class UserController extends Controller
     }
 
     public function register(Request $request){
-        dd($request->all());
+        // dd($request->all());
+
+       // Validation rules
+    $validator = Validator::make($request->all(), [
+        'fname' => 'required|string|max:255',
+        'lname' => 'required|string|max:255',
+        'username' => 'required|string|max:255|unique:users',
+        'email' => 'required|string|email|max:255|unique:users',
+        'selectrole' => 'required|string|max:255',
+        'password' => 'required|string|max:255',
+    ]);
+
+    // Check if validation fails
+    if ($validator->fails()) {
+        return response()->json(['error' => $validator->errors()], 422);
+    }
+
+    // Try to create the user
+    try {
+        $user = User::create([
+            'fname' => $request->fname,
+            'lname' => $request->lname,
+            'Username' => $request->username,
+            'email' => $request->email,
+            'role' => $request->selectrole,
+            'password' => Hash::make($request->password),
+        ]);
+
+        return response()->json(['success' => 'User created successfully!', 'user' => $user], 201);
+    } catch (\Exception $e) {
+        // Return error message
+        return response()->json(['error' => 'User creation failed!'], 500);
+    }
     }
 
     public function logout(Request $request){
