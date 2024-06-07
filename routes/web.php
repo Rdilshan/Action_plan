@@ -12,6 +12,9 @@ Route::middleware(['login'])->group(function () {
     Route::get('/test', function () {
         return view('test');
     });
+    Route::get('/useradding', function () {
+        return view('useradding');
+    });
 });
 
 
@@ -20,6 +23,6 @@ Route::get('/login', function () {
 });
 
 Route::post('/login',  [UserController::class, 'login']);
-Route::get('/useradding', function () {
-    return view('useradding');
-});
+Route::post('/useradding',  [UserController::class, 'register']);
+
+
