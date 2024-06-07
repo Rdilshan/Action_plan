@@ -39,7 +39,7 @@
 
             <tr>
                 <td align="center" bgcolor="#f9f9f9" style="padding: 20px 20px 0 20px; color: #555555; font-family: Arial, sans-serif; font-size: 20px; line-height: 30px;">
-                    <b>Password:</b> 123123123
+                    <b>Password:</b> {{ $data['password'] }}
                 </td>
             </tr>
 

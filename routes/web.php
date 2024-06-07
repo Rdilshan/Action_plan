@@ -1,11 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Mail;
-
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
-use App\Mail\userRegMail;
+
 
 
 Route::middleware(['login'])->group(function () {
@@ -32,10 +30,7 @@ Route::get('/logout',  [UserController::class, 'logout']);
 Route::post('/useradding',  [UserController::class, 'register']);
 
 
-Route::get('/mailsend',function(){
-    Mail::to('rdilshan077788@gmail.com')
-    ->send(new userRegMail());
-});
+
 
 
 
