@@ -17,9 +17,12 @@ class CheckadminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->role == '1') {
+        $user = Auth::user();
+        $role = $user->role;
+
+        if ($role == 1) {
             return $next($request); // Allow the request to proceed
         }
-        return redirect('/login');
+        return redirect('/user');
     }
 }
