@@ -1,4 +1,3 @@
-
 @extends('layout.layout')
 @section('contend')
 
@@ -53,8 +52,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label
-                                                class="col-sm-2 col-form-label">Placeholder</label>
+                                            <label class="col-sm-2 col-form-label">Placeholder</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control"
                                                     placeholder="Type your title in Placeholder">
@@ -78,8 +76,8 @@
                                             <label class="col-sm-2 col-form-label">Disable
                                                 Input</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control"
-                                                    placeholder="Disabled text" disabled="">
+                                                <input type="text" class="form-control" placeholder="Disabled text"
+                                                    disabled="">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -111,8 +109,7 @@
                                             <label class="col-sm-2 col-form-label">Round
                                                 Input</label>
                                             <div class="col-sm-10">
-                                                <input type="text"
-                                                    class="form-control form-control-round"
+                                                <input type="text" class="form-control form-control-round"
                                                     placeholder=".form-control-round">
                                             </div>
                                         </div>
@@ -121,16 +118,14 @@
                                                 Length</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control"
-                                                    placeholder="Content must be in 6 characters"
-                                                    maxlength="6">
+                                                    placeholder="Content must be in 6 characters" maxlength="6">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Disable
                                                 Autocomplete</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control"
-                                                    placeholder="Autocomplete Off"
+                                                <input type="text" class="form-control" placeholder="Autocomplete Off"
                                                     autocomplete="off">
                                             </div>
                                         </div>

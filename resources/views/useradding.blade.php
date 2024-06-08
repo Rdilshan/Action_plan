@@ -77,8 +77,8 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Role</label>
                                             <div class="col-sm-10">
-                                                <select name="select" class="form-control form-control-primary">
-                                                    <option value="opt1">Select One Value Only</option>
+                                                <select name="select" class="form-control form-control-primary" style="color : black; border-color: black;">
+                                                    <option value="opt1">Type 1</option>
                                                     <option value="opt2">Type 2</option>
                                                     <option value="opt3">Type 3</option>
                                                     <option value="opt4">Type 4</option>
