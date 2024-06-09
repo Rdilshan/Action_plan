@@ -17,3 +17,7 @@ Route::get('/login', function () {
 Route::get('/useradding', function () {
     return view('useradding');
 });
+
+Route::get('/admin_User', function () {
+    return view('admin_User');
+});
