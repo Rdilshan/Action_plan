@@ -9,6 +9,34 @@
             </a>
         </li>
 
+        <li class="pcoded-hasmenu" dropdown-icon="style1" subitem-icon="style1">
+            <a href="javascript:void(0)">
+                <span class="pcoded-micon"><i class="feather icon-clipboard"></i></span>
+                <span class="pcoded-mtext">Goal Management</span>
+            </a>
+            <ul class="pcoded-submenu">
+                <li class=" ">
+                    <a href="form-elements-component.htm">
+                        <span class="pcoded-mtext">View Goal</span>
+                    </a>
+                </li>
+                <li class=" ">
+                    <a href="form-elements-add-on.htm">
+                        <span class="pcoded-mtext">Create Goal</span>
+                    </a>
+                </li>
+                {{-- <li class=" ">
+                    <a href="form-elements-advance.htm">
+                        <span class="pcoded-mtext">Form-Elements-Advance</span>
+                    </a>
+                </li>
+                <li class=" ">
+                    <a href="form-validation.htm">
+                        <span class="pcoded-mtext">Form Validation</span>
+                    </a>
+                </li> --}}
+            </ul>
+        </li>
 
 
         <li class="pcoded-hasmenu {{ Request::is('useradding') ? 'active pcoded-trigger' : '' }}">
