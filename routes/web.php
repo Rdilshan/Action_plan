@@ -36,11 +36,19 @@ Route::post('/useradding', [UserController::class, 'register']);
 // page only
 
 Route::get('/viewblog', function () {
-    return view("View");
+    return view("Viewgoal");
+});
+Route::get('/viewObjective', function () {
+    return view("ViewObjective");
+});
+Route::get('/viewstrategy', function () {
+    return view("Viewstrategy");
+});
+Route::get('/viewaction', function () {
+    return view("Viewaction");
 });
 
-
-
-
-
+Route::get('/viewSubaction', function () {
+    return view("Viewsubaction");
+});
 

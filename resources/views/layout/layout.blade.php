@@ -24,7 +24,8 @@
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="{{url('assets\css\style.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url('assets\css\jquery.mCustomScrollbar.css')}}">
-
+    <!-- ico font -->
+    <link rel="stylesheet" type="text/css" href="{{url('assets\icon\icofont\css\icofont.css')}}">
     <!-- Data Table Css -->
     <link rel="stylesheet" type="text/css" href="{{url('bower_components\datatables.net-bs4\css\dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url('assets\pages\data-table\css\buttons.dataTables.min.css')}}">
