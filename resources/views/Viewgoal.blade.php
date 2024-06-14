@@ -69,7 +69,9 @@
                                                 <td>2011/04/25</td>
                                                 <td>
 
-                                                    <label class="label warning-breadcrumb">   <i class="icofont icofont-eye-alt f-20"></i></label>
+                                                    <a href="{{ url('/viewObjective') }}">
+                                                        <label class="label warning-breadcrumb">   <i class="icofont icofont-eye-alt f-20"></i></label>
+                                                    </a>
                                                     <label class="label bg-success"> <i class="icofont icofont-pencil-alt-5"></i> </label>
                                                     <span class="label label-danger"><i class="icofont icofont-ui-delete"></i> </span>
                                                 </td>

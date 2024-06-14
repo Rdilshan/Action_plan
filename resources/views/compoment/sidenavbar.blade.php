@@ -16,7 +16,7 @@
             </a>
             <ul class="pcoded-submenu">
                 <li class=" ">
-                    <a href="form-elements-component.htm">
+                    <a href="{{ url('/viewblog') }}">
                         <span class="pcoded-mtext">View Goal</span>
                     </a>
                 </li>
