@@ -56,8 +56,8 @@
                                                 <td>2011/04/25</td>
                                                 <td>
 
-                                                    <label class="label warning-breadcrumb">   <i class="icofont icofont-eye-alt f-20"></i></label>
-                                                    <label class="label bg-success"> <i class="icofont icofont-pencil-alt-5"></i> </label>
+                                                    <label class="label warning-breadcrumb">   <i class="icofont icofont-eye-alt f-20" style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 5px; margin-top: 5px;"></i></label>
+                                                    <label class="label bg-success"> <i class="icofont icofont-pencil-alt-5" style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 5px;"></i> </label>
                                                     <span class="label label-danger"><i class="icofont icofont-ui-delete"></i> </span>
                                                 </td>
                                             </tr>
