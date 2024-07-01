@@ -21,6 +21,8 @@ Route::middleware(['login'])->group(function () {
         return view('user');
     });
 
+    Route::get('/listuser', [UserController::class, 'getalluser']);
+
 
 });
 Route::get('/login', function () {

@@ -79,6 +79,6 @@ class UserController extends Controller
     public function getalluser(Request $request){
 
          $users = User::where('role', 2)->get();
-         return view('users.index', compact('users'));
+         return view('Listuser', compact('users'));
     }
 }
