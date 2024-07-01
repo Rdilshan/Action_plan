@@ -22,6 +22,8 @@ Route::middleware(['login'])->group(function () {
     Route::get('/user', function () {
         return view('user');
     });
+    Route::post('/useradding', [UserController::class, 'register'])->middleware('checkAdmin');
+
 
     Route::get('/listuser', [UserController::class, 'getalluser']);
 
@@ -36,7 +38,6 @@ Route::get('/login', function () {
 Route::post('/login', [UserController::class, 'login']);
 Route::get('/logout', [UserController::class, 'logout']);
 
-Route::post('/useradding', [UserController::class, 'register']);
 
 
 // page only
