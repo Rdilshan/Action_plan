@@ -26,7 +26,7 @@ Route::middleware(['login'])->group(function () {
     Route::get('/listuser', [UserController::class, 'getalluser']);
 
 
-    Route::delete('/listuser/{id}', [UserController::class, 'deleteUser']);
+    Route::delete('/listuser/{id}', [UserController::class, 'deleteUser'])->middleware('checkAdmin');;
 
 });
 Route::get('/login', function () {
