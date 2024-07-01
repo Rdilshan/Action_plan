@@ -67,7 +67,7 @@
                                                     <div class="form-group row">
                                                         <label class="col-sm-2 col-form-label">Name</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" class="form-control">
+                                                            <input type="text" name="goalname" id="goalname" class="form-control">
                                                         </div>
                                                     </div>
 
@@ -108,84 +108,7 @@
                                                 </td>
                                             </tr>
 
-                                            <tr>
-                                                <td>2</td>
-                                                <td>System Architect</td>
 
-                                                <td>2011/04/25</td>
-                                                <td>
-
-                                                    <a href="{{ url('/viewObjective') }}">
-                                                        <label class="label warning-breadcrumb"> <i
-                                                                class="icofont icofont-eye-alt f-20"></i></label>
-                                                    </a>
-                                                    <label class="label bg-success"> <i
-                                                            class="icofont icofont-pencil-alt-5"></i> </label>
-                                                    <span class="label label-danger"><i
-                                                            class="icofont icofont-ui-delete"></i> </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>System Architect</td>
-
-                                                <td>2011/04/25</td>
-                                                <td>
-
-                                                    <label class="label warning-breadcrumb"> <i
-                                                            class="icofont icofont-eye-alt f-20"></i></label>
-                                                    <label class="label bg-success"> <i
-                                                            class="icofont icofont-pencil-alt-5"></i> </label>
-                                                    <span class="label label-danger"><i
-                                                            class="icofont icofont-ui-delete"></i> </span>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>4</td>
-                                                <td>System Architect</td>
-
-                                                <td>2011/04/25</td>
-                                                <td>
-
-                                                    <label class="label warning-breadcrumb"> <i
-                                                            class="icofont icofont-eye-alt f-20"></i></label>
-                                                    <label class="label bg-success"> <i
-                                                            class="icofont icofont-pencil-alt-5"></i> </label>
-                                                    <span class="label label-danger"><i
-                                                            class="icofont icofont-ui-delete"></i> </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>System Architect</td>
-
-                                                <td>2011/04/25</td>
-                                                <td>
-
-                                                    <label class="label warning-breadcrumb"> <i
-                                                            class="icofont icofont-eye-alt f-20"></i></label>
-                                                    <label class="label bg-success"> <i
-                                                            class="icofont icofont-pencil-alt-5"></i> </label>
-                                                    <span class="label label-danger"><i
-                                                            class="icofont icofont-ui-delete"></i> </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>System Architect</td>
-
-                                                <td>2011/04/25</td>
-                                                <td>
-
-                                                    <label class="label warning-breadcrumb"> <i
-                                                            class="icofont icofont-eye-alt f-20"></i></label>
-                                                    <label class="label bg-success"> <i
-                                                            class="icofont icofont-pencil-alt-5"></i> </label>
-                                                    <span class="label label-danger"><i
-                                                            class="icofont icofont-ui-delete"></i> </span>
-                                                </td>
-                                            </tr>
 
                                         </tbody>
 
@@ -199,6 +122,53 @@
             </div>
         </div>
     </div>
+
+    <script>
+        async function addGoal() {
+            const data = {
+                goalname: document.getElementById('goalname').value,
+
+            };
+
+            const response = await fetch('/useradding', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                Swal.fire({
+                    title: 'success!',
+                    text: "successfully add the user",
+                    icon: 'success',
+                    confirmButtonColor: 'rgba(0, 146, 255, 0.8)',
+                    timer: 1500,
+                    confirmButtonText: 'Okay'
+                }).then((result) => {
+                    window.location.href = "/";
+                })
+            } else {
+
+                Swal.fire({
+                    title: 'Errror!',
+                    text: JSON.stringify(result.error),
+                    icon: 'error',
+                    confirmButtonColor: 'rgba(0, 146, 255, 0.8)',
+                    timer: 1500,
+                    confirmButtonText: 'Okay'
+                }).then((result) => {
+                    window.location.href = "/useradding";
+
+                })
+            }
+        }
+    </script>
+
 @endsection
 
 
