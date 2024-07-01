@@ -75,4 +75,10 @@ class UserController extends Controller
         Auth::logout();
         return redirect('/');
     }
+
+    public function getalluser(Request $request){
+
+         $users = User::where('role', 2)->get();
+         return view('users.index', compact('users'));
+    }
 }
