@@ -19,10 +19,14 @@ class HierarchyController extends Controller
     }
 
     // Get Objectives by Goal
-    public function getObjectives($goalId)
+    public function getObjectives($goalId,$name)
     {
         $objectives = Objective::where('goal_id', $goalId)->get();
-        return view('ViewObjective', compact('objectives'));
+        return view('ViewObjective', [
+            'objectives' => $objectives,
+            'name' => $name,
+            'goal_id' => $goalId
+        ]);
     }
 
     // Get Strategies by Objective
@@ -79,4 +83,42 @@ class HierarchyController extends Controller
 
         return response()->json(['message' => 'Goal edited successfully', 'name' => $goal->name], 200);
     }
+
+     // Add Objective
+     public function addObjective(Request $request)
+     {
+         $validatedData = $request->validate([
+             'Objectivename' => 'required|string|max:255',
+             'goalid' => 'required|exists:goals,id',
+         ]);
+
+         $objective = Objective::create([
+             'name' => $validatedData['Objectivename'],
+             'goal_id' => $validatedData['goalid'],
+         ]);
+
+         return response()->json(['message' => 'Objective added successfully', 'objective' => $objective], 200);
+     }
+
+
+     public function deleteObjective($id)
+     {
+         $user = Objective::findOrFail($id);
+         $user->delete();
+         return response()->json(['success' => 'Objective deleted successfully']);
+     }
+
+
+     public function editObjective(Request $request, $id)
+     {
+         $validatedData = $request->validate([
+             'Objectivename' => 'required|string|max:255',
+         ]);
+
+         $objective = Objective::findOrFail($id);
+         $objective->name = $validatedData['Objectivename'];
+         $objective->save();
+
+         return response()->json(['message' => 'Objective edited successfully', 'name' => $objective->name], 200);
+     }
 }
