@@ -59,4 +59,11 @@ class HierarchyController extends Controller
 
         return response()->json(['message' => 'Goal added successfully'], 200);
     }
+
+    public function deleteGoal($id)
+    {
+        $user = Goal::findOrFail($id);
+        $user->delete();
+        return response()->json(['success' => 'Goal deleted successfully']);
+    }
 }

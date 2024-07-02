@@ -27,11 +27,12 @@ Route::middleware(['login'])->group(function () {
     Route::get('/listuser', [UserController::class, 'getalluser']);
 
 
-    Route::delete('/listuser/{id}', [UserController::class, 'deleteUser'])->middleware('checkAdmin');;
+    Route::delete('/listuser/{id}', [UserController::class, 'deleteUser'])->middleware('checkAdmin');
 
     #goal adding
     Route::post('/addgoal', [HierarchyController::class, 'addgoal']);
     Route::get('/viewblog', [HierarchyController::class, 'indexGoals']);
+    Route::delete('/deletegoal/{id}', [HierarchyController::class, 'deleteGoal']);
 
 
 });
