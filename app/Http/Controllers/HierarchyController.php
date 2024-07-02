@@ -66,4 +66,17 @@ class HierarchyController extends Controller
         $user->delete();
         return response()->json(['success' => 'Goal deleted successfully']);
     }
+
+    public function editGoal(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'goalname' => 'required|string|max:255',
+        ]);
+
+        $goal = Goal::findOrFail($id);
+        $goal->name = $validatedData['goalname'];
+        $goal->save();
+
+        return response()->json(['message' => 'Goal edited successfully', 'name' => $goal->name], 200);
+    }
 }

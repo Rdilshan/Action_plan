@@ -33,7 +33,7 @@ Route::middleware(['login'])->group(function () {
     Route::post('/addgoal', [HierarchyController::class, 'addgoal']);
     Route::get('/viewblog', [HierarchyController::class, 'indexGoals']);
     Route::delete('/deletegoal/{id}', [HierarchyController::class, 'deleteGoal']);
-
+    Route::put('/editgoal/{id}', [HierarchyController::class, 'editGoal']);
 
 });
 Route::get('/login', function () {

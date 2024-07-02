@@ -35,6 +35,32 @@
                     </div>
                     <!-- Page-header end -->
 
+                    <!-- Edit Goal Modal -->
+                    <div class="md-modal md-effect-3" id="edit-modal">
+                        <div class="md-content">
+                            <h3>Edit Goal
+                                <button type="button" class="btn btn-primary waves-effect md-close"
+                                    style="position: absolute; right: 0; top: 2px; color: #fffdfd; background-color: #0219ec;"
+                                    onclick="closeModal('edit-modal')">X</button>
+                            </h3>
+                            <div>
+                                <p>Edit the details of the goal:</p>
+                                <form id="editGoalForm">
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Name</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="editgoalname" id="editgoalname"
+                                                class="form-control">
+                                            <input type="hidden" id="editgoalid">
+                                        </div>
+                                    </div>
+                                    <button type="button" onclick="editGoal()"
+                                        class="btn btn-primary waves-effect">Save</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Page body start -->
                     <div class="page-body">
 
@@ -45,21 +71,22 @@
                                 <div class="dt-responsive table-responsive">
 
 
-                                    <button type="button"
-                                        class="btn btn-inverse btn-round waves-effect md-trigger mb-4"
+                                    <button type="button" class="btn btn-inverse btn-round waves-effect md-trigger mb-4"
                                         data-modal="modal-3">Add New Goal</button>
 
 
                                     <div class="md-modal md-effect-3" id="modal-3">
                                         <div class="md-content">
-                                            <h3>Add New Goal  <button type="button"
-                                                class="btn btn-primary waves-effect md-close" style="
+                                            <h3>Add New Goal <button type="button"
+                                                    class="btn btn-primary waves-effect md-close"
+                                                    style="
                                                 position: absolute;
                                                 right: 0;
                                                 top: 2px;
                                                 color: #fffdfd;
                                                 background-color: #0219ec;
-                                            ">X</button></h3>
+                                            ">X</button>
+                                            </h3>
 
                                             <div>
                                                 <p>This is a modal window. You can do the following things with it:</p>
@@ -67,11 +94,13 @@
                                                     <div class="form-group row">
                                                         <label class="col-sm-2 col-form-label">Name</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" name="goalname" id="goalname" class="form-control">
+                                                            <input type="text" name="goalname" id="goalname"
+                                                                class="form-control">
                                                         </div>
                                                     </div>
 
-                                                    <button type="button" onclick="addGoal()" class="btn btn-primary waves-effect">Save</button>
+                                                    <button type="button" onclick="addGoal()"
+                                                        class="btn btn-primary waves-effect">Save</button>
                                                 </form>
 
                                             </div>
@@ -89,19 +118,23 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($goals as $goal)
+                                            @foreach ($goals as $goal)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $goal->name }}</td>
                                                     <td>{{ $goal->created_at->format('Y/m/d') }}</td>
                                                     <td>
                                                         <label class="label warning-breadcrumb">
-                                                            <i class="icofont icofont-eye-alt f-20" style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 5px; margin-top: 5px;"></i>
+                                                            <i class="icofont icofont-eye-alt f-20"
+                                                                style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 5px; margin-top: 5px;"></i>
                                                         </label>
-                                                        <label class="label bg-success">
-                                                            <i class="icofont icofont-pencil-alt-5" style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 5px;"></i>
+                                                        <label class="label bg-success"
+                                                            onclick="openEditModal({{ $goal->id }}, '{{ $goal->name }}')">
+                                                            <i class="icofont icofont-pencil-alt-5"
+                                                                style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 5px;"></i>
                                                         </label>
-                                                        <span class="label label-danger" onclick="Goaldelete({{ $goal->id }})">
+                                                        <span class="label label-danger"
+                                                            onclick="Goaldelete({{ $goal->id }})">
                                                             <i class="icofont icofont-ui-delete"></i>
                                                         </span>
                                                     </td>
@@ -121,6 +154,14 @@
     </div>
 
     <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('md-show');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('md-show');
+        }
+
         async function addGoal() {
             const data = {
                 goalname: document.getElementById('goalname').value,
@@ -194,8 +235,60 @@
                 }
             });
         }
-    </script>
 
+        function openEditModal(id, name) {
+            document.getElementById('editgoalid').value = id;
+            document.getElementById('editgoalname').value = name;
+            openModal('edit-modal'); // Open the edit modal
+        }
+
+        async function editGoal() {
+            const goalname = document.getElementById('editgoalname').value;
+            const goalid = document.getElementById('editgoalid').value;
+
+            const data = {
+                goalname: goalname
+            };
+
+            try {
+                const response = await fetch(`/editgoal/${goalid}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to edit goal');
+                }
+
+                const result = await response.json();
+
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Successfully edited the goal',
+                    icon: 'success',
+                    confirmButtonColor: 'rgba(0, 146, 255, 0.8)',
+                    timer: 1500,
+                    confirmButtonText: 'Okay'
+                }).then(() => {
+                    window.location.href = "/viewblog";
+                });
+
+            } catch (error) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: error.message || 'Unknown error occurred',
+                    icon: 'error',
+                    confirmButtonColor: 'rgba(0, 146, 255, 0.8)',
+                    timer: 1500,
+                    confirmButtonText: 'Okay'
+                });
+            }
+        }
+    </script>
 @endsection
 
 
