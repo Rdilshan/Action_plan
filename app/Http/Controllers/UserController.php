@@ -78,8 +78,8 @@ class UserController extends Controller
 
     public function getalluser(Request $request){
 
-         $users = User::where('role', 2)->get();
-         return view('Listuser', compact('users'));
+        $users = User::where('email', '!=', 'admin@example.com')->get();
+        return view('Listuser', compact('users'));
     }
 
     public function deleteUser($id)
