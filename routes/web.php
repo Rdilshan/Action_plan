@@ -3,8 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
-
-
+use App\Http\Controllers\HierarchyController;
 
 
 
@@ -30,6 +29,11 @@ Route::middleware(['login'])->group(function () {
 
     Route::delete('/listuser/{id}', [UserController::class, 'deleteUser'])->middleware('checkAdmin');;
 
+    #goal adding
+    Route::post('/addgoal', [HierarchyController::class, 'addgoal']);
+    Route::get('/viewblog', [HierarchyController::class, 'indexGoals']);
+
+
 });
 Route::get('/login', function () {
     return view('login');
@@ -42,9 +46,7 @@ Route::get('/logout', [UserController::class, 'logout']);
 
 // page only
 
-Route::get('/viewblog', function () {
-    return view("Viewgoal");
-});
+
 Route::get('/viewObjective', function () {
     return view("ViewObjective");
 });

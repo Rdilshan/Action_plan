@@ -45,4 +45,18 @@ class HierarchyController extends Controller
         $subactions = Subaction::where('action_id', $actionId)->get();
         return view('Viewsubaction', compact('subactions'));
     }
+
+    public function addgoal(Request $request)
+    {
+
+        $validatedData = $request->validate([
+            'goalname' => 'required|string|max:255',
+        ]);
+
+        $goal = Goal::create([
+            'name' => $validatedData['goalname']
+        ]);
+
+        return response()->json(['message' => 'Goal added successfully'], 200);
+    }
 }

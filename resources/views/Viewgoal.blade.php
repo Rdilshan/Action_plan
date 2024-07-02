@@ -71,7 +71,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <button type="Submit" class="btn btn-primary waves-effect">Save</button>
+                                                    <button type="button" onclick="addGoal()" class="btn btn-primary waves-effect">Save</button>
                                                 </form>
 
                                             </div>
@@ -89,27 +89,24 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-
-                                            <tr>
-                                                <td>1</td>
-                                                <td>System Architect</td>
-
-                                                <td>2011/04/25</td>
-                                                <td>
-
-                                                    <label class="label warning-breadcrumb"> <i
-                                                            class="icofont icofont-eye-alt f-20"
-                                                            style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 5px; margin-top: 5px;"></i></label>
-                                                    <label class="label bg-success"> <i class="icofont icofont-pencil-alt-5"
-                                                            style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 5px;"></i>
-                                                    </label>
-                                                    <span class="label label-danger"><i
-                                                            class="icofont icofont-ui-delete"></i> </span>
-                                                </td>
-                                            </tr>
-
-
-
+                                            @foreach($goals as $goal)
+                                                <tr>
+                                                    <td>{{ $goal->id }}</td>
+                                                    <td>{{ $goal->name }}</td>
+                                                    <td>{{ $goal->created_at->format('Y/m/d') }}</td>
+                                                    <td>
+                                                        <label class="label warning-breadcrumb">
+                                                            <i class="icofont icofont-eye-alt f-20" style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 5px; margin-top: 5px;"></i>
+                                                        </label>
+                                                        <label class="label bg-success">
+                                                            <i class="icofont icofont-pencil-alt-5" style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 5px;"></i>
+                                                        </label>
+                                                        <span class="label label-danger">
+                                                            <i class="icofont icofont-ui-delete"></i>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
 
                                     </table>
@@ -130,7 +127,7 @@
 
             };
 
-            const response = await fetch('/useradding', {
+            const response = await fetch('/addgoal', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -140,30 +137,18 @@
             });
 
             const result = await response.json();
+            console.log(result)
 
             if (response.ok) {
                 Swal.fire({
                     title: 'success!',
-                    text: "successfully add the user",
+                    text: "successfully added",
                     icon: 'success',
                     confirmButtonColor: 'rgba(0, 146, 255, 0.8)',
                     timer: 1500,
                     confirmButtonText: 'Okay'
                 }).then((result) => {
-                    window.location.href = "/";
-                })
-            } else {
-
-                Swal.fire({
-                    title: 'Errror!',
-                    text: JSON.stringify(result.error),
-                    icon: 'error',
-                    confirmButtonColor: 'rgba(0, 146, 255, 0.8)',
-                    timer: 1500,
-                    confirmButtonText: 'Okay'
-                }).then((result) => {
-                    window.location.href = "/useradding";
-
+                    window.location.href = "/viewblog";
                 })
             }
         }
