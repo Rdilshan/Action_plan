@@ -75,4 +75,17 @@ class UserController extends Controller
         Auth::logout();
         return redirect('/');
     }
+
+    public function getalluser(Request $request){
+
+         $users = User::where('role', 2)->get();
+         return view('Listuser', compact('users'));
+    }
+
+    public function deleteUser($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return response()->json(['success' => 'User deleted successfully']);
+    }
 }
