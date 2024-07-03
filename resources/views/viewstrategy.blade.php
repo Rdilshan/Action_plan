@@ -38,6 +38,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="dt-responsive table-responsive">
+                                <button type="button" class="btn btn-inverse btn-round waves-effect md-trigger mb-4" data-modal="modal-3">Add New strategy</button>
                                     <table id="simpletable" class="table table-striped table-bordered nowrap">
                                         <thead>
                                         <tr>
