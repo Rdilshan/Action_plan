@@ -46,6 +46,8 @@
                                                 <th>Last Name</th>
                                                 <th>User Name</th>
                                                 <th>Email</th>
+                                                <th>Role</th>
+
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -57,6 +59,13 @@
                                                     <td>{{ $user->lname }}</td>
                                                     <td>{{ $user->Username }}</td>
                                                     <td>{{ $user->email }}</td>
+                                                    <td>
+                                                        @if($user->role == 1)
+                                                            admin
+                                                        @elseif($user->role == 0)
+                                                            user
+                                                        @endif
+                                                    </td>
                                                     <td>
                                                         <span class="label label-danger"><i
                                                                 class="icofont icofont-ui-delete"

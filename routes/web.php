@@ -3,8 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
-
-
+use App\Http\Controllers\HierarchyController;
 
 
 
@@ -28,7 +27,20 @@ Route::middleware(['login'])->group(function () {
     Route::get('/listuser', [UserController::class, 'getalluser']);
 
 
-    Route::delete('/listuser/{id}', [UserController::class, 'deleteUser'])->middleware('checkAdmin');;
+    Route::delete('/listuser/{id}', [UserController::class, 'deleteUser'])->middleware('checkAdmin');
+
+    #goal adding
+    Route::post('/addgoal', [HierarchyController::class, 'addgoal']);
+    Route::get('/viewblog', [HierarchyController::class, 'indexGoals']);
+    Route::delete('/deletegoal/{id}', [HierarchyController::class, 'deleteGoal']);
+    Route::put('/editgoal/{id}', [HierarchyController::class, 'editGoal']);
+
+    #objective adding
+    Route::get('/viewObjective/{id}/{id2}', [HierarchyController::class, 'getObjectives']);
+    Route::post('/addObjective', [HierarchyController::class, 'addObjective']);
+    Route::delete('/deleteObjective/{id}', [HierarchyController::class, 'deleteObjective']);
+    Route::put('/editObjective/{id}', [HierarchyController::class, 'editObjective']);
+
 
 });
 Route::get('/login', function () {
@@ -42,12 +54,7 @@ Route::get('/logout', [UserController::class, 'logout']);
 
 // page only
 
-Route::get('/viewblog', function () {
-    return view("Viewgoal");
-});
-Route::get('/viewObjective', function () {
-    return view("ViewObjective");
-});
+
 Route::get('/viewstrategy', function () {
     return view("Viewstrategy");
 });
