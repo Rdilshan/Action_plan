@@ -1,5 +1,6 @@
 @extends('layout.layout')
 @section('contend')
+<link rel="stylesheet" type="text/css" href="{{ url('assets\css\component.css') }}" />
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <div class="pcoded-content" style="height: 92vh !important;">
         <div class="pcoded-inner-content" style="height: 100%;overflow-y: scroll;">
@@ -11,7 +12,7 @@
                             <div class="col-lg-8">
                                 <div class="page-header-title">
                                     <div class="d-inline">
-                                        <h4>List of strategy of System Architect</h4>
+                                        <h4>List of strategy of {{ $name }}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -38,7 +39,41 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="dt-responsive table-responsive">
-                                <button type="button" class="btn btn-inverse btn-round waves-effect md-trigger mb-4" data-modal="modal-3">Add New strategy</button>
+                                <button type="button" class="btn btn-inverse btn-round waves-effect md-trigger mb-4"
+                                        data-modal="modal-3">Add New Strategy </button>
+                                        <div class="md-modal md-effect-3" id="modal-3">
+                                        <div class="md-content">
+                                            <h3>Add New Objective <button type="button"
+                                                    class="btn btn-primary waves-effect md-close"
+                                                    style="
+                                                position: absolute;
+                                                right: 0;
+                                                top: 2px;
+                                                color: #fffdfd;
+                                                background-color: #0219ec;
+                                            ">X</button>
+                                            </h3>
+
+                                            <div>
+                                                <p>This is a modal window. You can do the following things with it:</p>
+                                                <form action="">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-2 col-form-label">Name</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" name="Objectivename" id="Objectivename"
+                                                                class="form-control">
+                                                            <input type="hidden" name="goalid" id="goalid"
+                                                                value="{{ $objective_id }}">
+                                                        </div>
+                                                    </div>
+
+                                                    <button type="button" onclick="addObjective()"
+                                                        class="btn btn-primary waves-effect">Save</button>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
                                     <table id="simpletable" class="table table-striped table-bordered nowrap">
                                         <thead>
                                         <tr>
@@ -49,84 +84,29 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-
-                                            <tr>
-                                                <td>1</td>
-                                                <td>System Architect</td>
-
-                                                <td>2011/04/25</td>
-                                                <td>
-
-                                                    <a href="{{ url('/viewaction') }}">
-                                                        <label class="label warning-breadcrumb">   <i class="icofont icofont-eye-alt f-20"></i></label>
-                                                    </a>
-                                                     <label class="label bg-success"> <i class="icofont icofont-pencil-alt-5"></i> </label>
-                                                    <span class="label label-danger"><i class="icofont icofont-ui-delete"></i> </span>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>2</td>
-                                                <td>System Architect</td>
-
-                                                <td>2011/04/25</td>
-                                                <td>
-
-                                                    <label class="label warning-breadcrumb">   <i class="icofont icofont-eye-alt f-20"></i></label>
-                                                    <label class="label bg-success"> <i class="icofont icofont-pencil-alt-5"></i> </label>
-                                                    <span class="label label-danger"><i class="icofont icofont-ui-delete"></i> </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>System Architect</td>
-
-                                                <td>2011/04/25</td>
-                                                <td>
-
-                                                    <label class="label warning-breadcrumb">   <i class="icofont icofont-eye-alt f-20"></i></label>
-                                                    <label class="label bg-success"> <i class="icofont icofont-pencil-alt-5"></i> </label>
-                                                    <span class="label label-danger"><i class="icofont icofont-ui-delete"></i> </span>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>4</td>
-                                                <td>System Architect</td>
-
-                                                <td>2011/04/25</td>
-                                                <td>
-
-                                                    <label class="label warning-breadcrumb">   <i class="icofont icofont-eye-alt f-20"></i></label>
-                                                    <label class="label bg-success"> <i class="icofont icofont-pencil-alt-5"></i> </label>
-                                                    <span class="label label-danger"><i class="icofont icofont-ui-delete"></i> </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>System Architect</td>
-
-                                                <td>2011/04/25</td>
-                                                <td>
-
-                                                    <label class="label warning-breadcrumb">   <i class="icofont icofont-eye-alt f-20"></i></label>
-                                                    <label class="label bg-success"> <i class="icofont icofont-pencil-alt-5"></i> </label>
-                                                    <span class="label label-danger"><i class="icofont icofont-ui-delete"></i> </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>System Architect</td>
-
-                                                <td>2011/04/25</td>
-                                                <td>
-
-                                                    <label class="label warning-breadcrumb">   <i class="icofont icofont-eye-alt f-20"></i></label>
-                                                    <label class="label bg-success"> <i class="icofont icofont-pencil-alt-5"></i> </label>
-                                                    <span class="label label-danger"><i class="icofont icofont-ui-delete"></i> </span>
-                                                </td>
-                                            </tr>
-
+                                            @foreach ($strategies as $strategy)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $strategy->name }}</td>
+                                                    <td>{{ $strategy->created_at->format('Y/m/d') }}</td>
+                                                    <td>
+                                                        <label class="label warning-breadcrumb "
+                                                            onclick="window.location.href = '/viewstrategy/{{ $strategy->id }}/{{ $strategy->name }}'">
+                                                            <i class="icofont icofont-eye-alt f-20"
+                                                                style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 5px; margin-top: 5px;"></i>
+                                                        </label>
+                                                        <label class="label bg-success"
+                                                            onclick="openEditModal({{ $strategy->id }}, '{{ $strategy->name }}')">
+                                                            <i class="icofont icofont-pencil-alt-5"
+                                                                style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 5px;"></i>
+                                                        </label>
+                                                        <span class="label label-danger"
+                                                            onclick="Objectivedelete({{ $strategy->id }})">
+                                                            <i class="icofont icofont-ui-delete"></i>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
 
                                     </table>
@@ -140,14 +120,158 @@
         </div>
     </div>
 
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('md-show');
+        }
 
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('md-show');
+        }
+
+        async function addObjective() {
+            const data = {
+                Objectivename: document.getElementById('Objectivename').value,
+                goalid: document.getElementById('goalid').value,
+            };
+
+            const response = await fetch('/addObjective', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            console.log(result)
+
+            if (response.ok) {
+                Swal.fire({
+                    title: 'success!',
+                    text: "successfully added",
+                    icon: 'success',
+                    confirmButtonColor: 'rgba(0, 146, 255, 0.8)',
+                    timer: 1500,
+                    confirmButtonText: 'Okay'
+                }).then((result) => {
+                    const goal_id = {!! json_encode($goal_id) !!};
+                    const name = {!! json_encode($name) !!};
+
+                    window.location.href = `/viewObjective/${goal_id}/${name}`;
+                })
+            }
+        }
+
+        async function Objectivedelete(id) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then(async (result) => { // Make this callback async
+                if (result.isConfirmed) {
+                    const response = await fetch(`/deleteObjective/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        }
+                    });
+
+                    if (response.ok) {
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "The user has been deleted.",
+                            icon: "success"
+                        }).then(() => {
+                            location.reload(); // Reload the page to reflect the changes
+                        });
+                    } else {
+                        const result = await response.json();
+                        Swal.fire({
+                            title: 'Error!',
+                            text: result.error || 'Failed to delete the user',
+                            icon: 'error',
+                            confirmButtonColor: '#3085d6',
+                            timer: 1500,
+                            confirmButtonText: 'Okay'
+                        });
+                    }
+                }
+            });
+        }
+
+        function openEditModal(id, name) {
+            document.getElementById('editdeleteObjectiveid').value = id;
+            document.getElementById('editObjectivename').value = name;
+            openModal('edit-modal'); // Open the edit modal
+        }
+
+        async function editGoal() {
+            const Objectivename = document.getElementById('editObjectivename').value;
+            const Objectiveid = document.getElementById('editdeleteObjectiveid').value;
+
+            const data = {
+                Objectivename: Objectivename
+            };
+
+            try {
+                const response = await fetch(`/editObjective/${Objectiveid}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to edit goal');
+                }
+
+                const result = await response.json();
+
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Successfully edited the goal',
+                    icon: 'success',
+                    confirmButtonColor: 'rgba(0, 146, 255, 0.8)',
+                    timer: 1500,
+                    confirmButtonText: 'Okay'
+                }).then(() => {
+                    const goal_id = {!! json_encode($goal_id) !!};
+                    const name = {!! json_encode($name) !!};
+
+                    window.location.href = `/viewObjective/${goal_id}/${name}`;
+                });
+
+            } catch (error) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: error.message || 'Unknown error occurred',
+                    icon: 'error',
+                    confirmButtonColor: 'rgba(0, 146, 255, 0.8)',
+                    timer: 1500,
+                    confirmButtonText: 'Okay'
+                });
+            }
+        }
+    </script>
 @endsection
 
 
 @section('scriptjs')
-<script>
-    $(document).ready(function() {
+    <script type="text/javascript" src="{{ url('assets\js\modalEffects.js') }}"></script>
+    <script type="text/javascript" src="{{ url('assets\js\classie.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
             $('#simpletable').DataTable();
         });
-</script>
+    </script>
 @endsection
