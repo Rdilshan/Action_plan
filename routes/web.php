@@ -41,6 +41,12 @@ Route::middleware(['login'])->group(function () {
     Route::delete('/deleteObjective/{id}', [HierarchyController::class, 'deleteObjective']);
     Route::put('/editObjective/{id}', [HierarchyController::class, 'editObjective']);
 
+    #starategies adding
+    Route::get('/viewstrategy/{id2}/{id3}', [HierarchyController::class, 'getStrategies']);
+    Route::post('/addStrategy', [HierarchyController::class, 'addStrategy']);
+    Route::delete('/deleteStrategy/{id}', [HierarchyController::class, 'deletestrategy']);
+    Route::put('/editStrategy/{id}', [HierarchyController::class, 'editStrategy']);
+
 
 });
 Route::get('/login', function () {
@@ -55,9 +61,9 @@ Route::get('/logout', [UserController::class, 'logout']);
 // page only
 
 
-Route::get('/viewstrategy', function () {
-    return view("Viewstrategy");
-});
+// Route::get('/viewstrategy', function () {
+//     return view("Viewstrategy");
+// });
 Route::get('/viewaction', function () {
     return view("Viewaction");
 });
