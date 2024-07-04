@@ -30,10 +30,15 @@ class HierarchyController extends Controller
     }
 
     // Get Strategies by Objective
-    public function getStrategies($objectiveId)
+    public function getStrategies($objectiveId,$name)
     {
         $strategies = Strategy::where('objective_id', $objectiveId)->get();
-        return view('viewstrategy', compact('strategies'));
+        // return view('Viewstrategy', compact('strategies'));
+        return view('viewstrategy', [
+            'strategies' => $strategies,
+            'name' => $name,
+            'objective_id' => $objectiveId
+        ]);
     }
 
     // Get Actions by Strategy
@@ -50,6 +55,7 @@ class HierarchyController extends Controller
         return view('Viewsubaction', compact('subactions'));
     }
 
+    //Add Goal
     public function addgoal(Request $request)
     {
 
@@ -121,4 +127,36 @@ class HierarchyController extends Controller
 
          return response()->json(['message' => 'Objective edited successfully', 'name' => $objective->name], 200);
      }
+
+      // Add strategies
+      public function addStrategy(Request $request)
+      {
+          $validatedData = $request->validate([
+              'Strategyname' => 'required|string|max:255',
+              'objectiveid' => 'required|exists:objectives,id',
+          ]);
+          $strategy = Strategy::create([
+              'name' => $validatedData['Strategyname'],
+              'goal_id' => $validatedData['objectiveid'],
+          ]);
+          return response()->json(['message' => 'Strategy added successfully', 'objective' => $strategy], 200);
+      }
+      public function deletestrategy($id)
+      {
+          $user = Strategy::findOrFail($id);
+          $user->delete();
+          return response()->json(['success' => 'Stategy deleted successfully']);
+      }
+      public function editStrategy(Request $request, $id)
+      {
+          $validatedData = $request->validate([
+              'Strategyname' => 'required|string|max:255',
+          ]);
+
+          $strategy = Strategy::findOrFail($id);
+          $strategy->name = $validatedData['Strategyname'];
+          $strategy->save();
+
+          return response()->json(['message' => 'Strategy edited successfully', 'name' => $strategy->name], 200);
+      }
 }
