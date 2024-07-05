@@ -120,108 +120,22 @@
 </div>
 
 <script>
-    function openModal(modalId) {
-        document.getElementById(modalId).classList.add('md-show');
-    }
-
-    function closeModal(modalId) {
-        document.getElementById(modalId).classList.remove('md-show');
-    }
-
-    async function addStrategy() {
-        const data = {
-            Strategyname: document.getElementById('Strategyname').value,
-            objectiveid: document.getElementById('objectiveid').value,
-        };
-
-        const response = await fetch('/addStrategy', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify(data)
-        });
-
-        const result = await response.json();
-        console.log(result)
-
-        if (response.ok) {
-            Swal.fire({
-                title: 'success!',
-                text: "successfully added",
-                icon: 'success',
-                confirmButtonColor: 'rgba(0, 146, 255, 0.8)',
-                timer: 1500,
-                confirmButtonText: 'Okay'
-            }).then((result) => {
-                const objective_id = {!! json_encode($objective_id) !!};
-                const name = {!! json_encode($name) !!};
-
-                window.location.href = `/viewstrategy/${objective_id}/${name}`;
-            })
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('md-show');
         }
-    }
 
-    async function Strategydelete(id) {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-        }).then(async (result) => { // Make this callback async
-            if (result.isConfirmed) {
-                const response = await fetch(`/deleteStrategy/${id}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    }
-                });
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('md-show');
+        }
 
-                if (response.ok) {
-                    Swal.fire({
-                        title: "Deleted!",
-                        text: "The user has been deleted.",
-                        icon: "success"
-                    }).then(() => {
-                        location.reload(); // Reload the page to reflect the changes
-                    });
-                } else {
-                    const result = await response.json();
-                    Swal.fire({
-                        title: 'Error!',
-                        text: result.error || 'Failed to delete the user',
-                        icon: 'error',
-                        confirmButtonColor: '#3085d6',
-                        timer: 1500,
-                        confirmButtonText: 'Okay'
-                    });
-                }
-            }
-        });
-    }
+        async function addStrategy() {
+            const data = {
+                Strategyname: document.getElementById('Strategyname').value,
+                objectiveid: document.getElementById('objectiveid').value,
+            };
 
-    function openEditModal(id, name) {
-        document.getElementById('editdeleteStrategyid').value = id;
-        document.getElementById('editStrategyname').value = name;
-        openModal('edit-modal'); // Open the edit modal
-    }
-
-    async function editGoal() {
-        const Objectivename = document.getElementById('editStrategyname').value;
-        const Objectiveid = document.getElementById('editdeleteStrategyid').value;
-
-        const data = {
-            Strategyname: Strategyname
-        };
-
-        try {
-            const response = await fetch(`/editStrategy/${id}`, {
-                method: 'PUT',
+            const response = await fetch('/addStrategy', {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -229,38 +143,124 @@
                 body: JSON.stringify(data)
             });
 
-            if (!response.ok) {
-                throw new Error('Failed to edit goal');
-            }
-
             const result = await response.json();
+            console.log(result)
 
+            if (response.ok) {
+                Swal.fire({
+                    title: 'success!',
+                    text: "successfully added",
+                    icon: 'success',
+                    confirmButtonColor: 'rgba(0, 146, 255, 0.8)',
+                    timer: 1500,
+                    confirmButtonText: 'Okay'
+                }).then((result) => {
+                    const objective_id = {!! json_encode($objective_id) !!};
+                    const name = {!! json_encode($name) !!};
+
+                    window.location.href = `/viewStrategy/${objective_id}/${name}`;
+                })
+            }
+        }
+
+        async function Strategydelete(id) {
             Swal.fire({
-                title: 'Success!',
-                text: 'Successfully edited the strategy',
-                icon: 'success',
-                confirmButtonColor: 'rgba(0, 146, 255, 0.8)',
-                timer: 1500,
-                confirmButtonText: 'Okay'
-            }).then(() => {
-                const objective_id = {!! json_encode($objective_id) !!};
-                const name = {!! json_encode($name) !!};
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then(async (result) => { // Make this callback async
+                if (result.isConfirmed) {
+                    const response = await fetch(`/deleteObjective/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        }
+                    });
 
-                window.location.href = `/viewStrategy/${objective_id}/${name}`;
-            });
-
-        } catch (error) {
-            Swal.fire({
-                title: 'Error!',
-                text: error.message || 'Unknown error occurred',
-                icon: 'error',
-                confirmButtonColor: 'rgba(0, 146, 255, 0.8)',
-                timer: 1500,
-                confirmButtonText: 'Okay'
+                    if (response.ok) {
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "The user has been deleted.",
+                            icon: "success"
+                        }).then(() => {
+                            location.reload(); // Reload the page to reflect the changes
+                        });
+                    } else {
+                        const result = await response.json();
+                        Swal.fire({
+                            title: 'Error!',
+                            text: result.error || 'Failed to delete the user',
+                            icon: 'error',
+                            confirmButtonColor: '#3085d6',
+                            timer: 1500,
+                            confirmButtonText: 'Okay'
+                        });
+                    }
+                }
             });
         }
-    }
-</script>
+
+        function openEditModal(id, name) {
+            document.getElementById('editdeleteStrategyid').value = id;
+            document.getElementById('editStrategyname').value = name;
+            openModal('edit-modal'); // Open the edit modal
+        }
+
+        async function editGoal() {
+            const Objectivename = document.getElementById('editStratrgyname').value;
+            const Objectiveid = document.getElementById('editStartegyid').value;
+
+            const data = {
+                Strategyname: Strategyname
+            };
+
+            try {
+                const response = await fetch(`/editStrategy/${Strategyid}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to edit goal');
+                }
+
+                const result = await response.json();
+
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Successfully edited the goal',
+                    icon: 'success',
+                    confirmButtonColor: 'rgba(0, 146, 255, 0.8)',
+                    timer: 1500,
+                    confirmButtonText: 'Okay'
+                }).then(() => {
+                    const objective_id = {!! json_encode($objective_id) !!};
+                    const name = {!! json_encode($name) !!};
+
+                    window.location.href = `/viewStrategy/${objective_id}/${name}`;
+                });
+
+            } catch (error) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: error.message || 'Unknown error occurred',
+                    icon: 'error',
+                    confirmButtonColor: 'rgba(0, 146, 255, 0.8)',
+                    timer: 1500,
+                    confirmButtonText: 'Okay'
+                });
+            }
+        }
+    </script>
 @endsection
 
 
