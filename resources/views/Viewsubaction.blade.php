@@ -130,18 +130,19 @@
                                                     <td>{{ $subaction->created_at->format('Y/m/d') }}</td>
                                                     <td>
                                                         <label class="label warning-breadcrumb "
-                                                            onclick="window.location.href = '/viewTask/{{ $subaction->id }}/{{ $subaction->name }}'">
-                                                            <i class="icofont icofont-eye-alt f-20"
-                                                                style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 5px; margin-top: 5px;"></i>
+                                                            onclick="window.location.href = '/viewTask/{{ $subaction->id }}/{{ $subaction->name }}'"style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 5px; margin: 5px; cursor: pointer; text-align: center; background-color: orange;">
+                                                        <i class="icofont icofont-eye-alt"
+                                                            style="font-size: 20px; color: white;"></i>
                                                         </label>
                                                         <label class="label bg-success"
-                                                            onclick="openEditModal({{ $subaction->id }}, '{{ $subaction->name }}')">
-                                                            <i class="icofont icofont-pencil-alt-5"
-                                                                style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 5px;"></i>
+                                                            onclick="openEditModal({{ $subaction->id }}, '{{ $subaction->name }}')"style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 5px; margin: 5px; cursor: pointer; text-align: center; background-color: green;">
+                                                        <i class="icofont icofont-pencil-alt-5"
+                                                            style="font-size: 20px; color: white;"></i>
                                                         </label>
                                                         <span class="label label-danger"
-                                                            onclick="SubActiondelete({{ $subaction->id }})">
-                                                            <i class="icofont icofont-ui-delete"></i>
+                                                            onclick="SubActiondelete({{ $subaction->id }})"style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 5px; margin: 5px; cursor: pointer; text-align: center; background-color: red;">
+                                                        <i class="icofont icofont-ui-delete"
+                                                            style="font-size: 20px; color: white;"></i>
                                                         </span>
                                                     </td>
                                                 </tr>
