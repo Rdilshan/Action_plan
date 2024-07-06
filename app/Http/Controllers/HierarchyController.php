@@ -30,10 +30,15 @@ class HierarchyController extends Controller
     }
 
     // Get Strategies by Objective
-    public function getStrategies($objectiveId)
+    public function getStrategies($objectiveId,$name)
     {
         $strategies = Strategy::where('objective_id', $objectiveId)->get();
-        return view('viewstrategy', compact('strategies'));
+        return view('viewstrategy', [
+            'strategies'=> $strategies,
+            'name' => $name,
+            'objective_id' => $objectiveId
+        ]);
+
     }
 
     // Get Actions by Strategy
@@ -120,5 +125,40 @@ class HierarchyController extends Controller
          $objective->save();
 
          return response()->json(['message' => 'Objective edited successfully', 'name' => $objective->name], 200);
+     }
+
+     public function addstrategy(Request $request)
+     {
+         $validatedData = $request->validate([
+             'strategyename' => 'required|string|max:255',
+             'objectiveid' => 'required|exists:objectives,id',
+         ]);
+
+         $objective = Strategy::create([
+             'name' => $validatedData['strategyename'],
+             'objective_id' => $validatedData['objectiveid'],
+         ]);
+
+         return response()->json(['message' => 'Objective added successfully', 'objective' => $objective], 200);
+     }
+
+     public function deletestrategy($id)
+     {
+         $user = Strategy::findOrFail($id);
+         $user->delete();
+         return response()->json(['success' => 'Objective deleted successfully']);
+     }
+
+     public function editstrategy(Request $request, $id)
+     {
+         $validatedData = $request->validate([
+             'Strategyname' => 'required|string|max:255',
+         ]);
+
+         $Strategy = Strategy::findOrFail($id);
+         $Strategy->name = $validatedData['Strategyname'];
+         $Strategy->save();
+
+         return response()->json(['message' => 'Strategy edited successfully', 'name' => $Strategy->name], 200);
      }
 }

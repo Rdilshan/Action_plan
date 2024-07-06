@@ -129,7 +129,7 @@
                                                     <td>{{ $objective->created_at->format('Y/m/d') }}</td>
                                                     <td>
                                                         <label class="label warning-breadcrumb "
-                                                            onclick="window.location.href = '/viewObjective/{{ $objective->id }}/{{ $objective->name }}'">
+                                                            onclick="window.location.href = '/viewstrategy/{{ $objective->id }}/{{ $objective->name }}'">
                                                             <i class="icofont icofont-eye-alt f-20"
                                                                 style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 5px; margin-top: 5px;"></i>
                                                         </label>
