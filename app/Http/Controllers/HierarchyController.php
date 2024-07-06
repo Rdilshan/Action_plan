@@ -33,12 +33,12 @@ class HierarchyController extends Controller
     public function getStrategies($objectiveId,$name)
     {
         $strategies = Strategy::where('objective_id', $objectiveId)->get();
+        // return view('Viewstrategy', compact('strategies'));
         return view('viewstrategy', [
-            'strategies'=> $strategies,
+            'strategies' => $strategies,
             'name' => $name,
             'objective_id' => $objectiveId
         ]);
-
     }
 
     // Get Actions by Strategy
@@ -65,6 +65,7 @@ class HierarchyController extends Controller
 
     }
 
+    //Add Goal
     public function addgoal(Request $request)
     {
 
@@ -136,6 +137,7 @@ class HierarchyController extends Controller
 
          return response()->json(['message' => 'Objective edited successfully', 'name' => $objective->name], 200);
      }
+
 
      public function addstrategy(Request $request)
      {
