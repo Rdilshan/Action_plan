@@ -158,7 +158,7 @@
                 const objective_id = {!! json_encode($objective_id) !!};
                 const name = {!! json_encode($name) !!};
 
-                window.location.href = `/viewStrategy/${objective_id}/${name}`;
+                window.location.href = `/viewstrategy/${objective_id}/${name}`;
             })
         }
     }
@@ -174,7 +174,7 @@
             confirmButtonText: "Yes, delete it!"
         }).then(async (result) => { // Make this callback async
             if (result.isConfirmed) {
-                const response = await fetch(`/deleteObjective/${id}`, {
+                const response = await fetch(`/deleteStartegy/${id}`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
@@ -212,8 +212,8 @@
     }
 
     async function editGoal() {
-        const Objectivename = document.getElementById('editStratrgyname').value;
-        const Objectiveid = document.getElementById('editStartegyid').value;
+        const Objectivename = document.getElementById('editStrategyname').value;
+        const Objectiveid = document.getElementById('editStrategyid').value;
 
         const data = {
             Strategyname: Strategyname
