@@ -82,6 +82,7 @@ Route::get('/viewaction', function () {
 
 Route::get('/viewSubaction', function () {
     return view("Viewsubaction");
+});
 Route::get('/viewTask', function () {
     return view("viewTask");
 });
