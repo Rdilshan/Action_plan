@@ -53,6 +53,12 @@ Route::middleware(['login'])->group(function () {
     Route::delete('/deleteaction/{id}', [HierarchyController::class, 'deleteaction']);
     Route::put('/editaction/{id}', [HierarchyController::class, 'editaction']);
 
+    #viewSubaction adding
+    Route::get('/viewSubaction/{id}/{id2}', [HierarchyController::class, 'getSubactions']);
+    Route::post('/addSubaction', [HierarchyController::class, 'addSubaction']);
+    Route::delete('/deleteSubaction/{id}', [HierarchyController::class, 'deleteSubaction']);
+    Route::put('/editSubaction/{id}', [HierarchyController::class, 'editSubaction']);
+
 
 });
 Route::get('/login', function () {
@@ -66,12 +72,7 @@ Route::get('/logout', [UserController::class, 'logout']);
 
 // page only
 
-
-Route::get('/viewaction', function () {
-    return view("Viewaction");
-});
-
-Route::get('/viewSubaction', function () {
-    return view("Viewsubaction");
+Route::get('/viewTask', function () {
+    return view("viewTask");
 });
 
