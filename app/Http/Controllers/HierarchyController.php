@@ -42,10 +42,15 @@ class HierarchyController extends Controller
     }
 
     // Get Actions by Strategy
-    public function getActions($strategyId)
+    public function getActions($strategyId,$name)
     {
         $actions = Action::where('strategy_id', $strategyId)->get();
-        return view('Viewaction', compact('actions'));
+
+        return view('Viewaction', [
+            'actions'=> $actions,
+            'name' => $name,
+            'strategy_id' => $strategyId
+        ]);
     }
 
     // Get Subactions by Action
@@ -160,5 +165,41 @@ class HierarchyController extends Controller
          $Strategy->save();
 
          return response()->json(['message' => 'Strategy edited successfully', 'name' => $Strategy->name], 200);
+     }
+
+
+     public function addaction(Request $request)
+     {
+         $validatedData = $request->validate([
+             'actionename' => 'required|string|max:255',
+             'actioneeid' => 'required|exists:strategies,id',
+         ]);
+
+         $objective = Action::create([
+             'name' => $validatedData['actionename'],
+             'strategy_id' => $validatedData['actioneeid'],
+         ]);
+
+         return response()->json(['message' => 'Objective added successfully', 'objective' => $objective], 200);
+     }
+
+     public function deleteaction($id)
+     {
+         $user = Action::findOrFail($id);
+         $user->delete();
+         return response()->json(['success' => 'Objective deleted successfully']);
+     }
+
+     public function editaction(Request $request, $id)
+     {
+         $validatedData = $request->validate([
+             'Actionname' => 'required|string|max:255',
+         ]);
+
+         $Action = Action::findOrFail($id);
+         $Action->name = $validatedData['Actionname'];
+         $Action->save();
+
+         return response()->json(['message' => 'Strategy edited successfully', 'name' => $Action->name], 200);
      }
 }
