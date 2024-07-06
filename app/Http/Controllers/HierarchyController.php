@@ -42,17 +42,27 @@ class HierarchyController extends Controller
     }
 
     // Get Actions by Strategy
-    public function getActions($strategyId)
+    public function getActions($strategyId,$name)
     {
         $actions = Action::where('strategy_id', $strategyId)->get();
-        return view('Viewaction', compact('actions'));
+
+        return view('Viewaction', [
+            'actions'=> $actions,
+            'name' => $name,
+            'strategy_id' => $strategyId
+        ]);
     }
 
     // Get Subactions by Action
-    public function getSubactions($actionId)
+    public function getSubactions($actionId,$name)
     {
         $subactions = Subaction::where('action_id', $actionId)->get();
-        return view('Viewsubaction', compact('subactions'));
+        return view('Viewsubaction', [
+            'subactions'=> $subactions,
+            'name' => $name,
+            'action_id' => $actionId
+        ]);
+
     }
 
     //Add Goal
@@ -128,35 +138,111 @@ class HierarchyController extends Controller
          return response()->json(['message' => 'Objective edited successfully', 'name' => $objective->name], 200);
      }
 
-      // Add strategies
-      public function addStrategy(Request $request)
-      {
-          $validatedData = $request->validate([
-              'Strategyname' => 'required|string|max:255',
-              'objectiveid' => 'required|exists:objectives,id',
-          ]);
-          $strategy = Strategy::create([
-              'name' => $validatedData['Strategyname'],
-              'goal_id' => $validatedData['objectiveid'],
-          ]);
-          return response()->json(['message' => 'Strategy added successfully', 'objective' => $strategy], 200);
-      }
-      public function deletestrategy($id)
-      {
-          $user = Strategy::findOrFail($id);
-          $user->delete();
-          return response()->json(['success' => 'Stategy deleted successfully']);
-      }
-      public function editStrategy(Request $request, $id)
-      {
-          $validatedData = $request->validate([
-              'Strategyname' => 'required|string|max:255',
-          ]);
 
-          $strategy = Strategy::findOrFail($id);
-          $strategy->name = $validatedData['Strategyname'];
-          $strategy->save();
+     public function addstrategy(Request $request)
+     {
+         $validatedData = $request->validate([
+             'strategyename' => 'required|string|max:255',
+             'objectiveid' => 'required|exists:objectives,id',
+         ]);
 
-          return response()->json(['message' => 'Strategy edited successfully', 'name' => $strategy->name], 200);
-      }
+         $objective = Strategy::create([
+             'name' => $validatedData['strategyename'],
+             'objective_id' => $validatedData['objectiveid'],
+         ]);
+
+         return response()->json(['message' => 'Objective added successfully', 'objective' => $objective], 200);
+     }
+
+     public function deletestrategy($id)
+     {
+         $user = Strategy::findOrFail($id);
+         $user->delete();
+         return response()->json(['success' => 'Objective deleted successfully']);
+     }
+
+     public function editstrategy(Request $request, $id)
+     {
+         $validatedData = $request->validate([
+             'Strategyname' => 'required|string|max:255',
+         ]);
+
+         $Strategy = Strategy::findOrFail($id);
+         $Strategy->name = $validatedData['Strategyname'];
+         $Strategy->save();
+
+         return response()->json(['message' => 'Strategy edited successfully', 'name' => $Strategy->name], 200);
+     }
+
+
+     public function addaction(Request $request)
+     {
+         $validatedData = $request->validate([
+             'actionename' => 'required|string|max:255',
+             'actioneeid' => 'required|exists:strategies,id',
+         ]);
+
+         $objective = Action::create([
+             'name' => $validatedData['actionename'],
+             'strategy_id' => $validatedData['actioneeid'],
+         ]);
+
+         return response()->json(['message' => 'Objective added successfully', 'objective' => $objective], 200);
+     }
+
+     public function deleteaction($id)
+     {
+         $user = Action::findOrFail($id);
+         $user->delete();
+         return response()->json(['success' => 'Objective deleted successfully']);
+     }
+
+     public function editaction(Request $request, $id)
+     {
+         $validatedData = $request->validate([
+             'Actionname' => 'required|string|max:255',
+         ]);
+
+         $Action = Action::findOrFail($id);
+         $Action->name = $validatedData['Actionname'];
+         $Action->save();
+
+         return response()->json(['message' => 'Strategy edited successfully', 'name' => $Action->name], 200);
+     }
+
+
+     public function addSubaction(Request $request)
+     {
+         $validatedData = $request->validate([
+             'subactionename' => 'required|string|max:255',
+             'subactioneid' => 'required|exists:actions,id',
+         ]);
+
+         $objective = Subaction::create([
+             'name' => $validatedData['subactionename'],
+             'action_id' => $validatedData['subactioneid'],
+         ]);
+
+         return response()->json(['message' => 'Objective added successfully', 'objective' => $objective], 200);
+     }
+
+     public function deleteSubaction($id)
+     {
+         $user = Subaction::findOrFail($id);
+         $user->delete();
+         return response()->json(['success' => 'Objective deleted successfully']);
+     }
+
+     public function editSubaction(Request $request, $id)
+     {
+         $validatedData = $request->validate([
+             'subActionname' => 'required|string|max:255',
+         ]);
+
+         $Subaction = Subaction::findOrFail($id);
+         $Subaction->name = $validatedData['subActionname'];
+         $Subaction->save();
+
+         return response()->json(['message' => 'Strategy edited successfully', 'name' => $Subaction->name], 200);
+     }
 }

@@ -41,11 +41,23 @@ Route::middleware(['login'])->group(function () {
     Route::delete('/deleteObjective/{id}', [HierarchyController::class, 'deleteObjective']);
     Route::put('/editObjective/{id}', [HierarchyController::class, 'editObjective']);
 
-    #starategies adding
-    Route::get('/viewstrategy/{id2}/{id3}', [HierarchyController::class, 'getStrategies']);
-    Route::post('/addStrategy', [HierarchyController::class, 'addStrategy']);
-    Route::delete('/deleteStrategy/{id}', [HierarchyController::class, 'deletestrategy']);
-    Route::put('/editStrategy/{id}', [HierarchyController::class, 'editStrategy']);
+    #viewstrategy adding
+    Route::get('/viewstrategy/{id}/{id2}', [HierarchyController::class, 'getStrategies']);
+    Route::post('/addstrategy', [HierarchyController::class, 'addstrategy']);
+    Route::delete('/deletestrategy/{id}', [HierarchyController::class, 'deletestrategy']);
+    Route::put('/editstrategy/{id}', [HierarchyController::class, 'editstrategy']);
+
+    #viewaction adding
+    Route::get('/viewaction/{id}/{id2}', [HierarchyController::class, 'getActions']);
+    Route::post('/addaction', [HierarchyController::class, 'addaction']);
+    Route::delete('/deleteaction/{id}', [HierarchyController::class, 'deleteaction']);
+    Route::put('/editaction/{id}', [HierarchyController::class, 'editaction']);
+
+    #viewSubaction adding
+    Route::get('/viewSubaction/{id}/{id2}', [HierarchyController::class, 'getSubactions']);
+    Route::post('/addSubaction', [HierarchyController::class, 'addSubaction']);
+    Route::delete('/deleteSubaction/{id}', [HierarchyController::class, 'deleteSubaction']);
+    Route::put('/editSubaction/{id}', [HierarchyController::class, 'editSubaction']);
 
 
 });
@@ -70,5 +82,7 @@ Route::get('/viewaction', function () {
 
 Route::get('/viewSubaction', function () {
     return view("Viewsubaction");
+Route::get('/viewTask', function () {
+    return view("viewTask");
 });
 
