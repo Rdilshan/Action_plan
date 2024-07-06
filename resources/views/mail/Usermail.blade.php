@@ -26,7 +26,7 @@
 
             <tr>
                 <td align="center" bgcolor="#0073AA" style="padding: 20px 20px 20px 20px; color: #ffffff; font-family: Arial, sans-serif; font-size: 36px; font-weight: bold;">
-                    <img src="https://z-p3-scontent.fcmb7-1.fna.fbcdn.net/v/t39.30808-6/357077464_649764383849298_5645745722280600908_n.png?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeHCRhm6YtNrumVNCvtu5gjaAECTihLk1AEAQJOKEuTUAbhkN1R7C1NqGQMtwjGEsK7ya_x1qNJ8e5RbAUYYuBW6&_nc_ohc=26oMdL4rHYYQ7kNvgGNJnJt&_nc_zt=23&_nc_ht=z-p3-scontent.fcmb7-1.fna&oh=00_AYBpRJwTILR4QBXzIhWmwJjHBxMU8nQGDJaDs6BPIYGdmw&oe=66692C7F" alt="ProUI Logo" width="152" height="152" style="display:block;">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStbJ4CDaAVPY2HEO-24xhHccIyQkbZFfy37w&s" alt="ProUI Logo" width="152" height="152" style="display:block;">
                     Welcome
                 </td>
             </tr>
