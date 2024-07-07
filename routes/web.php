@@ -73,17 +73,7 @@ Route::get('/logout', [UserController::class, 'logout']);
 // page only
 
 
-// Route::get('/viewstrategy', function () {
-//     return view("Viewstrategy");
-// });
-Route::get('/viewaction', function () {
-    return view("Viewaction");
-});
-
-Route::get('/viewSubaction', function () {
-    return view("Viewsubaction");
-});
-Route::get('/viewTask', function () {
+Route::get('/viewTask/{id}/{id2}', function () {
     return view("viewTask");
 });
 

@@ -13,8 +13,7 @@
                         <div class="col-lg-8">
                             <div class="page-header-title">
                                 <div class="d-inline">
-                                    <h4>List Of Objective Of
-                                        {{ $name }}
+                                    <h4>List Of Objective Of  `{{ $name }}`
                                     </h4>
                                 </div>
                             </div>

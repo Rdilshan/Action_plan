@@ -14,7 +14,7 @@
                                 <div class="page-header-title">
                                     <div class="d-inline">
                                         <h4>List Of Action  Of
-                                            {{ $name }}
+                                            `{{ $name }}`
                                         </h4>
                                     </div>
                                 </div>

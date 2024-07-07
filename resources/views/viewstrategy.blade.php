@@ -12,7 +12,7 @@
                         <div class="col-lg-8">
                             <div class="page-header-title">
                                 <div class="d-inline">
-                                    <h4>List of strategy of {{ $name }}</h4>
+                                    <h4>List of strategy of `{{ $name }}`</h4>
                                 </div>
                             </div>
                         </div>
@@ -33,6 +33,33 @@
                     </div>
                 </div>
                 <!-- Page-header end -->
+
+                <!-- Edit Goal Modal -->
+                <div class="md-modal md-effect-3" id="edit-modal">
+                    <div class="md-content">
+                        <h3>Edit strategy
+                            <button type="button" class="btn btn-primary waves-effect md-close"
+                                style="position: absolute; right: 0; top: 2px; color: #fffdfd; background-color: #0219ec;"
+                                onclick="closeModal('edit-modal')">X</button>
+                        </h3>
+                        <div>
+                            <p>Edit the details of the strategy:</p>
+                            <form id="editGoalForm">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="editStrategyname" id="editStrategyname"
+                                            class="form-control">
+                                        <input type="hidden" id="editdeleteStrategyid">
+                                    </div>
+                                </div>
+                                <button type="button" onclick="editStrategy()"
+                                    class="btn btn-primary waves-effect">Save</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
 
                 <!-- Page body start -->
                 <div class="page-body">
@@ -100,7 +127,7 @@
                                                             style="font-size: 20px; color: white;"></i>
                                                     </label>
                                                     <span class="label label-danger"
-                                                        onclick="Objectivedelete({{ $strategy->id }})"style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 5px; margin: 5px; cursor: pointer; text-align: center; background-color: red;">
+                                                        onclick="Strategydelete({{ $strategy->id }})"style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 5px; margin: 5px; cursor: pointer; text-align: center; background-color: red;">
                                                         <i class="icofont icofont-ui-delete"
                                                             style="font-size: 20px; color: white;"></i>
                                                     </span>
@@ -130,7 +157,7 @@
 
         async function addStrategy() {
             const data = {
-                strategyename: document.getElementById('strategyename').value,
+                strategyename: document.getElementById('Strategyname').value,
                 objectiveid: document.getElementById('objectiveid').value,
             };
 
