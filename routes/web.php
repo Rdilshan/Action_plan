@@ -19,7 +19,7 @@ Route::middleware(['login'])->group(function () {
     Route::get('/useradding', [RoleController::class, 'index'])->middleware('checkAdmin');
 
     Route::get('/user', function () {
-        return view('user');
+        return view('user.dashboard');
     });
     Route::post('/useradding', [UserController::class, 'register'])->middleware('checkAdmin');
 
