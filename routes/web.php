@@ -49,6 +49,7 @@ Route::middleware(['login'])->group(function () {
 
     //user route start here
     Route::get('/user', function () {return view('user.dashboard');})->middleware('checkUser');;
+    Route::get('/addtask',function () {return view('user.Selectpath');})->middleware('checkUser');
     //user route end here
 });
 
