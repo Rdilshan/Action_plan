@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 
 
-class CheckadminMiddleware
+class Checkuser
 {
     /**
      * Handle an incoming request.
@@ -20,11 +20,10 @@ class CheckadminMiddleware
         $user = Auth::user();
         $role = $user->role;
 
-        if($role == 1) {
+        if ($role == 2) {
             return $next($request); // Allow the request to proceed
         }else{
             return redirect('/unauthorized');
         }
-
     }
 }

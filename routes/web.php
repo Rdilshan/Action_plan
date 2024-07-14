@@ -20,7 +20,7 @@ Route::middleware(['login'])->group(function () {
 
     Route::get('/user', function () {
         return view('user.dashboard');
-    });
+    })->middleware('checkUser');;
     Route::post('/useradding', [UserController::class, 'register'])->middleware('checkAdmin');
 
 
@@ -71,7 +71,7 @@ Route::get('/logout', [UserController::class, 'logout']);
 
 
 // page only
-
+Route::get('/unauthorized', function () {return view('Authentication.unauthorized');});
 
 Route::get('/viewTask/{id}/{id2}', function () {
     return view("viewTask");

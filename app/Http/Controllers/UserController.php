@@ -18,8 +18,16 @@ class UserController extends Controller
 
         if ($user && Hash::check($request->password, $user->password)) {
             Auth::login($user);
-            return redirect()->intended('/')
+            $role = $user->role;
+
+            if($role == 1) {
+                return redirect()->intended('/')
                              ->with('success', 'Login successful!');
+            } else if($role == 2) {
+                return redirect()->intended('/user')
+                             ->with('success', 'Login successful!');
+            }
+
         } else {
             return redirect()->back()
                              ->withInput($request->only('email'))
