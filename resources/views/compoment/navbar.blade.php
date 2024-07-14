@@ -22,7 +22,11 @@
                         <div class="dropdown-toggle" data-toggle="dropdown">
                             <img src="{{url('assets\images\avatar-4.jpg')}}" class="img-radius"
                                 alt="User-Profile-Image">
-                            <span>John Doe</span>
+                            <span>
+                            @if (auth()->check())
+                                {{ auth()->user()->fname }}
+                            @endif
+                            </span>
                             <i class="feather icon-chevron-down"></i>
                         </div>
                         <ul class="show-notification profile-notification dropdown-menu"
