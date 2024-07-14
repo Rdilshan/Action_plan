@@ -81,7 +81,7 @@
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
                     <nav class="pcoded-navbar">
-                        @include('compoment.sidenavbar')
+                        @include('compoment.usersidenav')
 
                     </nav>
                     @yield('contend')
