@@ -21,6 +21,17 @@ class UsersTableSeeder extends Seeder
                 'role' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
-            ],]);
+            ],
+            [
+                'fname' => 'user',
+                'lname' => 'user',
+                'Username' => 'user User',
+                'email' => 'user@example.com',
+                'password' => Hash::make('1234'),
+                'role' => 2,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
     }
 }
