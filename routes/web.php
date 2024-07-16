@@ -48,8 +48,19 @@ Route::middleware(['login'])->group(function () {
     // admin route end here
 
     //user route start here
-    Route::get('/user', function () {return view('user.dashboard');})->middleware('checkUser');;
-    Route::get('/addtask',function () {return view('user.Selectpath');})->middleware('checkUser');
+    Route::get('/user', function () {return view('user.dashboard');})->middleware('checkUser');
+    Route::get('/addtask', [HierarchyController::class, 'getallGoaltouser'])->middleware('checkUser');
+    Route::get('/getObjectives/{goalId}', [HierarchyController::class, 'getallObjectivetouser']) ->middleware('checkUser');
+    Route::get('/getStrategy/{objective}', [HierarchyController::class, 'getallgetStrategytouser'])->middleware('checkUser');
+    Route::get('/getAction/{strategy}', [HierarchyController::class, 'getallgetActiontouser'])->middleware('checkUser');
+    Route::get('/getSubAction/{action}', [HierarchyController::class, 'getallgetSubActiontouser'])->middleware('checkUser');
+
+
+
+
+
+
+
     //user route end here
 });
 

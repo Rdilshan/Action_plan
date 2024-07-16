@@ -245,4 +245,36 @@ class HierarchyController extends Controller
 
          return response()->json(['message' => 'Strategy edited successfully', 'name' => $Subaction->name], 200);
      }
+
+
+    public function getallGoaltouser(Request $request)
+    {
+        $goals = Goal::all();
+        return view('user.Selectpath', compact('goals'));
+    }
+
+    public function getallObjectivetouser($goalId)
+    {
+        $objectives = Objective::where('goal_id', $goalId)->pluck('name', 'id');
+        return response()->json($objectives);
+    }
+
+
+    public function getallgetStrategytouser($objective)
+    {
+        $objectives = Strategy::where('objective_id', $objective)->pluck('name', 'id');
+        return response()->json($objectives);
+    }
+
+    public function getallgetActiontouser($strategy)
+    {
+        $strategy = Action::where('strategy_id', $strategy)->pluck('name', 'id');
+        return response()->json($strategy);
+    }
+
+    public function getallgetSubActiontouser($action)
+    {
+        $action = Subaction::where('action_id', $action)->pluck('name', 'id');
+        return response()->json($action);
+    }
 }
