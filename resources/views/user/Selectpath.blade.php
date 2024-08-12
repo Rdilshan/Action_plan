@@ -42,12 +42,13 @@
 
                                     <div class="card-block">
                                         <h4 class="sub-title">Frist select your selection</h4>
-                                        <form>
+                                        <form action="/user" method="GET">
+                                            @csrf
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="goal">Select
                                                     Goal</label>
                                                 <div class="col-sm-10">
-                                                    <select name="goal" id="goal" class="form-control">
+                                                    <select name="goal" id="goal" class="form-control" required>
                                                         <option value="opt1">Select One Value Only
                                                         </option>
 
@@ -63,7 +64,7 @@
                                                 <label class="col-sm-2 col-form-label" for="objective">Select
                                                     Objective</label>
                                                 <div class="col-sm-10">
-                                                    <select name="objective" id="objective" class="form-control">
+                                                    <select name="objective" id="objective" class="form-control" required>
                                                         <option value="opt1">Select One Value Only
                                                         </option>
 
@@ -75,7 +76,7 @@
                                                 <label class="col-sm-2 col-form-label" for="strategy">Select
                                                     Strategy</label>
                                                 <div class="col-sm-10">
-                                                    <select name="strategy" id="strategy" class="form-control">
+                                                    <select name="strategy" id="strategy" class="form-control" required>
                                                         <option value="opt1">Select One Value Only
                                                         </option>
 
@@ -87,7 +88,7 @@
                                                 <label class="col-sm-2 col-form-label" for="action">Select
                                                     Action</label>
                                                 <div class="col-sm-10">
-                                                    <select name="action" id="action" class="form-control">
+                                                    <select name="action" id="action" class="form-control" required>
                                                         <option value="opt1">Select One Value Only
                                                         </option>
 
@@ -99,7 +100,7 @@
                                                 <label class="col-sm-2 col-form-label"  for="subaction">Select
                                                     Subaction</label>
                                                 <div class="col-sm-10">
-                                                    <select name="subaction" id="subaction" class="form-control">
+                                                    <select name="subaction" id="subaction" class="form-control" required>
                                                         <option value="opt1">Select One Value Only
                                                         </option>
 
