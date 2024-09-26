@@ -55,7 +55,7 @@ Route::middleware(['login'])->group(function () {
     Route::get('/getAction/{strategy}', [HierarchyController::class, 'getallgetActiontouser'])->middleware('checkUser');
     Route::get('/getSubAction/{action}', [HierarchyController::class, 'getallgetSubActiontouser'])->middleware('checkUser');
 
-
+    Route::get('/addnewtask', function () {return view('user.TaskAdding');});
 
 
 
