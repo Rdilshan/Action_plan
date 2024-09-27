@@ -40,10 +40,7 @@ class TaskController extends Controller
             'File' => $filePath,
         ]);
 
-        return response()->json([
-            'message' => 'Task created successfully',
-            'task' => $task
-        ], 201);
+        return redirect()->back()->with('success', 'Task created successfully');
     }
 
 }
