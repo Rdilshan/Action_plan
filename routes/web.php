@@ -63,6 +63,8 @@ Route::middleware(['login'])->group(function () {
     Route::delete('/deletetask/{id}', [TaskController::class, 'deleteTask']);
 
 
+    Route::get('/viewTask/{id}/{id2}', [TaskController::class, 'selecttasklist']);
+
     //user route end here
 });
 
@@ -78,7 +80,5 @@ Route::get('/logout', [UserController::class, 'logout']);
 // page only
 Route::get('/unauthorized', function () {return view('Authentication.unauthorized');});
 
-Route::get('/viewTask/{id}/{id2}', function () {
-    return view("viewTask");
-});
+
 

@@ -51,6 +51,17 @@ class TaskController extends Controller
     }
 
 
+    public function selecttasklist($id,$name)
+    {
+        $tasks = Task::where('subaction_id', $id)->get();
+
+        return view('viewTask', [
+            'tasks'=> $tasks,
+            'name' => $name
+        ]);
+
+    }
+
     public function deleteTask($id)
     {
         $Task = Task::findOrFail($id);
