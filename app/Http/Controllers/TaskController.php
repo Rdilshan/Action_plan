@@ -38,6 +38,7 @@ class TaskController extends Controller
             'endDate' => $request->input('end_date'),
             'introduction' => $request->input('introduction'),
             'File' => $filePath,
+            'user_id' => auth()->user()->id,
         ]);
 
         return redirect()->back()->with('success', 'Task created successfully');

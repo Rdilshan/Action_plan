@@ -14,18 +14,26 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
 
+            // Task-specific fields
             $table->string('Title');
             $table->date('startDate')->nullable();
             $table->date('endDate')->nullable();
             $table->text('introduction')->nullable();
             $table->string('File')->nullable();
             $table->string('name');
+
+            // Foreign key to link to subactions table
             $table->unsignedBigInteger('subaction_id');
-
-
             $table->foreign('subaction_id')->references('id')->on('subactions')->onDelete('cascade');
+
+            // Foreign key to link tasks to users table
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            // Timestamps
             $table->timestamps();
         });
+
     }
 
     /**

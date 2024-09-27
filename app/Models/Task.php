@@ -8,10 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     use HasFactory;
-    protected $fillable = ['Title','startDate','endDate','introduction','File','name', 'subaction_id'];
+    protected $fillable = ['Title','startDate','endDate','introduction','File','name', 'subaction_id', 'user_id'];
 
     public function subaction()
     {
         return $this->belongsTo(Subaction::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -22,6 +22,9 @@ class User extends Authenticatable
 
     protected $table = 'users';
 
-
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
 
 }
