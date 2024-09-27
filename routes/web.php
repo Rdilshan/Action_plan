@@ -59,7 +59,7 @@ Route::middleware(['login'])->group(function () {
     Route::get('/addnewtask', function () {return view('user.TaskAdding');});
     Route::post('/addnewtask', [TaskController::class, 'store']);
 
-
+    Route::get('/listTask', function () {return view('user.ListTasks');});
 
 
 
