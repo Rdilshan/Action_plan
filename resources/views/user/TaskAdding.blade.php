@@ -44,33 +44,34 @@
 
                                 <div class="card-block">
                                     <h4 class="sub-title">Filling this information for adding new task</h4>
-                                    <form>
+                                    <form action="/addnewtask?&subaction={{ request()->query('subaction') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Title</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" placeholder="Enter the Title">
+                                                <input type="text" name="title" class="form-control" placeholder="Enter the Title" required>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label
                                                 class="col-sm-2 col-form-label">Name</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control"
-                                                    placeholder="Name of the responsible person for particular inquery.">
+                                                <input type="text" class="form-control" name="name"
+                                                    placeholder="Name of the responsible person for particular inquery." required>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Action Plane</label>
                                             <div class="col-sm-5">
 
-                                                <input type="date" class="form-control"
-                                                    placeholder="Start Date">
+                                                <input type="date" class="form-control" name="start_date"
+                                                    placeholder="Start Date" required>
                                                 <span class="text-muted pl-2">start date</span>
                                             </div>
                                             <div class="col-sm-5">
 
-                                                <input type="date" class="form-control"
-                                                    placeholder="End Date">
+                                                <input type="date" class="form-control" name="end_date"
+                                                    placeholder="End Date" required>
                                                 <span class="text-muted pl-2">End date</span>
 
                                             </div>
@@ -80,7 +81,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Introduction</label>
                                             <div class="col-sm-10">
-                                                <textarea rows="5" cols="5" class="form-control"
+                                                <textarea rows="5" cols="5" class="form-control" name="introduction" required
                                                     placeholder="Default textarea"></textarea>
                                             </div>
                                         </div>
@@ -90,10 +91,10 @@
                                             <label class="col-sm-2 col-form-label">Upload
                                                 File</label>
                                             <div class="col-sm-10">
-                                                <input type="file" class="form-control">
+                                                <input type="file" name="file" class="form-control">
                                             </div>
                                         </div>
-
+                                        <button class="btn btn-primary" type="submit">Submit</button>
                                     </form>
                                 </div>
                             </div>

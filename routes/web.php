@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\HierarchyController;
+use App\Http\Controllers\TaskController;
 
 
 
@@ -56,6 +57,7 @@ Route::middleware(['login'])->group(function () {
     Route::get('/getSubAction/{action}', [HierarchyController::class, 'getallgetSubActiontouser'])->middleware('checkUser');
 
     Route::get('/addnewtask', function () {return view('user.TaskAdding');});
+    Route::post('/addnewtask', [TaskController::class, 'store']);
 
 
 

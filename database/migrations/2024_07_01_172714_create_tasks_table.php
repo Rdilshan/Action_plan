@@ -13,8 +13,16 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+
+            $table->string('Title');
+            $table->date('startDate')->nullable();
+            $table->date('endDate')->nullable();
+            $table->text('introduction')->nullable();
+            $table->string('File')->nullable();
             $table->string('name');
             $table->unsignedBigInteger('subaction_id');
+
+
             $table->foreign('subaction_id')->references('id')->on('subactions')->onDelete('cascade');
             $table->timestamps();
         });
