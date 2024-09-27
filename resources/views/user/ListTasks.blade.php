@@ -70,7 +70,7 @@
                                                             <i class="icofont icofont-pencil-alt-5"
                                                                 style="font-size: 20px; color: white;"></i>
                                                         </label>
-                                                        <span class="label label-danger"
+                                                        <span class="label label-danger" onclick="Taskdelete({{ $task->id }})"
                                                             style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 5px; margin: 5px; cursor: pointer; text-align: center; background-color: red;">
                                                             <i class="icofont icofont-ui-delete"
                                                                 style="font-size: 20px; color: white;"></i>
@@ -93,10 +93,97 @@
 @endsection
 
 
+
+<script>
+        async function Taskdelete(id) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => { // Make this callback async
+            if (result.isConfirmed) {
+                const response = await fetch(`/deletetask/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                });
+
+                if (response.ok) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "The user has been deleted.",
+                        icon: "success"
+                    }).then(() => {
+                        location.reload(); // Reload the page to reflect the changes
+                    });
+                } else {
+                    const result = await response.json();
+                    Swal.fire({
+                        title: 'Error!',
+                        text: result.error || 'Failed to delete the user',
+                        icon: 'error',
+                        confirmButtonColor: '#3085d6',
+                        timer: 1500,
+                        confirmButtonText: 'Okay'
+                    });
+                }
+            }
+        });
+    }
+
+
+</script>
 @section('scriptjs')
     <script type="text/javascript" src="{{ url('assets\js\modalEffects.js') }}"></script>
     <script type="text/javascript" src="{{ url('assets\js\classie.js') }}"></script>
 
+    async function Goaldelete(id) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => { // Make this callback async
+            if (result.isConfirmed) {
+                const response = await fetch(`/deletegoal/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                });
+
+                if (response.ok) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "The user has been deleted.",
+                        icon: "success"
+                    }).then(() => {
+                        location.reload(); // Reload the page to reflect the changes
+                    });
+                } else {
+                    const result = await response.json();
+                    Swal.fire({
+                        title: 'Error!',
+                        text: result.error || 'Failed to delete the user',
+                        icon: 'error',
+                        confirmButtonColor: '#3085d6',
+                        timer: 1500,
+                        confirmButtonText: 'Okay'
+                    });
+                }
+            }
+        });
+    }
     <script>
         $(document).ready(function() {
             $('#simpletable').DataTable();

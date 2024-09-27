@@ -50,4 +50,13 @@ class TaskController extends Controller
         return view('user.ListTasks', compact('tasks'));
     }
 
+
+    public function deleteTask($id)
+    {
+        $Task = Task::findOrFail($id);
+        $Task->delete();
+        return response()->json(['success' => 'Objective deleted successfully']);
+    }
+
+
 }

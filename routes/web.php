@@ -60,7 +60,7 @@ Route::middleware(['login'])->group(function () {
     Route::post('/addnewtask', [TaskController::class, 'store']);
 
     Route::get('/listTask', [TaskController::class, 'owntasklist']);
-
+    Route::delete('/deletetask/{id}', [TaskController::class, 'deleteTask']);
 
 
     //user route end here
