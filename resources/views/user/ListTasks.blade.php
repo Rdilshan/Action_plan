@@ -57,26 +57,27 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach ($tasks as $task)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $task->Title }}</td>
+                                                    <td>{{ $task->name }}</td>
 
-                                            <tr>
-                                                <td>1</td>
-                                                <td>12</td>
-                                                <td>12</td>
-                                                <td>
+                                                    <td>
 
-                                                    <label class="label bg-success"
-                                                        style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 5px; margin: 5px; cursor: pointer; text-align: center; background-color: green;">
-                                                        <i class="icofont icofont-pencil-alt-5"
-                                                            style="font-size: 20px; color: white;"></i>
-                                                    </label>
-                                                    <span class="label label-danger"
-                                                        style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 5px; margin: 5px; cursor: pointer; text-align: center; background-color: red;">
-                                                        <i class="icofont icofont-ui-delete"
-                                                            style="font-size: 20px; color: white;"></i>
-                                                    </span>
-                                                </td>
-                                            </tr>
-
+                                                        <label class="label bg-success"
+                                                            style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 5px; margin: 5px; cursor: pointer; text-align: center; background-color: green;">
+                                                            <i class="icofont icofont-pencil-alt-5"
+                                                                style="font-size: 20px; color: white;"></i>
+                                                        </label>
+                                                        <span class="label label-danger"
+                                                            style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 5px; margin: 5px; cursor: pointer; text-align: center; background-color: red;">
+                                                            <i class="icofont icofont-ui-delete"
+                                                                style="font-size: 20px; color: white;"></i>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
 
                                     </table>

@@ -44,4 +44,10 @@ class TaskController extends Controller
         return redirect()->back()->with('success', 'Task created successfully');
     }
 
+    public function owntasklist()
+    {
+        $tasks = Task::where('user_id', auth()->user()->id)->get();
+        return view('user.ListTasks', compact('tasks'));
+    }
+
 }
