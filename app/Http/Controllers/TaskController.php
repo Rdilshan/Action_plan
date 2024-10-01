@@ -12,36 +12,52 @@ class TaskController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([
+
+
+        $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'name' => 'required|string|max:255',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
-            'introduction' => 'required|string',
-            'file' => 'nullable|file|mimes:pdf,jpg,png,doc,docx|max:2048',
         ]);
 
-        $subaction = $request->query('subaction');
+
+        session(['first_form_data' => $validatedData]);
 
 
-        $filePath = null;
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $filePath = $file->store('uploads', 'public');
-        }
+        return redirect()->route('second.form.show');
 
-        $task = Task::create([
-            'Title' => $request->input('title'),
-            'subaction_id' => $subaction,
-            'name' => $request->input('name'),
-            'startDate' => $request->input('start_date'),
-            'endDate' => $request->input('end_date'),
-            'introduction' => $request->input('introduction'),
-            'File' => $filePath,
-            'user_id' => auth()->user()->id,
-        ]);
 
-        return redirect()->back()->with('success', 'Task created successfully');
+        // $request->validate([
+        //     'title' => 'required|string|max:255',
+        //     'name' => 'required|string|max:255',
+        //     'start_date' => 'required|date',
+        //     'end_date' => 'required|date',
+        //     'introduction' => 'required|string',
+        //     'file' => 'nullable|file|mimes:pdf,jpg,png,doc,docx|max:2048',
+        // ]);
+
+        // $subaction = $request->query('subaction');
+
+
+        // $filePath = null;
+        // if ($request->hasFile('file')) {
+        //     $file = $request->file('file');
+        //     $filePath = $file->store('uploads', 'public');
+        // }
+
+        // $task = Task::create([
+        //     'Title' => $request->input('title'),
+        //     'subaction_id' => $subaction,
+        //     'name' => $request->input('name'),
+        //     'startDate' => $request->input('start_date'),
+        //     'endDate' => $request->input('end_date'),
+        //     'introduction' => $request->input('introduction'),
+        //     'File' => $filePath,
+        //     'user_id' => auth()->user()->id,
+        // ]);
+
+        // return redirect()->back()->with('success', 'Task created successfully');
     }
 
     public function owntasklist()
@@ -51,12 +67,12 @@ class TaskController extends Controller
     }
 
 
-    public function selecttasklist($id,$name)
+    public function selecttasklist($id, $name)
     {
         $tasks = Task::where('subaction_id', $id)->get();
 
         return view('viewTask', [
-            'tasks'=> $tasks,
+            'tasks' => $tasks,
             'name' => $name
         ]);
 
@@ -68,6 +84,28 @@ class TaskController extends Controller
         $Task->delete();
         return response()->json(['success' => 'Objective deleted successfully']);
     }
+
+
+// app/Http/Controllers/TaskController.php
+public function storeFinalForm(Request $request)
+{
+
+
+
+
+    // $validatedData = $request->validate([
+    //     'introduction' => 'required|string',
+    //     'file' => 'nullable|file',
+    // ]);
+    // $firstFormData = session('first_form_data');
+    // $allData = array_merge($firstFormData, $validatedData);
+    // if ($request->hasFile('file')) {
+    //     $allData['file'] = $request->file('file')->store('uploads');
+    // }
+    // Task::create($allData);
+    // session()->forget('first_form_data');
+    // return redirect()->route('tasks.index')->with('success', 'Task created successfully.');
+}
 
 
 }
