@@ -48,7 +48,7 @@
                                         @endif
 
                                         <h4 class="sub-title">Filling this information for adding new task</h4>
-                                        <form action="/addnewtask?&subaction={{ request()->query('subaction') }}"
+                                        <form action="/addnewtask/first?&subaction={{ request()->query('subaction') }}"
                                             method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-group row">
