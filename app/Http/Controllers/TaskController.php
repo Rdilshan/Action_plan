@@ -19,7 +19,22 @@ class TaskController extends Controller
             'name' => 'required|string|max:255',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
+            'introduction' => 'required|string',
+            'file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
         ]);
+
+        // Handle file upload if a file was provided
+        if ($request->hasFile('file') && $request->file('file')->isValid()) {
+            $file = $request->file('file');
+            $path = $file->store('uploads');
+
+            $validatedData['file'] = [
+                'name' => $file->getClientOriginalName(),
+                'path' => $path,
+                'size' => $file->getSize(),
+                'mime' => $file->getMimeType(),
+            ];
+        }
 
 
         session(['first_form_data' => $validatedData]);
@@ -87,25 +102,26 @@ class TaskController extends Controller
 
 
 // app/Http/Controllers/TaskController.php
-public function storeFinalForm(Request $request)
-{
+    public function storeFinalForm(Request $request)
+    {
 
+        $data = $request->all();
 
+        return response()->json(['success' => 'User created successfully!', 'data' => $data], 201);
 
-
-    // $validatedData = $request->validate([
-    //     'introduction' => 'required|string',
-    //     'file' => 'nullable|file',
-    // ]);
-    // $firstFormData = session('first_form_data');
-    // $allData = array_merge($firstFormData, $validatedData);
-    // if ($request->hasFile('file')) {
-    //     $allData['file'] = $request->file('file')->store('uploads');
-    // }
-    // Task::create($allData);
-    // session()->forget('first_form_data');
-    // return redirect()->route('tasks.index')->with('success', 'Task created successfully.');
-}
+        // $validatedData = $request->validate([
+        //     'introduction' => 'required|string',
+        //     'file' => 'nullable|file',
+        // ]);
+        // $firstFormData = session('first_form_data');
+        // $allData = array_merge($firstFormData, $validatedData);
+        // if ($request->hasFile('file')) {
+        //     $allData['file'] = $request->file('file')->store('uploads');
+        // }
+        // Task::create($allData);
+        // session()->forget('first_form_data');
+        // return redirect()->route('tasks.index')->with('success', 'Task created successfully.');
+    }
 
 
 }

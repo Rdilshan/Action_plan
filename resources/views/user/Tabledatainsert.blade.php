@@ -305,7 +305,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Note</label>
                                 <div class="col-sm-10">
-                                    <textarea rows="5" cols="5" class="form-control" placeholder="Default Note"></textarea>
+                                    <textarea id="noteTextarea" rows="5" cols="5" class="form-control" placeholder="Default Note"></textarea>
                                 </div>
                             </div>
 
@@ -540,16 +540,129 @@
 
 
     <script>
+        function FundinggetTableData() {
+            // Get the table element
+            const table = document.getElementById('Fundingtable');
+            const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+            const tableData = [];
+
+
+            for (let i = 0; i < rows.length - 1; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+
+                const rowData = {
+                    no: cells[0].textContent.trim(),
+                    item: cells[1].textContent.trim(),
+                    unit: cells[2].textContent.trim(),
+                    unitCharge: cells[3].textContent.trim(),
+                    amount: cells[4].textContent.trim()
+                };
+
+                tableData.push(rowData);
+            }
+
+            return tableData;
+        }
+
+        function TransportgetTableData() {
+            // Get the table element
+            const table = document.getElementById('Transporttable');
+            const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+            const tableData = [];
+
+
+            for (let i = 0; i < rows.length - 1; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+
+                const rowData = {
+                    no: cells[0].textContent.trim(),
+                    Transport: cells[1].textContent.trim(),
+                    nfvehical: cells[2].textContent.trim(),
+                    totalkm: cells[3].textContent.trim(),
+                    unit: cells[4].textContent.trim(),
+                    total: cells[5].textContent.trim(),
+
+                };
+
+                tableData.push(rowData);
+            }
+
+            return tableData;
+        }
+
+        function AccommodationgetTableData() {
+            // Get the table element
+            const table = document.getElementById('Accommodationtable');
+            const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+            const tableData = [];
+
+
+            for (let i = 0; i < rows.length - 1; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+
+                const rowData = {
+                    no: cells[0].textContent.trim(),
+                    Accommodation: cells[1].textContent.trim(),
+                    nfperson: cells[2].textContent.trim(),
+                    nfday: cells[3].textContent.trim(),
+                    unit: cells[4].textContent.trim(),
+                    total: cells[5].textContent.trim(),
+
+                };
+
+                tableData.push(rowData);
+            }
+
+            return tableData;
+        }
+
+        function OthergetTableData() {
+            // Get the table element
+            const table = document.getElementById('Othertable');
+            const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+            const tableData = [];
+
+
+            for (let i = 0; i < rows.length - 1; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+
+                const rowData = {
+                    no: cells[0].textContent.trim(),
+                    Others: cells[1].textContent.trim(),
+                    Quantity: cells[2].textContent.trim(),
+                    nfday: cells[3].textContent.trim(),
+                    unit: cells[4].textContent.trim(),
+                    total: cells[5].textContent.trim(),
+
+                };
+
+                tableData.push(rowData);
+            }
+
+            return tableData;
+        }
+
+
+
         async function addAlldata() {
+
+            const fundingData = FundinggetTableData();
+            const TransportData = TransportgetTableData();
+            const AccommodationData = AccommodationgetTableData();
+            const otherData = OthergetTableData();
+            const note = document.getElementById('noteTextarea').value;
+
+
             const data = {
-                fname: document.getElementById('fname').value,
-                lname: document.getElementById('lname').value,
-                username: document.getElementById('username').value,
-                email: document.getElementById('email').value,
-                selectrole: document.getElementById('selectrole').value,
-                password: document.getElementById('password').value,
+                fundingData: fundingData,
+                TransportData: TransportData,
+                AccommodationData: AccommodationData,
+                otherData: otherData,
+                note:note
 
             };
+
+            // console.log(data)
 
             const response = await fetch('/addnewtask/final', {
                 method: 'POST',
@@ -562,6 +675,7 @@
 
             const result = await response.json();
 
+console.log(result.data)
             if (response.ok) {
                 Swal.fire({
                     title: 'success!',
@@ -589,6 +703,4 @@
             }
         }
     </script>
-
-
 @endsection
