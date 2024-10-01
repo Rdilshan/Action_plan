@@ -42,7 +42,7 @@
 
                                     <div class="card-block">
                                         <h4 class="sub-title">Frist select your selection</h4>
-                                        <form action="/addnewtask" method="GET">
+                                        <form action="/addnewtask/first" method="GET">
                                             @csrf
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="goal">Select
