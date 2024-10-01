@@ -309,7 +309,7 @@
                                 </div>
                             </div>
 
-                            <button class="btn btn-primary" type="submit">Submit</button>
+                            <button class="btn btn-primary" type="button" onclick="addAlldata()">Submit</button>
 
 
                         </div>
@@ -323,6 +323,7 @@
 
 
 @section('scriptjs')
+    {{-- page data management  --}}
     <script>
         //Funding Sources
         function addRowdata() {
@@ -359,16 +360,16 @@
             $('input[name="Last"]').val('');
             $('input[name="Charge"]').val('');
             $('input[name="Amount"]').val('');
-            updateTotal("fundingtotalvalue","Funding_totalAmount");
+            updateTotal("fundingtotalvalue", "Funding_totalAmount");
         }
 
-        function deleteRow(btn,name,valueadd) {
+        function deleteRow(btn, name, valueadd) {
             var row = btn.closest('tr');
             row.parentNode.removeChild(row);
-            updateTotal(name,valueadd);
+            updateTotal(name, valueadd);
         }
 
-        function updateTotal(name,valueadd) {
+        function updateTotal(name, valueadd) {
             var total = 0;
             var amountCells = document.querySelectorAll('.' + name);
             amountCells.forEach(function(cell) {
@@ -423,7 +424,7 @@
             $('input[name="totalkm"]').val('');
             $('input[name="unitcost"]').val('');
 
-            updateTotal("Transporttabletotalvalue","Transport_totalAmount");
+            updateTotal("Transporttabletotalvalue", "Transport_totalAmount");
             totalexpendics();
 
         }
@@ -471,7 +472,7 @@
             $('input[name="noday"]').val('');
             $('input[name="accunitcost"]').val('');
 
-            updateTotal("Accommodationtabletotalvalue","Accommodation_totalAmount");
+            updateTotal("Accommodationtabletotalvalue", "Accommodation_totalAmount");
             totalexpendics();
 
         }
@@ -519,21 +520,75 @@
             $('input[name="oNfhours"]').val('');
             $('input[name="oucost"]').val('');
 
-            updateTotal("othertabletotalvalue","Others_totalAmount");
+            updateTotal("othertabletotalvalue", "Others_totalAmount");
             totalexpendics();
 
         }
 
 
-        function totalexpendics(){
+        function totalexpendics() {
             var Transport_totalAmount = document.getElementById("Transport_totalAmount").innerText;
             var Accommodation_totalAmount = document.getElementById("Accommodation_totalAmount").innerText;
             var Others_totalAmount = document.getElementById("Others_totalAmount").innerText;
 
 
-            var totalExpend = parseInt(Transport_totalAmount) + parseInt(Accommodation_totalAmount) + parseInt(Others_totalAmount);
+            var totalExpend = parseInt(Transport_totalAmount) + parseInt(Accommodation_totalAmount) + parseInt(
+                Others_totalAmount);
             document.getElementById("totalexpend").value = totalExpend;
         }
-
     </script>
+
+
+    <script>
+        async function addAlldata() {
+            const data = {
+                fname: document.getElementById('fname').value,
+                lname: document.getElementById('lname').value,
+                username: document.getElementById('username').value,
+                email: document.getElementById('email').value,
+                selectrole: document.getElementById('selectrole').value,
+                password: document.getElementById('password').value,
+
+            };
+
+            const response = await fetch('/addnewtask/final', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                Swal.fire({
+                    title: 'success!',
+                    text: "successfully add the user",
+                    icon: 'success',
+                    confirmButtonColor: 'rgba(0, 146, 255, 0.8)',
+                    timer: 1500,
+                    confirmButtonText: 'Okay'
+                }).then((result) => {
+                    window.location.href = "/";
+                })
+            } else {
+
+                Swal.fire({
+                    title: 'Errror!',
+                    text: JSON.stringify(result.error),
+                    icon: 'error',
+                    confirmButtonColor: 'rgba(0, 146, 255, 0.8)',
+                    timer: 1500,
+                    confirmButtonText: 'Okay'
+                }).then((result) => {
+                    window.location.href = "/useradding";
+
+                })
+            }
+        }
+    </script>
+
+
 @endsection
