@@ -56,8 +56,8 @@ Route::middleware(['login'])->group(function () {
     Route::get('/getAction/{strategy}', [HierarchyController::class, 'getallgetActiontouser'])->middleware('checkUser');
     Route::get('/getSubAction/{action}', [HierarchyController::class, 'getallgetSubActiontouser'])->middleware('checkUser');
 
-    Route::get('/addnewtask', function () {return view('user.TaskAdding');});
-    Route::post('/addnewtask', [TaskController::class, 'store']);
+    Route::get('/addnewtask/first', function () {return view('user.TaskAdding');});
+    Route::post('/addnewtask/first', [TaskController::class, 'store']);
 
     Route::get('/listTask', [TaskController::class, 'owntasklist']);
     Route::delete('/deletetask/{id}', [TaskController::class, 'deleteTask']);
@@ -80,8 +80,8 @@ Route::get('/logout', [UserController::class, 'logout']);
 // page only
 Route::get('/unauthorized', function () {return view('Authentication.unauthorized');});
 
-Route::get('/2-step', function () {
+Route::get('/addnewtask/second', function () {
     return view('user.Tabledatainsert');
-});
+})->name('second.form.show');
 
-
+Route::post('/addnewtask/final', [TaskController::class, 'storeFinalForm']);
