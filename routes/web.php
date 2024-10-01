@@ -80,5 +80,8 @@ Route::get('/logout', [UserController::class, 'logout']);
 // page only
 Route::get('/unauthorized', function () {return view('Authentication.unauthorized');});
 
+Route::get('/2-step', function () {
+    return view('user.Tabledatainsert');
+});
 
 

@@ -18,10 +18,14 @@
             </a>
             <ul class="pcoded-submenu">
 
-
+                <li class="{{ Request::is('listTask') ? 'active' : '' }}">
+                    <a href="{{ url('/AlllistTask') }}">
+                        <span class="pcoded-mtext">All Task List </span>
+                    </a>
+                </li>
                 <li class="{{ Request::is('listTask') ? 'active' : '' }}">
                     <a href="{{ url('/listTask') }}">
-                        <span class="pcoded-mtext">Task List </span>
+                        <span class="pcoded-mtext">My Task List </span>
                     </a>
                 </li>
                 <li class="{{ Request::is('addtask') ? 'active' : '' }}">
