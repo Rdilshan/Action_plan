@@ -41,15 +41,14 @@
                                 <div class="card">
 
                                     <div class="card-block">
-                                        @if (session('success'))
+                                        {{-- @if (session('success'))
                                             <div class="alert alert-success" role="alert">
                                                 {{ session('success') }}
                                             </div>
-                                        @endif
+                                        @endif --}}
 
                                         <h4 class="sub-title">Filling this information for adding new task</h4>
-                                        <form action="/addnewtask/first?&subaction={{ request()->query('subaction') }}"
-                                            method="POST" enctype="multipart/form-data">
+                                        <form action="/addnewtask/first?subaction={{ request()->query('subaction') }}" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Title</label>
@@ -100,7 +99,7 @@
                                                     <input type="file" name="file" class="form-control">
                                                 </div>
                                             </div>
-                                            <button class="btn btn-primary" type="submit">Submit</button>
+                                            <button class="btn btn-primary" type="submit">Next</button>
                                         </form>
                                     </div>
                                 </div>

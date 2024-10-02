@@ -59,6 +59,14 @@ Route::middleware(['login'])->group(function () {
     Route::get('/addnewtask/first', function () {return view('user.TaskAdding');});
     Route::post('/addnewtask/first', [TaskController::class, 'store']);
 
+    Route::get('/addnewtask/second', function () {
+        return view('user.Tabledatainsert');
+    });
+
+
+
+    Route::post('/addnewtask/final', [TaskController::class, 'storeFinalForm']);
+
     Route::get('/listTask', [TaskController::class, 'owntasklist']);
     Route::delete('/deletetask/{id}', [TaskController::class, 'deleteTask']);
 
@@ -80,8 +88,4 @@ Route::get('/logout', [UserController::class, 'logout']);
 // page only
 Route::get('/unauthorized', function () {return view('Authentication.unauthorized');});
 
-Route::get('/addnewtask/second', function () {
-    return view('user.Tabledatainsert');
-})->name('second.form.show');
 
-Route::post('/addnewtask/final', [TaskController::class, 'storeFinalForm']);
