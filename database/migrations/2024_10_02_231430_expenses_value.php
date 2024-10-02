@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('exonensesValue', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->date('Type');
+            $table->enum('Type', ['Transport', 'Accommodation', 'Others']);
             $table->integer('no_unit');
-            $table->integer('totalKM');
-            $table->integer('unit_cost');
-            $table->integer(column: 'amount');
+            $table->decimal('totalKM', 8, 2);
+            $table->decimal('unit_cost', 10, 2);
+            $table->decimal('amount', 10, 2);
             $table->integer(column: 'task_id');
             $table->timestamps();
         });

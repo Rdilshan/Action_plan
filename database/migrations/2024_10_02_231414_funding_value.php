@@ -12,14 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('FundingValue', function (Blueprint $table) {
-            $table->id(); // Primary key (auto-increment)
+            $table->id();
             $table->string('name');
             $table->integer('unit');
-            $table->integer('unit_charge');
-            $table->integer('amount');
-            $table->integer('amount');
+            $table->decimal('unit_cost', 10, 2);
+            $table->decimal('amount', 10, 2);
             $table->integer('task_id');
-            $table->timestamps(); // Adds 'created_at' and 'updated_at'
+            $table->timestamps();
         });
     }
 
