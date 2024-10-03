@@ -69,6 +69,10 @@ class TaskController extends Controller
     {
         $Task = Task::findOrFail($id);
         $Task->delete();
+
+        funding::where('task_id', $id)->delete();
+        Expense::where('task_id', $id)->delete();
+
         return response()->json(['success' => 'Objective deleted successfully']);
     }
 
