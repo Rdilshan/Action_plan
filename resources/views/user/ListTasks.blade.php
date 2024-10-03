@@ -65,7 +65,7 @@
 
                                                     <td>
 
-                                                        <label class="label bg-success"
+                                                        <label class="label bg-success" onclick="TaskEdit({{ $task->id }})"
                                                             style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 5px; margin: 5px; cursor: pointer; text-align: center; background-color: green;">
                                                             <i class="icofont icofont-pencil-alt-5"
                                                                 style="font-size: 20px; color: white;"></i>
@@ -137,6 +137,9 @@
         });
     }
 
+    async function TaskEdit(id) {
+        window.location.href = `/edit/task/${id}`;
+    }
 
 </script>
 @section('scriptjs')
