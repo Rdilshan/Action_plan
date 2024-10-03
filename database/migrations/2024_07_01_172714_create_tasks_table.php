@@ -20,10 +20,10 @@ return new class extends Migration
             $table->date('endDate')->nullable();
             $table->text('introduction')->nullable();
 
-            $table->longText('Note');
+            $table->text('Note')->nullable();
 
             $table->string('File')->nullable();
-            $table->string('name');
+            $table->string('name')->nullable();
 
             // Foreign key to link to subactions table
             $table->unsignedBigInteger('subaction_id');

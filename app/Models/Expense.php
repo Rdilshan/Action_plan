@@ -15,9 +15,10 @@ class Expense extends Model
         'name',
         'Type',
         'no_unit',
-        'totalKM',
         'unit_cost',
         'amount',
+        'no_days',
+        'totalKM',
         'task_id'
     ];
 

@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('FundingValue', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('unit');
-            $table->decimal('unit_cost', 10, 2);
-            $table->decimal('amount', 10, 2);
-            $table->integer('task_id');
+            $table->string('name')->nullable();;
+            $table->integer('unit')->nullable();;
+            $table->decimal('unit_charge', 10, 2)->nullable();;
+            $table->decimal('amount', 10, 2)->nullable();;
+            $table->integer('task_id')->nullable();;
             $table->timestamps();
         });
     }

@@ -1,5 +1,7 @@
 @extends('layout.userlayout')
 @section('contend')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <div class="pcoded-content">
         <div class="pcoded-inner-content">
             <div class="main-body">
@@ -675,18 +677,19 @@
 
             const result = await response.json();
 
-console.log(result.data)
+
             if (response.ok) {
                 Swal.fire({
                     title: 'success!',
-                    text: "successfully add the user",
+                    text: "successfully add the Task",
                     icon: 'success',
                     confirmButtonColor: 'rgba(0, 146, 255, 0.8)',
                     timer: 1500,
                     confirmButtonText: 'Okay'
                 }).then((result) => {
-                    window.location.href = "/";
+                    window.location.href = "/listTask";
                 })
+
             } else {
 
                 Swal.fire({
@@ -697,7 +700,7 @@ console.log(result.data)
                     timer: 1500,
                     confirmButtonText: 'Okay'
                 }).then((result) => {
-                    window.location.href = "/useradding";
+                    window.location.href = "/addtask";
 
                 })
             }
