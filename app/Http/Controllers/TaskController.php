@@ -190,4 +190,11 @@ class TaskController extends Controller
     }
 
 
+    public function editTask($id){
+
+        $task = Task::find($id);
+        $funding = funding::where('task_id', $id)->get();
+        $expense = Expense::where('task_id', $id)->get();
+        return view('user.EditTask1');
+    }
 }
