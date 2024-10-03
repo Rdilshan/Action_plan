@@ -19,6 +19,9 @@ return new class extends Migration
             $table->date('startDate')->nullable();
             $table->date('endDate')->nullable();
             $table->text('introduction')->nullable();
+
+            $table->longText('Note');
+
             $table->string('File')->nullable();
             $table->string('name');
 
