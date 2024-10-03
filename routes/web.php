@@ -56,22 +56,21 @@ Route::middleware(['login'])->group(function () {
     Route::get('/getAction/{strategy}', [HierarchyController::class, 'getallgetActiontouser'])->middleware('checkUser');
     Route::get('/getSubAction/{action}', [HierarchyController::class, 'getallgetSubActiontouser'])->middleware('checkUser');
 
-    Route::get('/addnewtask/first', function () {return view('user.TaskAdding');});
-    Route::post('/addnewtask/first', [TaskController::class, 'store']);
-
+    //user add the new task
+    Route::get('/addnewtask/first', function () {return view('user.TaskAdding');})->middleware('checkUser');
+    Route::post('/addnewtask/first', [TaskController::class, 'store'])->middleware('checkUser');
     Route::get('/addnewtask/second', function () {
         return view('user.Tabledatainsert');
-    });
+    })->middleware('checkUser');
+    Route::post('/addnewtask/final', [TaskController::class, 'storeFinalForm'])->middleware('checkUser');
 
+    //view task on user side & admin side
+    Route::get('/listTask', [TaskController::class, 'owntasklist'])->middleware('checkUser');
+    Route::delete('/deletetask/{id}', [TaskController::class, 'deleteTask'])->middleware('checkUser');
+    Route::get('/viewTask/{id}/{id2}', [TaskController::class, 'selecttasklist'])->middleware('checkAdmin');
 
-
-    Route::post('/addnewtask/final', [TaskController::class, 'storeFinalForm']);
-
-    Route::get('/listTask', [TaskController::class, 'owntasklist']);
-    Route::delete('/deletetask/{id}', [TaskController::class, 'deleteTask']);
-
-
-    Route::get('/viewTask/{id}/{id2}', [TaskController::class, 'selecttasklist']);
+    //task edit by user
+    Route::get('/edit/task/{id}', [TaskController::class, 'editTask']);
 
     //user route end here
 });
