@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\funding;
 use App\Models\Expense;
+use App\Models\Goal;
+
 use PhpParser\Node\Stmt\TryCatch;
 
 
@@ -31,7 +33,7 @@ class TaskController extends Controller
         // Handle file upload if a file was provided
         if ($request->hasFile('file') && $request->file('file')->isValid()) {
             $file = $request->file('file');
-            $path = $file->store('uploads');
+            $path = $file->store('uploads', 'public');
 
             $validatedData['file'] = [
                 'name' => $file->getClientOriginalName(),
@@ -193,8 +195,9 @@ class TaskController extends Controller
     public function editTask($id){
 
         $task = Task::find($id);
+        $goals = Goal::all();
         $funding = funding::where('task_id', $id)->get();
         $expense = Expense::where('task_id', $id)->get();
-        return view('user.EditTask1');
+        return view('user.EditTask1', compact('task', 'goals', 'funding', 'expense'));
     }
 }
