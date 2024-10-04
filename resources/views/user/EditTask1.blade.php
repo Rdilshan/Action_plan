@@ -293,11 +293,13 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-
+                                                                @php
+                                                                    $i = 1;
+                                                                @endphp
                                                                 @foreach ($expense as $expenseitem)
                                                                     @if (strtolower($expenseitem->Type) === 'transport')
                                                                         <tr>
-                                                                            <th scope="row">{{ $loop->iteration }}</th>
+                                                                            <th scope="row">{{ $i }}</th>
                                                                             <td>{{ $expenseitem->name }}</td>
                                                                             <td>{{ $expenseitem->no_unit }}</td>
                                                                             <td>{{ $expenseitem->totalKM }}</td>
@@ -319,6 +321,9 @@
                                                                             </td>
 
                                                                         </tr>
+                                                                        @php
+                                                                            $i++;
+                                                                        @endphp
                                                                     @endif
                                                                 @endforeach
                                                                 <tr>
@@ -387,11 +392,13 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-
+                                                                @php
+                                                                    $i = 1;
+                                                                @endphp
                                                                 @foreach ($expense as $expenseitem)
                                                                     @if (strtolower($expenseitem->Type) === 'accommodation')
                                                                         <tr>
-                                                                            <th scope="row">{{ $loop->iteration }}</th>
+                                                                            <th scope="row">{{ $i }}</th>
                                                                             <td>{{ $expenseitem->name }}</td>
                                                                             <td>{{ $expenseitem->no_unit }}</td>
                                                                             <td>{{ $expenseitem->no_days }}</td>
@@ -413,6 +420,9 @@
                                                                             </td>
 
                                                                         </tr>
+                                                                        @php
+                                                                            $i++;
+                                                                        @endphp
                                                                     @endif
                                                                 @endforeach
 
@@ -485,11 +495,13 @@
                                                             </thead>
                                                             <tbody>
 
-
+                                                                @php
+                                                                    $i = 1;
+                                                                @endphp
                                                                 @foreach ($expense as $expenseitem)
                                                                     @if (strtolower($expenseitem->Type) === 'others')
                                                                         <tr>
-                                                                            <th scope="row">{{ $loop->iteration }}</th>
+                                                                            <th scope="row">{{ $i }}</th>
                                                                             <td>{{ $expenseitem->name }}</td>
                                                                             <td>{{ $expenseitem->no_unit }}</td>
                                                                             <td>{{ $expenseitem->no_days }}</td>
@@ -510,6 +522,9 @@
                                                                             </td>
 
                                                                         </tr>
+                                                                        @php
+                                                                            $i++;
+                                                                        @endphp
                                                                     @endif
                                                                 @endforeach
 
@@ -571,7 +586,7 @@
                                                                 $totalAmount = collect($expense)->sum('amount');
                                                             @endphp
                                                             <input type="number" class="form-control" id="totalexpend"
-                                                            value="{{ $totalAmount }}" readonly>
+                                                                value="{{ $totalAmount }}" readonly>
                                                         </div>
                                                     </div>
 
