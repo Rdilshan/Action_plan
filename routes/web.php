@@ -72,6 +72,12 @@ Route::middleware(['login'])->group(function () {
     //task edit by user
     Route::get('/edit/task/{id}', [TaskController::class, 'editTask']);
 
+    //view task in All user
+    Route::get('/AlllistTask', [TaskController::class, 'viewalltask'])->middleware('checkUser');
+
+    Route::get('/view/user/task/{id}', [TaskController::class, 'vieweoncetTask']);
+
+
     //user route end here
 });
 

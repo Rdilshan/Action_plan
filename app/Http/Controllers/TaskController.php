@@ -59,6 +59,11 @@ class TaskController extends Controller
         return view('user.ListTasks', compact('tasks'));
     }
 
+    public function viewalltask(Request $request)
+    {
+        $tasks = Task::all();
+        return view('user.AllTaskview', compact('tasks'));
+    }
 
     public function selecttasklist($id, $name)
     {
@@ -225,5 +230,35 @@ class TaskController extends Controller
 
 
         return view('user.EditTask1', compact('task', 'goals', 'funding', 'expense', 'subaction_name', 'action_name', 'strategy_name', 'objective_name', 'goal_name'));
+    }
+
+    public function vieweoncetTask($id){
+
+        $task = Task::find($id);
+        $funding = funding::where('task_id', $id)->get();
+        $expense = Expense::where('task_id', $id)->get();
+
+        $subaction_id = $task->subaction_id;
+        $subaction = Subaction::find($subaction_id);
+        $subaction_name = $subaction->name;
+
+        $action_id = $subaction->action_id;
+        $action = Action::find($action_id);
+        $action_name = $action->name;
+
+        $Strategy_id = $action->strategy_id;
+        $strategy = Strategy::find($Strategy_id);
+        $strategy_name = $strategy->name;
+
+        $Objective_id = $strategy->objective_id;
+        $objective = Objective::find($Objective_id);
+        $objective_name = $objective->name;
+
+        $goal_id = $objective->goal_id;
+        $goal = Goal::find($goal_id);
+        $goal_name = $goal->name;
+
+
+        return view('user.OnlyviewTask', compact('task',  'funding', 'expense', 'subaction_name', 'action_name', 'strategy_name', 'objective_name', 'goal_name'));
     }
 }
