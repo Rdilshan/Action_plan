@@ -284,6 +284,8 @@ class TaskController extends Controller
     public function updateTask(Request $request, $id)
     {
         $task = Task::find($id);
+        $taskId = $task->id;
+
 
         if ($request->input('subaction') == 'opt1') {
             $subaction_id = $task->subaction_id;
@@ -302,6 +304,83 @@ class TaskController extends Controller
             $filepath = $task->File;
         }
 
+
+        if ($request->input('FundingDate') != null) {
+
+            $fundingData = $request->input('FundingDate');
+
+            foreach ($fundingData as $row) {
+
+                $fundingdata = funding::create([
+                    'name' => $row['item'],
+                    'unit' => $row['unit'],
+                    'unit_charge' => $row['unitCharge'],
+                    'amount' => $row['amount'],
+                    'task_id' => $taskId
+                ]);
+            }
+
+        }
+
+
+
+        if ($request->input('AccommodationtDate') != null) {
+            $AccommodationtDate = $request->input('AccommodationtDate');
+
+            foreach ($AccommodationtDate as $row) {
+
+                $accommodationtabledata = Expense::create([
+                    'name' => $row['Accommodation'],
+                    'Type' => 'Accommodation',
+                    'no_unit' => $row['nfperson'],
+                    'no_days' => $row['nfday'],
+                    'unit_cost' => $row['unit'],
+                    'amount' => $row['total'],
+                    'task_id' => $taskId
+                ]);
+            }
+        }
+
+
+
+        if ($request->input('TransportDate') != null) {
+            $TransportDate = $request->input('TransportDate');
+
+            foreach ($TransportDate as $row) {
+
+                $transporttabledata = Expense::create([
+                    'name' => $row['Transport'],
+                    'Type' => 'Transport',
+                    'no_unit' => $row['nfvehical'],
+                    'totalKM' => $row['totalkm'],
+                    'unit_cost' => $row['unit'],
+                    'amount' => $row['total'],
+                    'task_id' => $taskId
+                ]);
+            }
+
+        }
+
+        if ($request->input('OtherDate') != null) {
+            $OtherDate = $request->input('OtherDate');
+
+            foreach ($OtherDate as $row) {
+
+                $othertabledata = Expense::create([
+                    'name' => $row['Others'],
+                    'Type' => 'Others',
+                    'no_unit' => $row['Quantity'],
+                    'no_days' => $row['nfday'],
+                    'unit_cost' => $row['unit'],
+                    'amount' => $row['total'],
+                    'task_id' => $taskId
+                ]);
+
+            }
+        }
+
+
+
         $task->update([
             'Title' => $request->input('title'),
             'startDate' => $request->input('start_date'),
@@ -313,10 +392,7 @@ class TaskController extends Controller
             'Note' => $request->input('Note')
         ]);
 
-
-        return response()->json(['success' =>  "success"]);
-        // dd($request->all());
-        // $task->update($request->all());
+        return redirect('/listTask');
 
     }
 

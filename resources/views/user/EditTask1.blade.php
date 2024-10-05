@@ -44,7 +44,7 @@
 
                                     <div class="card-block">
                                         <h4 class="sub-title">Edit your selection</h4>
-                                        <form action="/edit/task/{{ $task->id }}" method="POST" enctype="multipart/form-data">
+                                        <form action="/edit/task/{{ $task->id }}" method="POST" id="myForm" enctype="multipart/form-data">
                                             @csrf
                                             <div id="page1">
                                                 <!-- Page 1 Content -->
@@ -209,13 +209,16 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
+                                                                @php
+                                                                    $fundingcountnow = 1;
+                                                                @endphp
                                                                 @foreach ($funding as $fund)
                                                                     <tr>
                                                                         <th scope="row">{{ $loop->iteration }}</th>
                                                                         <td>{{ $fund->name }}</td>
                                                                         <td>{{ $fund->unit }}</td>
                                                                         <td>{{ $fund->unit_charge }}</td>
-                                                                        <td class="fundingtotalvalue">{{ $fund->amount }}
+                                                                        <td class="fundingtotalvalue">{{  $fundingcountnow }}
                                                                         </td>
                                                                         <td>
                                                                             <div class="btn-group btn-group-sm"
@@ -230,6 +233,9 @@
                                                                         </td>
 
                                                                     </tr>
+                                                                    @php
+                                                                            $fundingcountnow ++;
+                                                                        @endphp
                                                                 @endforeach
 
 
@@ -296,12 +302,12 @@
                                                             </thead>
                                                             <tbody>
                                                                 @php
-                                                                    $i = 1;
+                                                                    $transportcountnow = 1;
                                                                 @endphp
                                                                 @foreach ($expense as $expenseitem)
                                                                     @if (strtolower($expenseitem->Type) === 'transport')
                                                                         <tr>
-                                                                            <th scope="row">{{ $i }}</th>
+                                                                            <th scope="row">{{ $transportcountnow }}</th>
                                                                             <td>{{ $expenseitem->name }}</td>
                                                                             <td>{{ $expenseitem->no_unit }}</td>
                                                                             <td>{{ $expenseitem->totalKM }}</td>
@@ -324,7 +330,7 @@
 
                                                                         </tr>
                                                                         @php
-                                                                            $i++;
+                                                                            $transportcountnow++;
                                                                         @endphp
                                                                     @endif
                                                                 @endforeach
@@ -395,12 +401,12 @@
                                                             </thead>
                                                             <tbody>
                                                                 @php
-                                                                    $i = 1;
+                                                                    $accommodationcountnow = 1;
                                                                 @endphp
                                                                 @foreach ($expense as $expenseitem)
                                                                     @if (strtolower($expenseitem->Type) === 'accommodation')
                                                                         <tr>
-                                                                            <th scope="row">{{ $i }}</th>
+                                                                            <th scope="row">{{ $accommodationcountnow }}</th>
                                                                             <td>{{ $expenseitem->name }}</td>
                                                                             <td>{{ $expenseitem->no_unit }}</td>
                                                                             <td>{{ $expenseitem->no_days }}</td>
@@ -423,7 +429,7 @@
 
                                                                         </tr>
                                                                         @php
-                                                                            $i++;
+                                                                            $accommodationcountnow++;
                                                                         @endphp
                                                                     @endif
                                                                 @endforeach
@@ -498,12 +504,12 @@
                                                             <tbody>
 
                                                                 @php
-                                                                    $i = 1;
+                                                                    $othercountnow = 1;
                                                                 @endphp
                                                                 @foreach ($expense as $expenseitem)
                                                                     @if (strtolower($expenseitem->Type) === 'others')
                                                                         <tr>
-                                                                            <th scope="row">{{ $i }}</th>
+                                                                            <th scope="row">{{ $othercountnow }}</th>
                                                                             <td>{{ $expenseitem->name }}</td>
                                                                             <td>{{ $expenseitem->no_unit }}</td>
                                                                             <td>{{ $expenseitem->no_days }}</td>
@@ -525,7 +531,7 @@
 
                                                                         </tr>
                                                                         @php
-                                                                            $i++;
+                                                                            $othercountnow++;
                                                                         @endphp
                                                                     @endif
                                                                 @endforeach
@@ -775,6 +781,7 @@
             $('input[name="Charge"]').val('');
             $('input[name="Amount"]').val('');
             updateTotal("fundingtotalvalue", "Funding_totalAmount");
+            FundinggetTableData();
         }
 
         function deleteRow(btn, name, valueadd) {
@@ -840,6 +847,7 @@
 
             updateTotal("Transporttabletotalvalue", "Transport_totalAmount");
             totalexpendics();
+            TransportgetTableData();
 
         }
 
@@ -888,6 +896,7 @@
 
             updateTotal("Accommodationtabletotalvalue", "Accommodation_totalAmount");
             totalexpendics();
+            AccommodationgetTableData();
 
         }
 
@@ -936,6 +945,7 @@
 
             updateTotal("othertabletotalvalue", "Others_totalAmount");
             totalexpendics();
+            OthergetTableData();
 
         }
 
@@ -949,6 +959,171 @@
             var totalExpend = parseInt(Transport_totalAmount) + parseInt(Accommodation_totalAmount) + parseInt(
                 Others_totalAmount);
             document.getElementById("totalexpend").value = totalExpend;
+        }
+
+
+        //total row data set
+        function FundinggetTableData() {
+            // Get the table element
+            const table = document.getElementById('Fundingtable');
+            const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+            const tableData = [];
+
+
+            for (let i = {{$fundingcountnow -1}}; i < rows.length - 1; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+
+                const rowData = {
+                    no: cells[0].textContent.trim(),
+                    item: cells[1].textContent.trim(),
+                    unit: cells[2].textContent.trim(),
+                    unitCharge: cells[3].textContent.trim(),
+                    amount: cells[4].textContent.trim()
+                };
+
+                tableData.push(rowData);
+            }
+
+
+            const form = document.getElementById('myForm');
+            const existingInputs = form.querySelectorAll('input[name^="FundingDate"]');
+            existingInputs.forEach(input => input.remove());
+
+            tableData.forEach((row, index) => {
+                for (const key in row) {
+                    if (row.hasOwnProperty(key)) {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = `FundingDate[${index}][${key}]`;
+                        input.value = row[key];
+                        form.appendChild(input);
+                    }
+                }
+            });
+
+        }
+
+        function TransportgetTableData() {
+            // Get the table element
+            const table = document.getElementById('Transporttable');
+            const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+            const tableData = [];
+
+
+            for (let i = {{$transportcountnow -1}}; i < rows.length - 1; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+
+                const rowData = {
+                    no: cells[0].textContent.trim(),
+                    Transport: cells[1].textContent.trim(),
+                    nfvehical: cells[2].textContent.trim(),
+                    totalkm: cells[3].textContent.trim(),
+                    unit: cells[4].textContent.trim(),
+                    total: cells[5].textContent.trim(),
+
+                };
+
+                tableData.push(rowData);
+            }
+
+            const form = document.getElementById('myForm');
+            const existingInputs = form.querySelectorAll('input[name^="TransportDate"]');
+            existingInputs.forEach(input => input.remove());
+
+            tableData.forEach((row, index) => {
+                for (const key in row) {
+                    if (row.hasOwnProperty(key)) {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = `TransportDate[${index}][${key}]`;
+                        input.value = row[key];
+                        form.appendChild(input);
+                    }
+                }
+            });
+
+        }
+
+        function AccommodationgetTableData() {
+            // Get the table element
+            const table = document.getElementById('Accommodationtable');
+            const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+            const tableData = [];
+
+
+            for (let i = {{$accommodationcountnow -1}}; i < rows.length - 1; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+
+                const rowData = {
+                    no: cells[0].textContent.trim(),
+                    Accommodation: cells[1].textContent.trim(),
+                    nfperson: cells[2].textContent.trim(),
+                    nfday: cells[3].textContent.trim(),
+                    unit: cells[4].textContent.trim(),
+                    total: cells[5].textContent.trim(),
+
+                };
+
+                tableData.push(rowData);
+            }
+
+            const form = document.getElementById('myForm');
+            const existingInputs = form.querySelectorAll('input[name^="AccommodationtDate"]');
+            existingInputs.forEach(input => input.remove());
+
+            tableData.forEach((row, index) => {
+                for (const key in row) {
+                    if (row.hasOwnProperty(key)) {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = `AccommodationtDate[${index}][${key}]`;
+                        input.value = row[key];
+                        form.appendChild(input);
+                    }
+                }
+            });
+
+        }
+
+        function OthergetTableData() {
+            // Get the table element
+            const table = document.getElementById('Othertable');
+            const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+            const tableData = [];
+
+
+            for (let i = {{$othercountnow -1}}; i < rows.length - 1; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+
+                const rowData = {
+                    no: cells[0].textContent.trim(),
+                    Others: cells[1].textContent.trim(),
+                    Quantity: cells[2].textContent.trim(),
+                    nfday: cells[3].textContent.trim(),
+                    unit: cells[4].textContent.trim(),
+                    total: cells[5].textContent.trim(),
+
+                };
+
+                tableData.push(rowData);
+            }
+
+            const form = document.getElementById('myForm');
+            const existingInputs = form.querySelectorAll('input[name^="OtherDate"]');
+            existingInputs.forEach(input => input.remove());
+
+            tableData.forEach((row, index) => {
+                for (const key in row) {
+                    if (row.hasOwnProperty(key)) {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = `OtherDate[${index}][${key}]`;
+                        input.value = row[key];
+                        form.appendChild(input);
+                    }
+                }
+            });
+
         }
 
 
