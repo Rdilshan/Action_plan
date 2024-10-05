@@ -261,4 +261,21 @@ class TaskController extends Controller
 
         return view('user.OnlyviewTask', compact('task',  'funding', 'expense', 'subaction_name', 'action_name', 'strategy_name', 'objective_name', 'goal_name'));
     }
+
+    public function deleteTabledata($id1,$id2)
+    {
+        switch ($id2) {
+            case 'funding':
+                funding::where('id', $id1)->delete();
+                break;
+
+            case 'transport':
+            case 'others':
+            case 'accommodation':
+                Expense::where('id', $id1)->delete();
+                break;
+        }
+        return response()->json(['success' => 'Objective deleted successfully']);
+    }
+
 }

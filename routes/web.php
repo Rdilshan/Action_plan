@@ -71,6 +71,8 @@ Route::middleware(['login'])->group(function () {
 
     //task edit by user
     Route::get('/edit/task/{id}', [TaskController::class, 'editTask']);
+    Route::delete('/deleteTabledata/{id1}/{id2}', [TaskController::class, 'deleteTabledata']);
+
 
     //view task in All user
     Route::get('/AlllistTask', [TaskController::class, 'viewalltask'])->middleware('checkUser');

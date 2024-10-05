@@ -1,5 +1,7 @@
 @extends('layout.userlayout')
 @section('contend')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <div class="pcoded-content">
         <div class="pcoded-inner-content">
             <div class="main-body">
@@ -218,7 +220,7 @@
                                                                         <td>
                                                                             <div class="btn-group btn-group-sm"
                                                                                 style="float: none;">
-                                                                                <button type="button"
+                                                                                <button type="button" onclick="Taskdelete({{$fund->id}},'funding')"
                                                                                     class="tabledit-delete-button btn btn-danger waves-effect waves-light active"
                                                                                     style="float: none;margin: 5px;">
                                                                                     <span
@@ -311,7 +313,7 @@
                                                                             <td>
                                                                                 <div class="btn-group btn-group-sm"
                                                                                     style="float: none;">
-                                                                                    <button type="button"
+                                                                                    <button type="button" onclick="Taskdelete({{$expenseitem->id}},'transport')"
                                                                                         class="tabledit-delete-button btn btn-danger waves-effect waves-light active"
                                                                                         style="float: none;margin: 5px;">
                                                                                         <span
@@ -410,7 +412,7 @@
                                                                             <td>
                                                                                 <div class="btn-group btn-group-sm"
                                                                                     style="float: none;">
-                                                                                    <button type="button"
+                                                                                    <button type="button" onclick="Taskdelete({{$expenseitem->id}},'accommodation')"
                                                                                         class="tabledit-delete-button btn btn-danger waves-effect waves-light active"
                                                                                         style="float: none;margin: 5px;">
                                                                                         <span
@@ -512,7 +514,7 @@
                                                                             <td>
                                                                                 <div class="btn-group btn-group-sm"
                                                                                     style="float: none;">
-                                                                                    <button type="button"
+                                                                                    <button type="button" onclick="Taskdelete({{$expenseitem->id}},'others')"
                                                                                         class="tabledit-delete-button btn btn-danger waves-effect waves-light active"
                                                                                         style="float: none;margin: 5px;">
                                                                                         <span
@@ -948,5 +950,48 @@
                 Others_totalAmount);
             document.getElementById("totalexpend").value = totalExpend;
         }
+
+
+        async function Taskdelete(id,type) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => { // Make this callback async
+            if (result.isConfirmed) {
+                const response = await fetch(`/deleteTabledata/${id}/${type}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                });
+
+                if (response.ok) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "The data has been deleted.",
+                        icon: "success"
+                    }).then(() => {
+                        location.reload();
+                    });
+                } else {
+                    const result = await response.json();
+                    Swal.fire({
+                        title: 'Error!',
+                        text: result.error || 'Failed to delete the user',
+                        icon: 'error',
+                        confirmButtonColor: '#3085d6',
+                        timer: 1500,
+                        confirmButtonText: 'Okay'
+                    });
+                }
+            }
+        });
+    }
     </script>
 @endsection
