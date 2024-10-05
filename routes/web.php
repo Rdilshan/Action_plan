@@ -78,10 +78,10 @@ Route::middleware(['login'])->group(function () {
 
     //view task in All user
     Route::get('/AlllistTask', [TaskController::class, 'viewalltask'])->middleware('checkUser');
-
     Route::get('/view/user/task/{id}', [TaskController::class, 'vieweoncetTask']);
 
-
+    //summary
+    Route::get('/summary', function () {return view('user.summary');})->middleware('checkUser');
     //user route end here
 });
 

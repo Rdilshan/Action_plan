@@ -38,6 +38,13 @@
             </ul>
         </li>
 
+        <li class="{{ Request::is('/summary') ? 'active' : '' }}">
+            <a href="{{ url('/summary') }}">
+                <span class="pcoded-micon"><i class="feather icon-check-circle"></i></span>
+                <span class="pcoded-mtext">Summary</span>
+            </a>
+        </li>
+
     </ul>
 
 
