@@ -44,7 +44,7 @@
 
                                     <div class="card-block">
                                         <h4 class="sub-title">Edit your selection</h4>
-                                        <form action="/addnewtask/first" method="GET">
+                                        <form action="/edit/task/{{ $task->id }}" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div id="page1">
                                                 <!-- Page 1 Content -->
@@ -595,7 +595,7 @@
                                                     <div class="form-group row">
                                                         <label class="col-sm-2 col-form-label">Note</label>
                                                         <div class="col-sm-10">
-                                                            <textarea id="noteTextarea" rows="5" cols="5" class="form-control" placeholder="Default Note">{{ $task->Note }}</textarea>
+                                                            <textarea id="noteTextarea" rows="5" cols="5" class="form-control" name="Note" placeholder="Default Note">{{ $task->Note }}</textarea>
                                                         </div>
                                                     </div>
 

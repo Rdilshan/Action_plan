@@ -118,45 +118,45 @@ class TaskController extends Controller
         }
 
 
-            $task = Task::create([
-                'Title' => $title,
-                'subaction_id' => $subaction,
-                'name' => $name,
-                'startDate' => $startDate,
-                'endDate' => $endDate,
-                'introduction' => $introduction,
-                'File' => $filePath,
-                'Note' => $note ?? null,
-                'user_id' => auth()->user()->id,
-            ]);
+        $task = Task::create([
+            'Title' => $title,
+            'subaction_id' => $subaction,
+            'name' => $name,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'introduction' => $introduction,
+            'File' => $filePath,
+            'Note' => $note ?? null,
+            'user_id' => auth()->user()->id,
+        ]);
 
 
         $taskId = $task->id;
 
         foreach ($fundingData as $fund) {
 
-                $fundingdata = funding :: create([
-                    'name' => $fund['item'],
-                    'unit' => $fund['unit'],
-                    'unit_charge' => $fund['unitCharge'],
-                    'amount' => $fund['amount'],
-                    'task_id' => $taskId
-                ]);
+            $fundingdata = funding::create([
+                'name' => $fund['item'],
+                'unit' => $fund['unit'],
+                'unit_charge' => $fund['unitCharge'],
+                'amount' => $fund['amount'],
+                'task_id' => $taskId
+            ]);
 
         }
 
         foreach ($transportData as $traspdata) {
 
 
-                $transporttabledata = Expense :: create([
-                    'name' => $traspdata['Transport'],
-                    'Type' => 'Transport',
-                    'no_unit' => $traspdata['nfvehical'],
-                    'totalKM' => $traspdata['totalkm'],
-                    'unit_cost' => $traspdata['unit'],
-                    'amount' => $traspdata['total'],
-                    'task_id' => $taskId
-                ]);
+            $transporttabledata = Expense::create([
+                'name' => $traspdata['Transport'],
+                'Type' => 'Transport',
+                'no_unit' => $traspdata['nfvehical'],
+                'totalKM' => $traspdata['totalkm'],
+                'unit_cost' => $traspdata['unit'],
+                'amount' => $traspdata['total'],
+                'task_id' => $taskId
+            ]);
 
 
         }
@@ -164,15 +164,15 @@ class TaskController extends Controller
         foreach ($accommodationData as $accdata) {
 
 
-                $accommodationtabledata = Expense :: create([
-                    'name' => $accdata['Accommodation'],
-                    'Type' => 'Accommodation',
-                    'no_unit' => $accdata['nfperson'],
-                    'no_days' => $accdata['nfday'],
-                    'unit_cost' => $accdata['unit'],
-                    'amount' => $accdata['total'],
-                    'task_id' => $taskId
-                ]);
+            $accommodationtabledata = Expense::create([
+                'name' => $accdata['Accommodation'],
+                'Type' => 'Accommodation',
+                'no_unit' => $accdata['nfperson'],
+                'no_days' => $accdata['nfday'],
+                'unit_cost' => $accdata['unit'],
+                'amount' => $accdata['total'],
+                'task_id' => $taskId
+            ]);
 
 
 
@@ -181,15 +181,15 @@ class TaskController extends Controller
         foreach ($otherData as $othdata) {
 
 
-                $othertabledata = Expense :: create([
-                    'name' => $othdata['Others'],
-                    'Type' => 'Others',
-                    'no_unit' => $othdata['Quantity'],
-                    'no_days' => $othdata['nfday'],
-                    'unit_cost' => $othdata['unit'],
-                    'amount' => $othdata['total'],
-                    'task_id' => $taskId
-                ]);
+            $othertabledata = Expense::create([
+                'name' => $othdata['Others'],
+                'Type' => 'Others',
+                'no_unit' => $othdata['Quantity'],
+                'no_days' => $othdata['nfday'],
+                'unit_cost' => $othdata['unit'],
+                'amount' => $othdata['total'],
+                'task_id' => $taskId
+            ]);
 
 
 
@@ -201,7 +201,8 @@ class TaskController extends Controller
     }
 
 
-    public function editTask($id){
+    public function editTask($id)
+    {
 
         $task = Task::find($id);
         $goals = Goal::all();
@@ -232,7 +233,8 @@ class TaskController extends Controller
         return view('user.EditTask1', compact('task', 'goals', 'funding', 'expense', 'subaction_name', 'action_name', 'strategy_name', 'objective_name', 'goal_name'));
     }
 
-    public function vieweoncetTask($id){
+    public function vieweoncetTask($id)
+    {
 
         $task = Task::find($id);
         $funding = funding::where('task_id', $id)->get();
@@ -259,10 +261,10 @@ class TaskController extends Controller
         $goal_name = $goal->name;
 
 
-        return view('user.OnlyviewTask', compact('task',  'funding', 'expense', 'subaction_name', 'action_name', 'strategy_name', 'objective_name', 'goal_name'));
+        return view('user.OnlyviewTask', compact('task', 'funding', 'expense', 'subaction_name', 'action_name', 'strategy_name', 'objective_name', 'goal_name'));
     }
 
-    public function deleteTabledata($id1,$id2)
+    public function deleteTabledata($id1, $id2)
     {
         switch ($id2) {
             case 'funding':
@@ -276,6 +278,46 @@ class TaskController extends Controller
                 break;
         }
         return response()->json(['success' => 'Objective deleted successfully']);
+    }
+
+
+    public function updateTask(Request $request, $id)
+    {
+        $task = Task::find($id);
+
+        if ($request->input('subaction') == 'opt1') {
+            $subaction_id = $task->subaction_id;
+        } else {
+            $subaction_id = $request->input('subaction');
+        }
+
+        if ($request->file('file') != null) {
+
+            if ($request->hasFile('file') && $request->file('file')->isValid()) {
+                $file = $request->file('file');
+                $filepath = $file->store('uploads', 'public');
+
+            }
+        } else {
+            $filepath = $task->File;
+        }
+
+        $task->update([
+            'Title' => $request->input('title'),
+            'startDate' => $request->input('start_date'),
+            'endDate' => $request->input('end_date'),
+            'introduction' => $request->input('introduction'),
+            'File' => $filepath,
+            'name' => $request->input('name'),
+            'subaction_id' => $subaction_id,
+            'Note' => $request->input('Note')
+        ]);
+
+
+        return response()->json(['success' =>  "success"]);
+        // dd($request->all());
+        // $task->update($request->all());
+
     }
 
 }
