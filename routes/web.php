@@ -65,7 +65,7 @@ Route::middleware(['login'])->group(function () {
     Route::post('/addnewtask/final', [TaskController::class, 'storeFinalForm'])->middleware('checkUser');
 
     //view task on user side & admin side
-    Route::get('/listTask', [TaskController::class, 'owntasklist'])->middleware('checkUser');
+    Route::get('/listTask', action: [TaskController::class, 'owntasklist'])->middleware('checkUser');
     Route::delete('/deletetask/{id}', [TaskController::class, 'deleteTask'])->middleware('checkUser');
     Route::get('/viewTask/{id}/{id2}', [TaskController::class, 'selecttasklist'])->middleware('checkAdmin');
 
