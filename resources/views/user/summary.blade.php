@@ -16,7 +16,7 @@
                             <div class="col-lg-8">
                                 <div class="page-header-title">
                                     <div class="d-inline">
-                                        <h4>All List of Tasks</h4>
+                                        <h4>Summary of Tasks</h4>
                                     </div>
                                 </div>
                             </div>
@@ -29,7 +29,7 @@
                                         </li>
                                         <li class="breadcrumb-item"><a href="#!">Task Manamgement </a>
                                         </li>
-                                        <li class="breadcrumb-item"><a href="#!">All List of Task </a>
+                                        <li class="breadcrumb-item"><a href="#!">Summary of Tasks </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -49,41 +49,65 @@
                                 <div class="card-block">
                                     <div class="card-block tree-view">
                                         <div id="basicTree">
+
+
+
                                             <ul>
-                                                <li>Admin
+                                                <li>Goals
                                                     <ul>
-                                                        <li data-jstree='{"opened":true}'>Assets
+                                                        @foreach($dataset as $goal)
+                                                        <li >{{ $goal['name'] }}
                                                             <ul>
-                                                                <li data-jstree='{"type":"file"}'>Css</li>
-                                                                <li data-jstree='{"opened":true}'>Plugins
+                                                                @foreach($goal['objectives'] as $objective)
+                                                                <li>{{ $objective['name'] }}
                                                                     <ul>
-                                                                        <li data-jstree='{"selected":true,"type":"file"}'>
-                                                                            Plugin one</li>
-                                                                        <li data-jstree='{"type":"file"}'>Plugin two</li>
+
+                                                                        @foreach($objective['strategies'] as $strategy)
+                                                                        <li >{{ $strategy['name'] }}
+                                                                            <ul>
+                                                                                @foreach($strategy['actions'] as $action)
+                                                                                <li >{{$action['name']}}
+                                                                                    <ul>
+                                                                                        @foreach($action['subactions'] as $subaction)
+                                                                                        <li >{{$subaction['name']}}
+                                                                                            <ul>
+
+                                                                                                @foreach($subaction['tasks'] as $task)
+                                                                                                    <li data-jstree='{"type":"file"}'>
+                                                                                                        <b>{{ $task}}</b>
+                                                                                                    </li>
+                                                                                                @endforeach
+
+                                                                                            </ul>
+                                                                                        </li>
+                                                                                        @endforeach
+
+
+                                                                                    </ul>
+                                                                                </li>
+                                                                                @endforeach
+
+                                                                            </ul>
+                                                                        </li>
+                                                                        @endforeach
+
                                                                     </ul>
                                                                 </li>
+                                                                @endforeach
+
                                                             </ul>
                                                         </li>
-                                                        <li data-jstree='{"opened":true}'>Email Template
-                                                            <ul>
-                                                                <li data-jstree='{"type":"file"}'>Email one</li>
-                                                                <li data-jstree='{"type":"file"}'>Email two</li>
-                                                            </ul>
-                                                        </li>
-                                                        <li data-jstree='{"icon":"zmdi zmdi-view-dashboard"}'>Dashboard</li>
-                                                        <li data-jstree='{"icon":"zmdi zmdi-format-underlined"}'>Typography
-                                                        </li>
-                                                        <li data-jstree='{"opened":true}'>User Interface
-                                                            <ul>
-                                                                <li data-jstree='{"type":"file"}'>Buttons</li>
-                                                                <li data-jstree='{"type":"file"}'>Cards</li>
-                                                            </ul>
-                                                        </li>
-                                                        <li data-jstree='{"icon":"zmdi zmdi-collection-text"}'>Forms</li>
-                                                        <li data-jstree='{"icon":"zmdi zmdi-view-list"}'>Tables</li>
+                                                        @endforeach
                                                     </ul>
                                                 </li>
-                                                <li data-jstree='{"type":"file"}'>Frontend</li>
+
+
+                                                {{-- <li data-jstree='{"opened":true}'>Email Template
+                                                    <ul>
+                                                        <li data-jstree='{"type":"file"}'>Email one</li>
+                                                        <li data-jstree='{"type":"file"}'>Email two</li>
+                                                    </ul>
+                                                </li> --}}
                                             </ul>
                                         </div>
                                     </div>
@@ -100,7 +124,6 @@
 
 
 @section('scriptjs')
-
     <!-- Tree view js -->
     <script type="text/javascript" src="{{ url('bower_components\jstree\js\jstree.min.js') }}"></script>
     <script type="text/javascript" src="{{ url('assets\pages\treeview\jquery.tree.js') }}"></script>
