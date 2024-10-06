@@ -102,12 +102,6 @@
                                                 </li>
 
 
-                                                {{-- <li data-jstree='{"opened":true}'>Email Template
-                                                    <ul>
-                                                        <li data-jstree='{"type":"file"}'>Email one</li>
-                                                        <li data-jstree='{"type":"file"}'>Email two</li>
-                                                    </ul>
-                                                </li> --}}
                                             </ul>
                                         </div>
                                     </div>
