@@ -382,7 +382,7 @@
 }
 .jstree-default .jstree-anchor {
     line-height: 24px;
-    height: 24px;
+    height: 30px;
 }
 .jstree-default .jstree-icon {
     width: 24px;
@@ -403,7 +403,7 @@
 .jstree-default .jstree-node,
 .jstree-default .jstree-icon {
     background-image: url("icon-tree.png");
-    color: #777;
+    /* color: #777; */
 }
 .jstree-default .jstree-node {
     background-position: -292px -4px;
