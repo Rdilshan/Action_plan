@@ -5,6 +5,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\HierarchyController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TreeController;
+
 
 
 
@@ -81,7 +83,7 @@ Route::middleware(['login'])->group(function () {
     Route::get('/view/user/task/{id}', [TaskController::class, 'vieweoncetTask']);
 
     //summary
-    Route::get('/summary', function () {return view('user.summary');})->middleware('checkUser');
+    Route::get('/summary', [TreeController::class, 'index'])->middleware('checkUser');
     //user route end here
 });
 
