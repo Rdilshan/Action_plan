@@ -41,7 +41,6 @@
                         <div class="row">
                             <div class="col-sm-12">
 
-
                                 <div class="modal fade" id="large-Modal" tabindex="-1" role="dialog"
                                     style="z-index: 1050; display: none;" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
@@ -61,10 +60,23 @@
                                                         <table class="table table-xl">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>#</th>
-                                                                    <th>First Name</th>
-                                                                    <th>Last Name</th>
-                                                                    <th>Username</th>
+                                                                    <th>Responsible</th>
+                                                                    <th>KPI</th>
+
+                                                                    <th>2024</th>
+                                                                    <th>2025</th>
+                                                                    <th>2026</th>
+                                                                    <th>2027</th>
+                                                                    <th>2028</th>
+
+                                                                    <th>Total Planned</th>
+                                                                    <th>Total Completed</th>
+                                                                    <th>Completion(%)</th>
+                                                                    <th>Evidences</th>
+                                                                    <th>Remarks</th>
+
+
+
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -73,19 +85,31 @@
                                                                     <td>Mark</td>
                                                                     <td>Otto</td>
                                                                     <td>@mdo</td>
+                                                                    <th scope="row">1</th>
+                                                                    <td>Mark</td>
+                                                                    <td>Otto</td>
+                                                                    <td>@mdo</td>
+                                                                    <th scope="row">1</th>
+                                                                    <td>Mark</td>
+                                                                    <td>Otto</td>
+                                                                    <td>@mdo</td>
                                                                 </tr>
+
                                                                 <tr>
-                                                                    <th scope="row">2</th>
-                                                                    <td>Jacob</td>
-                                                                    <td>Thornton</td>
-                                                                    <td>@fat</td>
+                                                                    <th scope="row">1</th>
+                                                                    <td>Mark</td>
+                                                                    <td>Otto</td>
+                                                                    <td>@mdo</td>
+                                                                    <th scope="row">1</th>
+                                                                    <td>Mark</td>
+                                                                    <td>Otto</td>
+                                                                    <td>@mdo</td>
+                                                                    <th scope="row">1</th>
+                                                                    <td>Mark</td>
+                                                                    <td>Otto</td>
+                                                                    <td>@mdo</td>
                                                                 </tr>
-                                                                <tr>
-                                                                    <th scope="row">3</th>
-                                                                    <td>Larry</td>
-                                                                    <td>the Bird</td>
-                                                                    <td>@twitter</td>
-                                                                </tr>
+
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -164,10 +188,11 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
-                    <!-- Page body end -->
+
                 </div>
             </div>
         </div>
