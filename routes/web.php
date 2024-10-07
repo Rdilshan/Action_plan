@@ -84,6 +84,7 @@ Route::middleware(['login'])->group(function () {
 
     //summary
     Route::get('/summary', [TreeController::class, 'index'])->middleware('checkUser');
+    Route::post("/load_data_into_model", [TreeController::class, 'load_data_into_model']);
     //user route end here
 });
 

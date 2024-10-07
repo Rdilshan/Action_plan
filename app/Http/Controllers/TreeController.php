@@ -56,7 +56,12 @@ class TreeController extends Controller
                             // Get tasks for each subaction
                             $tasks = Task::where('subaction_id', $subaction->id)->get();
                             foreach ($tasks as $task) {
-                                $subactionData['tasks'][] = $task->Title;
+                                // $subactionData['tasks'][] = $task->Title;
+                                $subactionData['tasks'][] = [
+                                    'title' => $task->Title,
+                                    'id' => $task->id
+                                ];
+
                             }
 
                             // Add subaction data to the current action
@@ -81,5 +86,12 @@ class TreeController extends Controller
 
         // Pass the dataset to the view
         return view('user.summary', compact('dataset'));
+    }
+
+    public function load_data_into_model(Request $request){
+        $id = $request->input('id');
+
+        $tasks = Task::where('id', $id)->get();
+        return response()->json($tasks);
     }
 }
