@@ -46,7 +46,7 @@
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title">Modal title</h4>
+                                                <h4 class="modal-title">Task Details</h4>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">×</span>
@@ -81,34 +81,21 @@
                                                             </thead>
                                                             <tbody>
                                                                 <tr>
-                                                                    <th scope="row">1</th>
-                                                                    <td>Mark</td>
-                                                                    <td>Otto</td>
-                                                                    <td>@mdo</td>
-                                                                    <th scope="row">1</th>
-                                                                    <td>Mark</td>
-                                                                    <td>Otto</td>
-                                                                    <td>@mdo</td>
-                                                                    <th scope="row">1</th>
-                                                                    <td>Mark</td>
-                                                                    <td>Otto</td>
-                                                                    <td>@mdo</td>
+                                                                    <th id="responsible"></th>
+                                                                    <td id="kpi"></td>
+                                                                    <td id="2024"> </td>
+                                                                    <td id="2025"></td>
+                                                                    <th id="2026"></th>
+                                                                    <td id="2027"></td>
+                                                                    <td id="2028"></td>
+                                                                    <td id="totalplanned"></td>
+                                                                    <th id="totalcompleted"></th>
+                                                                    <td id="completion"></td>
+                                                                    <td id="evidences"></td>
+                                                                    <td id="remarks"></td>
                                                                 </tr>
 
-                                                                <tr>
-                                                                    <th scope="row">1</th>
-                                                                    <td>Mark</td>
-                                                                    <td>Otto</td>
-                                                                    <td>@mdo</td>
-                                                                    <th scope="row">1</th>
-                                                                    <td>Mark</td>
-                                                                    <td>Otto</td>
-                                                                    <td>@mdo</td>
-                                                                    <th scope="row">1</th>
-                                                                    <td>Mark</td>
-                                                                    <td>Otto</td>
-                                                                    <td>@mdo</td>
-                                                                </tr>
+
 
                                                             </tbody>
                                                         </table>
@@ -226,6 +213,8 @@
 
                 const data = await response.json();
                 console.log(data);
+
+                document.getElementById('responsible').innerHTML = data[0].name;
 
                 const modalTriggerElement = document.getElementById('large-Modal');
 
