@@ -51,7 +51,8 @@ Route::middleware(['login'])->group(function () {
     // admin route end here
 
     //user route start here
-    Route::get('/user', function () {return view('user.dashboard');})->middleware('checkUser');
+    Route::get('/user',[UserController::class, 'dashboardDataload'] )->middleware('checkUser');
+
     Route::get('/addtask', [HierarchyController::class, 'getallGoaltouser'])->middleware('checkUser');
     Route::get('/getObjectives/{goalId}', [HierarchyController::class, 'getallObjectivetouser']) ->middleware('checkUser');
     Route::get('/getStrategy/{objective}', [HierarchyController::class, 'getallgetStrategytouser'])->middleware('checkUser');

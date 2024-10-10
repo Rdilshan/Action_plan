@@ -8,6 +8,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\userRegMail;
+use App\Models\Goal;
+use App\Models\Task;
+use Carbon\Carbon;
+
 
 
 class UserController extends Controller
@@ -95,5 +99,20 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
         return response()->json(['success' => 'User deleted successfully']);
+    }
+
+    public function dashboardDataload(Request $request){
+        $goalCount = Goal::count();
+        $taskCount = Task::count();
+        $now = now();
+        $formattedTime = Carbon::parse($now)->format('g:i A');
+
+        $mytasks = Task::where('user_id', Auth::user()->id)->get();
+        $mytaskcount = $mytasks->count();
+
+
+        return view('user.dashboard', compact('goalCount', 'taskCount','formattedTime','mytaskcount'));
+
+
     }
 }
