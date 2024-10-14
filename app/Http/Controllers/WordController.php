@@ -6,6 +6,14 @@ use Illuminate\Http\Request;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\Shared\ZipArchive;
+use PhpOffice\PhpWord\TemplateProcessor;
+
+use App\Models\Task;
+use App\Models\Goal;
+use App\Models\Objective;
+use App\Models\Strategy;
+use App\Models\Action;
+use App\Models\Subaction;
 
 
 class wordController extends Controller
@@ -22,6 +30,59 @@ class wordController extends Controller
         $tempFile = tempnam(sys_get_temp_dir(), $fileName);
         $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
         $objWriter->save($tempFile);
+        return response()->download($tempFile, $fileName)->deleteFileAfterSend(true);
+    }
+
+    public function generateWordFromTemplate($id)
+    {
+
+        $task = Task::find($id);
+
+
+        $subaction_id = $task->subaction_id;
+        $subaction = Subaction::find($subaction_id);
+        $subaction_name = $subaction->name;
+
+        $action_id = $subaction->action_id;
+        $action = Action::find($action_id);
+        $action_name = $action->name;
+
+        $Strategy_id = $action->strategy_id;
+        $strategy = Strategy::find($Strategy_id);
+        $strategy_name = $strategy->name;
+
+        $Objective_id = $strategy->objective_id;
+        $objective = Objective::find($Objective_id);
+        $objective_name = $objective->name;
+
+        $goal_id = $objective->goal_id;
+        $goal = Goal::find($goal_id);
+        $goal_name = $goal->name;
+
+
+        $templateProcessor = new TemplateProcessor(storage_path('app/templates/template.docx'));
+
+
+        $templateProcessor->setValue('date', now()->format('Y-m-d'));
+
+        $templateProcessor->setValue('goal', $goal_name);
+        $templateProcessor->setValue('objective', $objective_name);
+        $templateProcessor->setValue('Strategy', $strategy_name);
+        $templateProcessor->setValue('action', $action_name);
+        $templateProcessor->setValue('subaction', $subaction_name);
+
+        $templateProcessor->setValue('title', $task->Title);
+        $templateProcessor->setValue('introduction',$task->introduction );
+        $templateProcessor->setValue('note', $task->Note);
+
+
+        $fileName = 'updated-template.docx';
+
+
+        $tempFile = tempnam(sys_get_temp_dir(), $fileName);
+        $templateProcessor->saveAs($tempFile);
+
+
         return response()->download($tempFile, $fileName)->deleteFileAfterSend(true);
     }
 }

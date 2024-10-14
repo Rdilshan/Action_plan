@@ -89,7 +89,7 @@ Route::middleware(['login'])->group(function () {
     Route::get('/summary', [TreeController::class, 'index'])->middleware('checkUser');
     Route::post("/load_data_into_model", [TreeController::class, 'load_data_into_model']);
 
-    Route::get('/word/{id}', [wordController::class, 'createWordDocument'])->middleware('checkUser');
+    Route::get('/word/{id}', [wordController::class, 'generateWordFromTemplate'])->middleware('checkUser');
 
     //user route end here
 });
