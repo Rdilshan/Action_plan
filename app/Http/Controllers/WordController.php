@@ -86,7 +86,6 @@ class wordController extends Controller
 
         foreach ($funding as $index => $found) {
             $rowIndex = $index + 1;
-            // Replace placeholders with actual data
             $templateProcessor->setValue('fundingId#' . $rowIndex, $rowIndex);
             $templateProcessor->setValue('fundingitem#' . $rowIndex, $found->name);
             $templateProcessor->setValue('fundingunit#' . $rowIndex, $found->unit);
@@ -95,6 +94,63 @@ class wordController extends Controller
 
         }
 
+        $Transports = [];
+        $Accommodations = [];
+        $Others = [];
+
+        foreach ($expense as $item) {
+            switch ($item->Type) {
+                case 'Transport':
+                    $Transports[] = $item;
+                    break;
+                case 'Accommodation':
+                    $Accommodations[] = $item;
+                    break;
+                case 'Others':
+                    $Others[] = $item;
+                    break;
+            }
+        }
+        $fulltotal = $expense->sum('amount');
+
+        $templateProcessor->cloneRow('expId', count($Transports));
+        foreach ($Transports as $index => $Transport) {
+            $rowIndex = $index + 1;
+            $templateProcessor->setValue('expId#' . $rowIndex, $rowIndex);
+            $templateProcessor->setValue('expName#' . $rowIndex, $Transport->name);
+            $templateProcessor->setValue('expNOv#' . $rowIndex, $Transport->no_unit);
+            $templateProcessor->setValue('expkm#' . $rowIndex, $Transport->totalKM);
+            $templateProcessor->setValue('expunit#' . $rowIndex, $Transport->unit_cost);
+            $templateProcessor->setValue('expTotal#' . $rowIndex, $Transport->amount);
+        }
+
+
+
+        $templateProcessor->cloneRow('traNo', count($Accommodations));
+        foreach ($Accommodations as $index => $Accommodation) {
+            $rowIndex = $index + 1;
+
+            $templateProcessor->setValue('traNo#' . $rowIndex, $rowIndex);
+            $templateProcessor->setValue('traName#' . $rowIndex, $Accommodation->name);
+            $templateProcessor->setValue('traNof#' . $rowIndex, $Accommodation->no_unit);
+            $templateProcessor->setValue('traNoD#' . $rowIndex, $Accommodation->no_days);
+            $templateProcessor->setValue('traTotal#' . $rowIndex, $Accommodation->amount);
+        }
+
+
+        $templateProcessor->cloneRow('otherNo', count($Others));
+        foreach ($Others as $index => $Other) {
+            $rowIndex = $index + 1;
+            $templateProcessor->setValue('otherNo#' . $rowIndex, $rowIndex);
+            $templateProcessor->setValue('othername#' . $rowIndex, $Other->name);
+            $templateProcessor->setValue('otherqty#' . $rowIndex, $Other->no_unit);
+            $templateProcessor->setValue('othernofd#' . $rowIndex, $Other->no_days);
+            $templateProcessor->setValue('othercost#' . $rowIndex, $Other->unit_cost);
+            $templateProcessor->setValue('othertotal#' . $rowIndex, $Other->amount);
+
+        }
+
+        $templateProcessor->setValue('fulltotal', $fulltotal);
 
         $fileName = 'updated-template.docx';
 
