@@ -6,6 +6,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\HierarchyController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TreeController;
+use App\Http\Controllers\WordController;
+
 
 
 
@@ -86,6 +88,9 @@ Route::middleware(['login'])->group(function () {
     //summary
     Route::get('/summary', [TreeController::class, 'index'])->middleware('checkUser');
     Route::post("/load_data_into_model", [TreeController::class, 'load_data_into_model']);
+
+    Route::get('/word/{id}', [wordController::class, 'createWordDocument'])->middleware('checkUser');
+
     //user route end here
 });
 

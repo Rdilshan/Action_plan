@@ -72,6 +72,13 @@
                                                                 style="font-size: 20px; color: white;"></i>
                                                         </label>
 
+                                                        <label class="label "
+                                                            onclick="Createword({{ $task->id }})"
+                                                            style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 5px; margin: 5px; cursor: pointer; text-align: center; background-color: rgb(97, 97, 204);">
+                                                            <i class="icofont icofont-file-word"
+                                                                style="font-size: 20px; color: white;"></i>
+                                                        </label>
+
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -102,5 +109,10 @@
         async function TaskEdit(id) {
             window.location.href = `/view/user/task/${id}`;
         }
+
+        async function Createword(id) {
+            window.open(`/word/${id}`, '_blank');
+        }
+
     </script>
 @endsection
