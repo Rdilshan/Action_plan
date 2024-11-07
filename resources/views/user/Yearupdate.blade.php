@@ -45,7 +45,8 @@
 
                                     <div class="card-block">
 
-                                        <form>
+                                        <form action="/updatesubmitform" method="POST" enctype="multipart/form-data">
+                                            @csrf
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Select
                                                     Year</label>
@@ -63,23 +64,19 @@
                                                 </div>
                                             </div>
 
-
                                             <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label">Upload
-                                                    File</label>
+                                                <label class="col-sm-2 col-form-label">Upload File</label>
                                                 <div class="col-sm-10">
-                                                    <input type="file" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label">Textarea</label>
-                                                <div class="col-sm-10">
-                                                    <textarea rows="5" cols="5" class="form-control" placeholder="Default textarea"></textarea>
+                                                    <input type="file" id="fileInput" name="files[]" multiple
+                                                        class="form-control">
                                                 </div>
                                             </div>
 
+                                            <!-- Container to show the uploaded files -->
+                                            <div id="fileListContainer"></div>
 
 
+                                            <button class="btn btn-primary" type="submit">Submit</button>
 
                                         </form>
                                     </div>
@@ -94,4 +91,79 @@
             </div>
         </div>
     </div>
+
+
+
+    <!-- Script to Handle File Upload and Removal -->
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const fileListContainer = document.getElementById('fileListContainer');
+
+        let uploadedFiles = [];
+
+        // Handle file selection
+        fileInput.addEventListener('change', (event) => {
+            console.log(uploadedFiles)
+            const newFiles = Array.from(event.target.files);
+
+            // Add selected files to the uploaded files array
+            uploadedFiles = [...uploadedFiles, ...newFiles];
+
+            // Clear the file input
+            fileInput.value = '';
+
+            // Render the list of files
+            renderFileList();
+        });
+
+        // Function to render the file list with remove buttons
+        function renderFileList() {
+            // Clear the current file list
+            fileListContainer.innerHTML = '';
+
+            uploadedFiles.forEach((file, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.classList.add('my-2');
+
+                const fileName = document.createElement('span');
+                fileName.textContent = file.name;
+
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.classList.add('btn', 'btn-danger', 'btn-sm', 'ml-2');
+                removeButton.onclick = () => removeFile(index);
+
+                fileItem.appendChild(fileName);
+                fileItem.appendChild(removeButton);
+                fileListContainer.appendChild(fileItem);
+            });
+        }
+
+        // Function to remove a file from the list
+        function removeFile(index) {
+            uploadedFiles.splice(index, 1);
+            renderFileList();
+        }
+
+        document.querySelector('form').addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            console.log(uploadedFiles);
+
+            function fileListFrom(files) {
+                const b = new ClipboardEvent("").clipboardData || new DataTransfer()
+                for (const file of files) b.items.add(file)
+                return b.files
+            }
+
+            const fileList = fileListFrom(uploadedFiles)
+
+            var fileInputelement = document.getElementById('fileInput');
+            fileInputelement.files = fileList;
+
+            setTimeout(() => {
+                event.target.submit();
+            }, 500);
+        });
+    </script>
 @endsection

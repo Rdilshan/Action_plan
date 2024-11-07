@@ -396,4 +396,11 @@ class TaskController extends Controller
 
     }
 
+    public function updatetasksubmit(Request $request)
+    {
+        dd($request->all(), $request->file('files'));
+
+
+    }
+
 }

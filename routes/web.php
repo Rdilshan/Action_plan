@@ -93,6 +93,7 @@ Route::middleware(['login'])->group(function () {
 
     //year by year update task
     Route::get('/yearbyyear/{id}', function () {return view('user.Yearupdate');})->middleware('checkUser');
+    Route::post('/updatesubmitform', [TaskController::class, 'updatetasksubmit']);
 
     //user route end here
 });
