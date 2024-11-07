@@ -11,6 +11,8 @@ use App\Models\Objective;
 use App\Models\Strategy;
 use App\Models\Action;
 use App\Models\Subaction;
+use App\Models\updateTask;
+
 
 use PhpParser\Node\Stmt\TryCatch;
 
@@ -396,10 +398,29 @@ class TaskController extends Controller
 
     }
 
-    public function updatetasksubmit(Request $request)
+    public function updatetasksubmit(Request $request, $id)
     {
-        dd($request->all(), $request->file('files'));
+        $fileNames = [];
+        if ($request->hasFile('files')) {
 
+            foreach ($request->file('files') as $file) {
+                if ($file->isValid()) {
+                    $filename = time() . '_' . $file->getClientOriginalName();
+
+                    $file->storeAs('uploads', $filename, 'public');
+                    $fileNames[] = $filename;
+                }
+            }
+        }
+
+        $updateTask = updateTask::create([
+            'task_id' => $id,
+            'year' => $request->year,
+            'files' => json_encode($fileNames)
+        ]);
+
+        // dd($request->all(), $fileNames, $id,$updateTask);
+        return redirect('/listTask');
 
     }
 

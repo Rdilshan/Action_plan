@@ -92,8 +92,11 @@ Route::middleware(['login'])->group(function () {
     Route::get('/word/{id}', [wordController::class, 'generateWordFromTemplate'])->middleware('checkUser');
 
     //year by year update task
-    Route::get('/yearbyyear/{id}', function () {return view('user.Yearupdate');})->middleware('checkUser');
-    Route::post('/updatesubmitform', [TaskController::class, 'updatetasksubmit']);
+    Route::get('/yearbyyear/{id}', function ($id) {
+        return view('user.Yearupdate',['id' => $id]);
+    })->middleware('checkUser');
+
+    Route::post('/updatesubmitform/{id}', [TaskController::class, 'updatetasksubmit']);
 
     //user route end here
 });

@@ -11,10 +11,10 @@ return new class extends Migration
     {
         Schema::create('update_tasks', function (Blueprint $table) {
             $table->id();
-            $table->integer(column: 'task_id')->nullable();
-            $table->string(column: 'year')->nullable();
-            $table->string(column: 'review');
-            $table->json(column: 'files');
+            $table->integer(column: 'task_id');
+            $table->string(column: 'year');
+            $table->string(column: 'review')->nullable();
+            $table->json(column: 'files')->nullable();
             $table->timestamps();
         });
     }
