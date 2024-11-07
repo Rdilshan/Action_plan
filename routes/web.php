@@ -91,6 +91,9 @@ Route::middleware(['login'])->group(function () {
 
     Route::get('/word/{id}', [wordController::class, 'generateWordFromTemplate'])->middleware('checkUser');
 
+    //year by year update task
+    Route::get('/yearbyyear/{id}', function () {return view('user.Yearupdate');})->middleware('checkUser');
+
     //user route end here
 });
 

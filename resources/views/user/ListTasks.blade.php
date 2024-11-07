@@ -75,6 +75,11 @@
                                                             <i class="icofont icofont-ui-delete"
                                                                 style="font-size: 20px; color: white;"></i>
                                                         </span>
+                                                        <label class="label" onclick="TaskUpdate({{ $task->id }})"
+                                                            style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 5px; margin: 5px; cursor: pointer; text-align: center; background-color: rgb(79, 79, 245);">
+                                                            <i class="icofont icofont-recycle"
+                                                                style="font-size: 20px; color: white;"></i>
+                                                        </label>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -139,6 +144,10 @@
 
     async function TaskEdit(id) {
         window.location.href = `/edit/task/${id}`;
+    }
+
+    async function TaskUpdate(id) {
+        window.location.href = `/yearbyyear/${id}`;
     }
 
 </script>
