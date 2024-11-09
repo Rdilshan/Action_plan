@@ -50,6 +50,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Year</th>
+                                                        <th>KPI</th>
                                                         <th>Percentage( % ) </th>
                                                         <th>Upload Files</th>
                                                         <th>Action</th>
@@ -60,6 +61,7 @@
                                                         @foreach ($updates as $update)
                                                             <tr>
                                                                 <td>{{ $update->year }}</td>
+                                                                <td>{{ $update->KPI }}</td>
                                                                 <td>{{ $update->percentage }}</td>
                                                                 <td>
                                                                     <ul>
@@ -146,6 +148,13 @@
                                                         <option value="2029">2029</option>
                                                         <option value="2030">2030</option>
                                                     </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">KPI</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="KPI" class="form-control" placeholder="KPI value">
                                                 </div>
                                             </div>
 

@@ -416,6 +416,7 @@ class TaskController extends Controller
         $updateTask = updateTask::create([
             'task_id' => $id,
             'year' => $request->year,
+            'KPI' => $request->KPI,
             'percentage' => $request->percentage,
             'files' => json_encode($fileNames)
         ]);

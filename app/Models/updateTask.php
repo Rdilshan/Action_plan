@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class updateTask extends Model
 {
     use HasFactory;
-    protected $fillable = ['task_id','year','files','percentage'];
+    protected $fillable = ['task_id','year','files','percentage','KPI'];
 
     public function Task()
     {
