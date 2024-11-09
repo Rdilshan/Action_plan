@@ -88,7 +88,8 @@
 
                                                                 <td>
 
-                                                                    <label class="label " onclick="updateTaskdelete({{ $update->id }})"
+                                                                    <label class="label "
+                                                                        onclick="updateTaskdelete({{ $update->id }})"
                                                                         style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 5px; margin: 5px; cursor: pointer; text-align: center; background-color: red;">
                                                                         <i class="icofont icofont-ui-delete"
                                                                             style="font-size: 20px; color: white;"></i>
@@ -105,6 +106,24 @@
                                                 </tbody>
 
                                             </table>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div rows="5" cols="5" class="form-control form-control-danger" placeholder="Show review here." disabled style="text-align: left;">
+                                                @if ($task->review)
+                                                <ul>
+
+                                                    @foreach (json_decode($task->review, true) as $review)
+                                                    <li>{{ $review[1] }}{{ !$loop->last ? "\n" : "" }}</li>
+                                                    @endforeach
+                                                </ul>
+                                                @else
+                                                    No reviews available
+                                                @endif
+                                            </div>
+
+
+
                                         </div>
 
                                         <hr />

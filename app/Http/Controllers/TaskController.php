@@ -428,7 +428,8 @@ class TaskController extends Controller
     public function updatesget($id)
     {
         $updates = updateTask::where('task_id', $id)->get();
-        return view('user.Yearupdate', compact('updates', 'id'));
+        $task = Task::find($id);
+        return view('user.Yearupdate', compact('updates', 'id','task'));
     }
 
     public function updatedeletetask(Request $request, $id)
