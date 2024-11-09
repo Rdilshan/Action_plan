@@ -74,7 +74,7 @@
                                                                                     <a href="{{ url('storage/uploads/' . $file) }}"
                                                                                         target="_blank"
                                                                                         class="d-block mt-2">
-                                                                                        {{ $file }}
+                                                                                        {{ preg_replace('/^\d+_/', '', $file) }}
                                                                                     </a>
                                                                                 </li>
                                                                             @endforeach
