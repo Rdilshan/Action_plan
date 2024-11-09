@@ -44,8 +44,74 @@
                                 <div class="card">
 
                                     <div class="card-block">
+                                        <div class="dt-responsive table-responsive">
 
-                                        <form action="/updatesubmitform/{{$id}}" method="POST" enctype="multipart/form-data">
+                                            <table id="simpletable" class="table table-striped table-bordered nowrap">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Year</th>
+                                                        <th>Percentage( % ) </th>
+                                                        <th>Upload Files</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if ($updates->isNotEmpty())
+                                                        @foreach ($updates as $update)
+                                                            <tr>
+                                                                <td>{{ $update->year }}</td>
+                                                                <td>{{ $update->percentage }}</td>
+                                                                <td>
+                                                                    <ul>
+                                                                        @php
+                                                                            $files = is_string($update->files)
+                                                                                ? json_decode($update->files, true)
+                                                                                : $update->files;
+                                                                        @endphp
+                                                                        @if (is_array($files) && !empty($files))
+                                                                            @foreach ($files as $file)
+                                                                                <li>
+                                                                                    <a href="{{ url('storage/uploads/' . $file) }}"
+                                                                                        target="_blank"
+                                                                                        class="d-block mt-2">
+                                                                                        {{ $file }}
+                                                                                    </a>
+                                                                                </li>
+                                                                            @endforeach
+                                                                        @else
+                                                                            <li>No files available</li>
+                                                                        @endif
+                                                                    </ul>
+
+
+                                                                </td>
+
+                                                                <td>
+
+                                                                    <label class="label " onclick="updateTaskdelete({{ $update->id }})"
+                                                                        style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 5px; margin: 5px; cursor: pointer; text-align: center; background-color: red;">
+                                                                        <i class="icofont icofont-ui-delete"
+                                                                            style="font-size: 20px; color: white;"></i>
+                                                                    </label>
+
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @else
+                                                        <tr>
+                                                            <td colspan="3">No updates available</td>
+                                                        </tr>
+                                                    @endif
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+
+                                        <hr />
+
+
+                                        <form action="/updatesubmitform/{{ $id }}" method="POST"
+                                            enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Select
@@ -61,6 +127,13 @@
                                                         <option value="2029">2029</option>
                                                         <option value="2030">2030</option>
                                                     </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Competition percentage (%)</label>
+                                                <div class="col-sm-10">
+                                                    <input type="number" name="percentage" class="form-control">
                                                 </div>
                                             </div>
 
@@ -165,5 +238,52 @@
                 event.target.submit();
             }, 500);
         });
+    </script>
+@endsection
+
+
+@section('scriptjs')
+    <script>
+        async function updateTaskdelete(id) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then(async (result) => { // Make this callback async
+                if (result.isConfirmed) {
+                    const response = await fetch(`/updatedeletetask/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        }
+                    });
+
+                    if (response.ok) {
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "The user has been deleted.",
+                            icon: "success"
+                        }).then(() => {
+                            location.reload(); // Reload the page to reflect the changes
+                        });
+                    } else {
+                        const result = await response.json();
+                        Swal.fire({
+                            title: 'Error!',
+                            text: result.error || 'Failed to delete the user',
+                            icon: 'error',
+                            confirmButtonColor: '#3085d6',
+                            timer: 1500,
+                            confirmButtonText: 'Okay'
+                        });
+                    }
+                }
+            });
+        }
     </script>
 @endsection

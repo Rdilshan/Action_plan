@@ -416,12 +416,27 @@ class TaskController extends Controller
         $updateTask = updateTask::create([
             'task_id' => $id,
             'year' => $request->year,
+            'percentage'=>$request->percentage,
             'files' => json_encode($fileNames)
         ]);
 
         // dd($request->all(), $fileNames, $id,$updateTask);
         return redirect('/listTask');
 
+    }
+
+    public function updatesget($id)
+    {
+        $updates = updateTask::where('task_id', $id)->get();
+        return view('user.Yearupdate', compact('updates', 'id'));
+    }
+
+    public function updatedeletetask(Request $request, $id)
+    {
+        $Task = updateTask::findOrFail($id);
+        $Task->delete();
+
+        return response()->json(['success' => 'Objective deleted successfully']);
     }
 
 }

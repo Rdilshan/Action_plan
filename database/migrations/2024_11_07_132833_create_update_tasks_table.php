@@ -13,6 +13,7 @@ return new class extends Migration
             $table->id();
             $table->integer(column: 'task_id');
             $table->string(column: 'year');
+            $table->string(column: 'percentage');
             $table->string(column: 'review')->nullable();
             $table->json(column: 'files')->nullable();
             $table->timestamps();
