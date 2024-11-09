@@ -416,7 +416,7 @@ class TaskController extends Controller
         $updateTask = updateTask::create([
             'task_id' => $id,
             'year' => $request->year,
-            'percentage'=>$request->percentage,
+            'percentage' => $request->percentage,
             'files' => json_encode($fileNames)
         ]);
 
@@ -437,6 +437,23 @@ class TaskController extends Controller
         $Task->delete();
 
         return response()->json(['success' => 'Objective deleted successfully']);
+    }
+    public function updatereviewadd(Request $request, $id)
+    {
+        $userid = auth()->user()->id;
+        $review = $request->input('review');
+
+        $task = Task::findOrFail($id);
+
+        $reviews = $task->review ? json_decode($task->review, true) : [];
+
+        $reviews[] = [$userid, $review];
+
+        $task->update([
+            'review' => json_encode($reviews)
+        ]);
+
+        return response()->json(['message' => 'Review updated successfully']);
     }
 
 }

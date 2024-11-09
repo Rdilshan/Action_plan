@@ -47,10 +47,13 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h4 class="modal-title">Task Details</h4>
+
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
+
                                                     <span aria-hidden="true">×</span>
                                                 </button>
+
                                             </div>
                                             <div class="modal-body">
 
@@ -69,11 +72,10 @@
                                                                     <th>2027</th>
                                                                     <th>2028</th>
 
-                                                                    <th>Total Planned</th>
-                                                                    <th>Total Completed</th>
+
                                                                     <th>Completion(%)</th>
                                                                     <th>Evidences</th>
-                                                                    <th>Remarks</th>
+
 
 
 
@@ -88,26 +90,35 @@
                                                                     <th id="2026"></th>
                                                                     <td id="2027"></td>
                                                                     <td id="2028"></td>
-                                                                    <td id="totalplanned"></td>
-                                                                    <th id="totalcompleted"></th>
                                                                     <td id="completion"></td>
                                                                     <td id="evidences"></td>
-                                                                    <td id="remarks"></td>
+
                                                                 </tr>
-
-
 
                                                             </tbody>
                                                         </table>
+
+                                                        <input type="hidden" name="taskid" id="taskid">
+
                                                     </div>
+
+                                                    <div class="form-group row mt-3">
+                                                        <label class="col-sm-2 col-form-label">Review</label>
+                                                        <div class="col-sm-10">
+                                                            <textarea id="myTextarea" rows="5" cols="5" class="form-control" placeholder="Default textarea"></textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    {{-- <button class="btn btn-primary" type="button">Submit</button> --}}
+
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default waves-effect "
                                                     data-dismiss="modal">Close</button>
-                                                {{-- <button type="button"
+                                                <button type="button" onclick="updateReviewadd()"
                                                     class="btn btn-primary waves-effect waves-light ">Save
-                                                    changes</button> --}}
+                                                    changes</button>
                                             </div>
                                         </div>
                                     </div>
@@ -138,8 +149,7 @@
                                                                                                                 <ul>
 
                                                                                                                     @foreach ($subaction['tasks'] as $task)
-                                                                                                                        <li
-                                                                                                                            onclick="loadmodeldata({{ $task['id'] }})"
+                                                                                                                        <li onclick="loadmodeldata({{ $task['id'] }})"
                                                                                                                             data-jstree='{"type":"file"}'>
                                                                                                                             <b>{{ $task['title'] }}
                                                                                                                             </b>
@@ -193,7 +203,29 @@
     <script type="text/javascript" src="{{ url('assets\pages\treeview\jquery.tree.js') }}"></script>
 
 
+
     <script>
+        $('#large-Modal textarea').on('click', function(event) {
+            event.stopPropagation();
+        });
+
+        $('#large-Modal').on('hidden.bs.modal', function() {
+
+            $('#large-Modal #responsible').text('');
+            $('#large-Modal #kpi').text('');
+            $('#large-Modal #2024').text('');
+            $('#large-Modal #2025').text('');
+            $('#large-Modal #2026').text('');
+            $('#large-Modal #2027').text('');
+            $('#large-Modal #2028').text('');
+            $('#large-Modal #completion').text('');
+            $('#large-Modal #evidences').text('');
+            $('#large-Modal textarea').val('');
+            $('#taskid').val('');
+
+
+        });
+
         async function loadmodeldata(id) {
             try {
                 const response = await fetch(`/load_data_into_model`, {
@@ -214,7 +246,42 @@
                 const data = await response.json();
                 console.log(data);
 
-                document.getElementById('responsible').innerHTML = data[0].name;
+                document.getElementById('responsible').innerHTML = data[0][0].name;
+                document.getElementById('taskid').value = data[0][0].id;
+
+
+                if (data[1].length > 0) {
+                    var compitedcount = 0;
+                    var files = [];
+                    for (let i = 0; i < data[1].length; i++) {
+
+                        const valuedata = data[1][i];
+                        const yearofupdate = valuedata.year;
+                        compitedcount = compitedcount + parseFloat(valuedata.percentage);
+                        document.getElementById(yearofupdate).innerHTML = valuedata.percentage;
+
+                        let filesArray = JSON.parse(valuedata.files);
+
+                        filesArray.forEach(file => {
+                            files.push(file);
+                        });
+
+                    }
+                    console.log(files)
+
+                    document.getElementById("completion").innerHTML = compitedcount;
+
+                    let listHTML = files.map(file => {
+                        let cleanedFile = file.replace(/^\d+_/, '');
+                        return `<li><a href="{{ url('storage/uploads/') }}/${file}" target="_blank" class="d-block mt-2">${cleanedFile}</a></li>`;
+                    }).join('');
+
+                    // Set the innerHTML of the #evidences element
+                    document.getElementById("evidences").innerHTML = listHTML;
+
+                    ;
+                }
+                // document.getElementById('2024').innerHTML = data[1][0].name;
 
                 const modalTriggerElement = document.getElementById('large-Modal');
 
@@ -227,6 +294,26 @@
             } catch (error) {
                 console.error('Error loading data:', error);
             }
+        }
+
+        async function updateReviewadd() {
+
+
+            const id = document.getElementById('taskid').value;
+            const review = document.getElementById('myTextarea').value;
+
+            const response = await fetch(`/updateReviewintask/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    review: review
+                })
+            });
+
+
         }
     </script>
 @endsection

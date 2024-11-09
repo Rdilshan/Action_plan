@@ -9,6 +9,8 @@ use App\Models\Strategy;
 use App\Models\Action;
 use App\Models\Subaction;
 use App\Models\Task;
+use App\Models\updateTask;
+
 
 
 class TreeController extends Controller
@@ -91,7 +93,9 @@ class TreeController extends Controller
     public function load_data_into_model(Request $request){
         $id = $request->input('id');
 
+
         $tasks = Task::where('id', $id)->get();
-        return response()->json($tasks);
+        $updateTasks = updateTask::where('task_id', $id)->get();
+        return response()->json([$tasks,$updateTasks]);
     }
 }

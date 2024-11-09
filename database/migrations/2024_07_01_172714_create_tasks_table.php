@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('File')->nullable();
             $table->string('name')->nullable();
 
-            $table->string('review')->nullable();
+            $table->json('review')->nullable();
 
 
             // Foreign key to link to subactions table
