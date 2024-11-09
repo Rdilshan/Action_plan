@@ -25,6 +25,9 @@ return new class extends Migration
             $table->string('File')->nullable();
             $table->string('name')->nullable();
 
+            $table->string('review')->nullable();
+
+
             // Foreign key to link to subactions table
             $table->unsignedBigInteger('subaction_id');
             $table->foreign('subaction_id')->references('id')->on('subactions')->onDelete('cascade');
