@@ -1,5 +1,10 @@
 @extends('layout.userlayout')
 @section('contend')
+    <style>
+        .hide {
+            display: none;
+        }
+    </style>
     <!-- animation nifty modal window effects css -->
     <link rel="stylesheet" type="text/css" href="{{ url('assets\css\component.css') }}" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -90,6 +95,14 @@
 
                                                                 <td>
 
+
+                                                                    <label class="label "
+                                                                        onclick="editupdate({{ $update->id }})"
+                                                                        style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 5px; margin: 5px; cursor: pointer; text-align: center; background-color: green;">
+                                                                        <i class="icofont icofont-pencil-alt-5"
+                                                                            style="font-size: 20px; color: white;"></i>
+                                                                    </label>
+
                                                                     <label class="label "
                                                                         onclick="updateTaskdelete({{ $update->id }})"
                                                                         style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 5px; margin: 5px; cursor: pointer; text-align: center; background-color: red;">
@@ -111,14 +124,15 @@
                                         </div>
 
                                         <div class="form-group row">
-                                            <div rows="5" cols="5" class="form-control form-control-danger" placeholder="Show review here." disabled style="text-align: left;">
+                                            <div rows="5" cols="5" class="form-control form-control-danger"
+                                                placeholder="Show review here." disabled style="text-align: left;">
                                                 @if ($task->review)
-                                                <ul>
+                                                    <ul>
 
-                                                    @foreach (json_decode($task->review, true) as $review)
-                                                    <li>{{ $review[1] }}{{ !$loop->last ? "\n" : "" }}</li>
-                                                    @endforeach
-                                                </ul>
+                                                        @foreach (json_decode($task->review, true) as $review)
+                                                            <li>{{ $review[1] }}{{ !$loop->last ? "\n" : '' }}</li>
+                                                        @endforeach
+                                                    </ul>
                                                 @else
                                                     No reviews available
                                                 @endif
@@ -131,7 +145,7 @@
                                         <hr />
 
 
-                                        <form action="/updatesubmitform/{{ $id }}" method="POST"
+                                        <form action="/updatesubmitform/{{ $id }}" method="POST" id="updateform"
                                             enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-group row">
@@ -154,14 +168,15 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">KPI</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" name="KPI" class="form-control" placeholder="KPI value">
+                                                    <input type="text" name="KPI" class="form-control"
+                                                        placeholder="KPI value" required>
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Competition percentage (%)</label>
                                                 <div class="col-sm-10">
-                                                    <input type="number" name="percentage" class="form-control">
+                                                    <input type="number" required name="percentage" class="form-control">
                                                 </div>
                                             </div>
 
@@ -180,6 +195,76 @@
                                             <button class="btn btn-primary" type="submit">Submit</button>
 
                                         </form>
+
+
+                                        <form action="/editupdatesubmitform/{{ $id }}" method="POST"
+                                            id="editupdateform" class="hide" enctype="multipart/form-data">
+                                            @csrf
+
+
+                                            <div class="form-group row">
+                                                <div class="col-sm-6">
+                                                    <h4>Edit the updates</h4>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <button class="btn" type="button" onclick="showAddForm()">Add
+                                                        New</button>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Select
+                                                    Year</label>
+                                                <div class="col-sm-10">
+                                                    <select name="edityear" id="edityear" class="form-control">
+
+                                                        <option value="2024">2024</option>
+                                                        <option value="2025">2025</option>
+                                                        <option value="2026">2026</option>
+                                                        <option value="2027">2027</option>
+                                                        <option value="2028">2028</option>
+                                                        <option value="2029">2029</option>
+                                                        <option value="2030">2030</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">KPI</label>
+                                                <div class="col-sm-10">
+                                                    <input type="edittext" name="editKPI" class="form-control"
+                                                        id="editKPI" placeholder="KPI value" readonly>
+                                                    <span class="text-danger">You can not change the KPI value</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Competition percentage (%)</label>
+                                                <div class="col-sm-10">
+                                                    <input type="number" name="editpercentage" id="editpercentage"
+                                                        class="form-control" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Upload File</label>
+                                                <div class="col-sm-10">
+                                                    <input type="file" id="editfileInput" name="editfiles[]" multiple
+                                                        class="form-control">
+                                                    <span class="text-danger">You can not remove the previous uploaded
+                                                        files</span>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="editid" id="editid">
+                                            <!-- Container to show the uploaded files -->
+                                            <div id="editfileListContainer"></div>
+
+
+                                            <button class="btn btn-primary" type="submit">Update</button>
+
+                                        </form>
+
+
                                     </div>
                                 </div>
 
@@ -312,6 +397,39 @@
                     }
                 }
             });
+        }
+
+        async function editupdate(id) {
+            const form = document.getElementById('updateform');
+            form.classList.add("hide");
+
+            const editform = document.getElementById('editupdateform');
+            editform.classList.remove("hide");
+
+            const response = await fetch(`/gettheoneedit/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                document.getElementById('edityear').value = data.year;
+                document.getElementById('editKPI').value = data.KPI;
+                document.getElementById('editid').value = data.id;
+                document.getElementById('editpercentage').value = data.percentage;
+            }
+
+        }
+
+        async function showAddForm() {
+            const form = document.getElementById('updateform');
+            form.classList.remove("hide");
+
+            const editform = document.getElementById('editupdateform');
+            editform.classList.add("hide");
         }
     </script>
 @endsection

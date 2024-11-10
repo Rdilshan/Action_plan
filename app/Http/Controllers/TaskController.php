@@ -458,4 +458,11 @@ class TaskController extends Controller
         return response()->json(['message' => 'Review updated successfully']);
     }
 
+
+    public function updatetaskget($id)
+    {
+        $Task = updateTask::findOrFail($id);
+        return response()->json($Task);
+    }
+
 }
