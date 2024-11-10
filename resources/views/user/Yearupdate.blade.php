@@ -31,7 +31,7 @@
                                         </li>
                                         <li class="breadcrumb-item"><a href="#!">Task Manamgement </a>
                                         </li>
-                                        <li class="breadcrumb-item"><a href="#!">List of Task </a>
+                                        <li class="breadcrumb-item"><a href="#!">update of Task </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -197,8 +197,8 @@
                                         </form>
 
 
-                                        <form action="/editupdatesubmitform/{{ $id }}" method="POST"
-                                            id="editupdateform" class="hide" enctype="multipart/form-data">
+                                        <form action="/editupdatesubmitform" method="POST" id="editupdateform"
+                                            class="hide" enctype="multipart/form-data">
                                             @csrf
 
 
@@ -351,6 +351,72 @@
                 event.target.submit();
             }, 500);
         });
+
+
+        const editfileInput = document.getElementById('editfileInput');
+        const editfileListContainer = document.getElementById('editfileListContainer');
+
+        let edituploadedFiles = [];
+
+
+        editfileInput.addEventListener('change', (event) => {
+            console.log(edituploadedFiles)
+            const newFiles = Array.from(event.target.files);
+            edituploadedFiles = [...edituploadedFiles, ...newFiles];
+            editfileInput.value = '';
+            renderFileListedit();
+        });
+
+
+        function renderFileListedit() {
+            editfileListContainer.innerHTML = '';
+            edituploadedFiles.forEach((file, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.classList.add('my-2');
+
+                const fileName = document.createElement('span');
+                fileName.textContent = file.name;
+
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.classList.add('btn', 'btn-danger', 'btn-sm', 'ml-2');
+                removeButton.setAttribute('type', 'button');
+                removeButton.onclick = () => removeFileedit(index);
+
+                fileItem.appendChild(fileName);
+                fileItem.appendChild(removeButton);
+                editfileListContainer.appendChild(fileItem);
+            });
+        }
+
+
+        function removeFileedit(index) {
+            console.log(edituploadedFiles)
+            edituploadedFiles.splice(index, 1);
+            renderFileListedit();
+        }
+
+        document.querySelector('#editupdateform').addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            console.log(edituploadedFiles);
+
+            function fileListFrom(files) {
+                const b = new ClipboardEvent("").clipboardData || new DataTransfer()
+                for (const file of files) b.items.add(file)
+                return b.files
+            }
+
+            const fileList = fileListFrom(edituploadedFiles)
+
+            var fileInputelement = document.getElementById('editfileInput');
+            fileInputelement.files = fileList;
+
+            setTimeout(() => {
+                event.target.submit();
+            }, 500);
+        });
+
     </script>
 @endsection
 

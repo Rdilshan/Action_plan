@@ -430,7 +430,7 @@ class TaskController extends Controller
     {
         $updates = updateTask::where('task_id', $id)->get();
         $task = Task::find($id);
-        return view('user.Yearupdate', compact('updates', 'id','task'));
+        return view('user.Yearupdate', compact('updates', 'id', 'task'));
     }
 
     public function updatedeletetask(Request $request, $id)
@@ -463,6 +463,41 @@ class TaskController extends Controller
     {
         $Task = updateTask::findOrFail($id);
         return response()->json($Task);
+    }
+
+
+    public function editupdatesubmitform(Request $request)
+    {
+
+        // dd($request->all());
+
+        $fileNames = [];
+        if ($request->hasFile('editfiles')) {
+
+            foreach ($request->file('editfiles') as $file) {
+                if ($file->isValid()) {
+                    $filename = time() . '_' . $file->getClientOriginalName();
+
+                    $file->storeAs('uploads', $filename, 'public');
+                    $fileNames[] = $filename;
+                }
+            }
+        }
+
+        $updatetask = updateTask::findOrFail($request->editid);
+        $extingfile = json_decode($updatetask->files);
+
+        $allfile = array_merge($extingfile, $fileNames);
+
+        $updatetask->update([
+            'year' => $request->edityear,
+            'percentage' => $request->editpercentage,
+            'files' => json_encode($allfile)
+        ]);
+
+        return redirect('/yearbyyear/1');
+
+
     }
 
 }

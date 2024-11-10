@@ -97,6 +97,8 @@ Route::middleware(['login'])->group(function () {
     Route::post('/updatesubmitform/{id}', action: [TaskController::class, 'updatetasksubmit']);
     Route::delete('/updatedeletetask/{id}', [TaskController::class, 'updatedeletetask'])->middleware('checkUser');
     Route::post('/updateReviewintask/{id}', action: [TaskController::class, 'updatereviewadd'])->middleware('checkUser');
+    Route::post('/editupdatesubmitform', action: [TaskController::class, 'editupdatesubmitform'])->middleware('checkUser');
+
     Route::get('/gettheoneedit/{id}', action: [TaskController::class, 'updatetaskget'])->middleware('checkUser');
 
     //user route end here
