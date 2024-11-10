@@ -14,7 +14,9 @@ use App\Http\Controllers\WordController;
 
 Route::middleware(['login'])->group(function () {
     // admin route start here
-    Route::get('/', function () {return view('welcome');})->middleware('checkAdmin');
+    // Route::get('/', function () {return view('welcome');})->middleware('checkAdmin');
+    Route::get('/', [TreeController::class, 'welcomeindex'])->middleware('checkAdmin');
+
     Route::get('/test', function () {return view('test');});
     Route::get('/useradding', [RoleController::class, 'index'])->middleware('checkAdmin');
     Route::post('/useradding', [UserController::class, 'register'])->middleware('checkAdmin');
@@ -71,7 +73,7 @@ Route::middleware(['login'])->group(function () {
 
     //view task on user side & admin side
     Route::get('/listTask', [TaskController::class, 'owntasklist'])->middleware('checkUser');
-    Route::delete('/deletetask/{id}', [TaskController::class, 'deleteTask'])->middleware('checkUser');
+    Route::delete('/deletetask/{id}', [TaskController::class, 'deleteTask']);
     Route::get('/viewTask/{id}/{id2}', [TaskController::class, 'selecttasklist'])->middleware('checkAdmin');
 
     //task edit by user
