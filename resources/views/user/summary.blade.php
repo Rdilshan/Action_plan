@@ -225,11 +225,10 @@
 
         $('#large-Modal').on('hidden.bs.modal', function() {
 
-            const newRow = document.querySelector('tr.new-row');
-            if (newRow) {
-                newRow.remove();
-            }
-
+            const newRows = document.querySelectorAll('tr.new-row');
+            newRows.forEach(row => {
+                row.remove();
+            });
 
             $('#large-Modal textarea').val('');
             $('#taskid').val('');
@@ -340,6 +339,14 @@
                         // Append the new row to the table's tbody
                         document.querySelector('tbody').appendChild(newRow);
                     }
+                } else {
+                    const newRow = document.createElement('tr');
+                    newRow.classList.add('new-row');
+
+                    const kpiCell = document.createElement('td');
+                    kpiCell.textContent = "No Data Found";
+                    newRow.appendChild(kpiCell);
+                    document.querySelector('tbody').appendChild(newRow);
                 }
 
                 const modalTriggerElement = document.getElementById('large-Modal');
