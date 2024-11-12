@@ -21,11 +21,6 @@
                     </a>
                 </li>
 
-                <li class=" ">
-                    <a href="{{ url('/admin_addtask') }}">
-                        <span class="pcoded-mtext">Add Task</span>
-                    </a>
-                </li>
 
                 {{-- <li class=" ">
                     <a href="form-elements-add-on.htm">
@@ -75,6 +70,29 @@
                 <span class="pcoded-mtext">Navigation</span>
             </a>
         </li> --}}
+
+
+        <li class="pcoded-hasmenu" dropdown-icon="style1" subitem-icon="style1">
+            <a href="javascript:void(0)">
+                <span class="pcoded-micon"><i class="feather icon-menu"></i></span>
+                <span class="pcoded-mtext">Task Management</span>
+            </a>
+            <ul class="pcoded-submenu">
+                <li class=" ">
+                    <a href="{{ url('/admin_alltask') }}">
+                        <span class="pcoded-mtext">View Task</span>
+                    </a>
+                </li>
+
+                <li class=" ">
+                    <a href="{{ url('/admin_addtask') }}">
+                        <span class="pcoded-mtext">Add Task</span>
+                    </a>
+                </li>
+
+
+            </ul>
+        </li>
 
     </ul>
 

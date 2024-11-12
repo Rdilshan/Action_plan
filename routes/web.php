@@ -59,6 +59,9 @@ Route::middleware(['login'])->group(function () {
     Route::get('/admin/addnewtask/second', function () {return view('Tabledatainsert');})->middleware('checkAdmin');
     Route::post('/admin/addnewtask/final', [TaskController::class, 'AdminstoreFinalForm'])->middleware('checkAdmin');
 
+    //view all task
+    Route::get('/admin_alltask', [TaskController::class, 'Adminviewalltask'])->middleware('checkAdmin');
+
     Route::get('/admin_addtask', [HierarchyController::class, 'admingetallGoaltouser'])->middleware('checkAdmin');
 
 

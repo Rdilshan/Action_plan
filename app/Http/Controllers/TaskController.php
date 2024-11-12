@@ -100,6 +100,12 @@ class TaskController extends Controller
         return view('user.AllTaskview', compact('tasks'));
     }
 
+    public function Adminviewalltask(Request $request)
+    {
+        $tasks = Task::all();
+        return view('All_task', compact('tasks'));
+    }
+
     public function selecttasklist($id, $name)
     {
         $tasks = Task::where('subaction_id', $id)->get();
