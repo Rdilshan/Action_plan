@@ -181,5 +181,9 @@
         async function TaskEditing(id) {
             window.location.href = `/admin/edit/task/${id}`;
         }
+
+        async function TaskUpdate(id) {
+            window.location.href = `/admin/yearbyyear/${id}`;
+        }
     </script>
 @endsection

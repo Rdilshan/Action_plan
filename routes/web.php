@@ -66,6 +66,11 @@ Route::middleware(['login'])->group(function () {
     Route::get('/admin/edit/task/{id}', [TaskController::class, 'admineditTask'])->middleware('checkAdmin');
     Route::post('/admin/edit/task/{id}', [TaskController::class, 'adminupdateTask'])->middleware('checkAdmin');
 
+    //update
+    Route::get('/admin/yearbyyear/{id}', [TaskController::class, 'Adminupdatesget'])->middleware('checkAdmin');
+    Route::post('/admin/updatesubmitform/{id}', action: [TaskController::class, 'adminupdatetasksubmit'])->middleware('checkAdmin');
+    Route::post('/admin/editupdatesubmitform', action: [TaskController::class, 'admineditupdatesubmitform'])->middleware('checkAdmin');
+
 
     // admin route end here
 
@@ -112,11 +117,11 @@ Route::middleware(['login'])->group(function () {
     Route::get('/yearbyyear/{id}', [TaskController::class, 'updatesget'])->middleware('checkUser');
 
     Route::post('/updatesubmitform/{id}', action: [TaskController::class, 'updatetasksubmit']);
-    Route::delete('/updatedeletetask/{id}', [TaskController::class, 'updatedeletetask'])->middleware('checkUser');
+    Route::delete('/updatedeletetask/{id}', [TaskController::class, 'updatedeletetask']);  //admin and user both
     Route::post('/updateReviewintask/{id}', action: [TaskController::class, 'updatereviewadd']); //admin and user both
     Route::post('/editupdatesubmitform', action: [TaskController::class, 'editupdatesubmitform'])->middleware('checkUser');
 
-    Route::get('/gettheoneedit/{id}', action: [TaskController::class, 'updatetaskget'])->middleware('checkUser');
+    Route::get('/gettheoneedit/{id}', action: [TaskController::class, 'updatetaskget']); //admin and user both
 
     //user route end here
 });

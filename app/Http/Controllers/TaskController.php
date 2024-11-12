@@ -756,6 +756,34 @@ class TaskController extends Controller
 
     }
 
+    public function adminupdatetasksubmit(Request $request, $id)
+    {
+        $fileNames = [];
+        if ($request->hasFile('files')) {
+
+            foreach ($request->file('files') as $file) {
+                if ($file->isValid()) {
+                    $filename = time() . '_' . $file->getClientOriginalName();
+
+                    $file->storeAs('uploads', $filename, 'public');
+                    $fileNames[] = $filename;
+                }
+            }
+        }
+
+        $updateTask = updateTask::create([
+            'task_id' => $id,
+            'year' => $request->year,
+            'KPI' => $request->KPI,
+            'percentage' => $request->percentage,
+            'files' => json_encode($fileNames)
+        ]);
+
+        // dd($request->all(), $fileNames, $id,$updateTask);
+        return redirect('/admin_alltask');
+
+    }
+
     public function updatesget($id)
     {
         $updates = updateTask::where('task_id', $id)->get();
@@ -763,6 +791,12 @@ class TaskController extends Controller
         return view('user.Yearupdate', compact('updates', 'id', 'task'));
     }
 
+    public function Adminupdatesget($id)
+    {
+        $updates = updateTask::where('task_id', $id)->get();
+        $task = Task::find($id);
+        return view('Yearupdate', compact('updates', 'id', 'task'));
+    }
     public function updatedeletetask(Request $request, $id)
     {
         $Task = updateTask::findOrFail($id);
@@ -815,6 +849,7 @@ class TaskController extends Controller
         }
 
         $updatetask = updateTask::findOrFail($request->editid);
+        $id = $updatetask->task_id;
         $extingfile = json_decode($updatetask->files);
 
         $allfile = array_merge($extingfile, $fileNames);
@@ -825,7 +860,42 @@ class TaskController extends Controller
             'files' => json_encode($allfile)
         ]);
 
-        return redirect('/yearbyyear/1');
+        return redirect(`/yearbyyear/`.$id);
+
+
+    }
+
+    public function admineditupdatesubmitform(Request $request)
+    {
+
+        // dd($request->all());
+
+        $fileNames = [];
+        if ($request->hasFile('editfiles')) {
+
+            foreach ($request->file('editfiles') as $file) {
+                if ($file->isValid()) {
+                    $filename = time() . '_' . $file->getClientOriginalName();
+
+                    $file->storeAs('uploads', $filename, 'public');
+                    $fileNames[] = $filename;
+                }
+            }
+        }
+
+        $updatetask = updateTask::findOrFail($request->editid);
+        $id = $updatetask->task_id;
+        $extingfile = json_decode($updatetask->files);
+
+        $allfile = array_merge($extingfile, $fileNames);
+
+        $updatetask->update([
+            'year' => $request->edityear,
+            'percentage' => $request->editpercentage,
+            'files' => json_encode($allfile)
+        ]);
+
+        return redirect("/admin/yearbyyear/" . $id);
 
 
     }
