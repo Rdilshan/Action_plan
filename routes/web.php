@@ -52,6 +52,9 @@ Route::middleware(['login'])->group(function () {
     Route::post('/addSubaction', [HierarchyController::class, 'addSubaction'])->middleware('checkAdmin');
     Route::delete('/deleteSubaction/{id}', [HierarchyController::class, 'deleteSubaction'])->middleware('checkAdmin');
     Route::put('/editSubaction/{id}', [HierarchyController::class, 'editSubaction'])->middleware('checkAdmin');
+
+    Route::get('/admin_addtask', [HierarchyController::class, 'admingetallGoaltouser'])->middleware('checkAdmin');
+
     // admin route end here
 
     //user route start here
@@ -98,7 +101,7 @@ Route::middleware(['login'])->group(function () {
 
     Route::post('/updatesubmitform/{id}', action: [TaskController::class, 'updatetasksubmit']);
     Route::delete('/updatedeletetask/{id}', [TaskController::class, 'updatedeletetask'])->middleware('checkUser');
-    Route::post('/updateReviewintask/{id}', action: [TaskController::class, 'updatereviewadd'])->middleware('checkUser');
+    Route::post('/updateReviewintask/{id}', action: [TaskController::class, 'updatereviewadd']); //admin and user both
     Route::post('/editupdatesubmitform', action: [TaskController::class, 'editupdatesubmitform'])->middleware('checkUser');
 
     Route::get('/gettheoneedit/{id}', action: [TaskController::class, 'updatetaskget'])->middleware('checkUser');

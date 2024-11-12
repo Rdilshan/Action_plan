@@ -442,7 +442,7 @@ class TaskController extends Controller
     }
     public function updatereviewadd(Request $request, $id)
     {
-        $userid = auth()->user()->id;
+        $userid = auth()->user()->fname;
         $review = $request->input('review');
 
         $task = Task::findOrFail($id);
