@@ -61,7 +61,7 @@ Route::middleware(['login'])->group(function () {
 
     //view all task
     Route::get('/admin_alltask', [TaskController::class, 'Adminviewalltask'])->middleware('checkAdmin');
-
+    Route::get('/admin/view/user/task/{id}', [TaskController::class, 'adminvieweoncetTask'])->middleware('checkAdmin');
     Route::get('/admin_addtask', [HierarchyController::class, 'admingetallGoaltouser'])->middleware('checkAdmin');
 
 

@@ -171,7 +171,7 @@
         });
 
         async function TaskEdit(id) {
-            window.location.href = `/view/user/task/${id}`;
+            window.location.href = `/admin/view/user/task/${id}`;
         }
 
         async function Createword(id) {
