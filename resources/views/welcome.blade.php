@@ -1,7 +1,5 @@
-
 @extends('layout.layout')
 @section('contend')
-
     <!-- animation nifty modal window effects css -->
     <link rel="stylesheet" type="text/css" href="{{ url('assets\css\component.css') }}" />
     <!-- Treeview css -->
@@ -9,93 +7,93 @@
     <link rel="stylesheet" type="text/css" href="{{ url('assets\pages\treeview\treeview.css') }}">
 
 
-<div class="pcoded-content">
-    <div class="pcoded-inner-content">
-        <div class="main-body">
-            <div class="page-wrapper">
-                <!-- Page-header start -->
-                <div class="page-header">
-                    <div class="row align-items-end">
-                        <div class="col-lg-8">
-                            <div class="page-header-title">
-                                <div class="d-inline">
-                                    <h4>Full view of tasks</h4>
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- Page-header start -->
+                    <div class="page-header">
+                        <div class="row align-items-end">
+                            <div class="col-lg-8">
+                                <div class="page-header-title">
+                                    <div class="d-inline">
+                                        <h4>Full view of tasks</h4>
 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="page-header-breadcrumb">
+                                    <ul class="breadcrumb-title">
+                                        <li class="breadcrumb-item">
+                                            <a href="index-1.htm"> <i class="feather icon-home"></i>
+                                            </a>
+                                        </li>
+                                        <li class="breadcrumb-item"><a href="#!">Form </a>
+                                        </li>
+                                        <li class="breadcrumb-item"><a href="#!">Form </a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="page-header-breadcrumb">
-                                <ul class="breadcrumb-title">
-                                    <li class="breadcrumb-item">
-                                        <a href="index-1.htm"> <i class="feather icon-home"></i>
-                                        </a>
-                                    </li>
-                                    <li class="breadcrumb-item"><a href="#!">Form </a>
-                                    </li>
-                                    <li class="breadcrumb-item"><a href="#!">Form </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
-                </div>
-                <!-- Page-header end -->
+                    <!-- Page-header end -->
 
-                <!-- Page body start -->
-                <div class="page-body">
-                    <div class="row">
-                        <div class="col-sm-12">
+                    <!-- Page body start -->
+                    <div class="page-body">
+                        <div class="row">
+                            <div class="col-sm-12">
 
-                            <div class="modal fade" id="large-Modal" tabindex="-1" role="dialog"
-                                style="z-index: 1050; display: none;" aria-hidden="true">
-                                <div class="modal-dialog modal-lg" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Task Details</h4>
+                                <div class="modal fade" id="large-Modal" tabindex="-1" role="dialog"
+                                    style="z-index: 1050; display: none;" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Task Details</h4>
 
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
 
-                                                <span aria-hidden="true">×</span>
-                                            </button>
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
 
-                                        </div>
-                                        <div class="modal-body">
+                                            </div>
+                                            <div class="modal-body">
 
 
-                                            <div class="card-block">
+                                                <div class="card-block">
 
-                                                <div class="form-group row mt-3">
-                                                    <label class="col-sm-2 col-form-label">Responsible</label>
-                                                    <div class="col-10">
-                                                        <input type="text" name="responsible" style="width: 100%;"
-                                                            id="responsible" readonly>
+                                                    <div class="form-group row mt-3">
+                                                        <label class="col-sm-2 col-form-label">Responsible</label>
+                                                        <div class="col-10">
+                                                            <input type="text" name="responsible" style="width: 100%;"
+                                                                id="responsible" readonly>
+                                                        </div>
                                                     </div>
-                                                </div>
 
 
-                                                <div class="table-responsive">
-                                                    <table class="table table-xl">
-                                                        <thead>
-                                                            <tr>
+                                                    <div class="table-responsive">
+                                                        <table class="table table-xl">
+                                                            <thead>
+                                                                <tr>
 
-                                                                <th>KPI</th>
+                                                                    <th>KPI</th>
 
-                                                                <th>2024</th>
-                                                                <th>2025</th>
-                                                                <th>2026</th>
-                                                                <th>2027</th>
-                                                                <th>2028</th>
-                                                                <th>Evidences</th>
-
-
+                                                                    <th>2024</th>
+                                                                    <th>2025</th>
+                                                                    <th>2026</th>
+                                                                    <th>2027</th>
+                                                                    <th>2028</th>
+                                                                    <th>Evidences</th>
 
 
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {{-- <tr>
+
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {{-- <tr>
                                                                 <td id="kpi"></td>
                                                                 <td id="2024"> </td>
                                                                 <td id="2025"></td>
@@ -107,114 +105,122 @@
 
                                                             </tr> --}}
 
-                                                        </tbody>
-                                                    </table>
+                                                            </tbody>
+                                                        </table>
 
-                                                    <input type="hidden" name="taskid" id="taskid">
+                                                        <input type="hidden" name="taskid" id="taskid">
 
-                                                </div>
-
-                                                <div class="form-group row mt-3">
-                                                    <label class="col-sm-2 col-form-label">completion (%)</label>
-                                                    <div class="col-10">
-                                                        <input type="text" name="completion" style="width: 100%;"
-                                                            id="completion" readonly>
                                                     </div>
-                                                </div>
 
-                                                <div class="form-group row mt-3">
-                                                    <label class="col-sm-2 col-form-label">Review</label>
-                                                    <div class="col-sm-10">
-                                                        <textarea id="myTextarea" rows="5" cols="5" class="form-control" placeholder="Default textarea"></textarea>
+                                                    <div class="form-group row mt-3">
+                                                        <label class="col-sm-2 col-form-label">completion (%)</label>
+                                                        <div class="col-10">
+                                                            <input type="text" name="completion" style="width: 100%;"
+                                                                id="completion" readonly>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                {{-- <button class="btn btn-primary" type="button">Submit</button> --}}
-
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default waves-effect "
-                                                data-dismiss="modal">Close</button>
-                                            <button type="button" onclick="updateReviewadd()"
-                                                class="btn btn-primary waves-effect waves-light ">Save
-                                                changes</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-block">
-                                <div class="card-block tree-view">
-                                    <div id="basicTree">
-
-                                        <ul>
-                                            <li>Goals
-                                                <ul>
-                                                    @foreach ($dataset as $goal)
-                                                        <li>{{ $goal['name'] }}
-                                                            <ul>
-                                                                @foreach ($goal['objectives'] as $objective)
-                                                                    <li>{{ $objective['name'] }}
-                                                                        <ul>
-
-                                                                            @foreach ($objective['strategies'] as $strategy)
-                                                                                <li>{{ $strategy['name'] }}
-                                                                                    <ul>
-                                                                                        @foreach ($strategy['actions'] as $action)
-                                                                                            <li>{{ $action['name'] }}
-                                                                                                <ul>
-                                                                                                    @foreach ($action['subactions'] as $subaction)
-                                                                                                        <li>{{ $subaction['name'] }}
-                                                                                                            <ul>
-
-                                                                                                                @foreach ($subaction['tasks'] as $task)
-                                                                                                                    <li onclick="loadmodeldata({{ $task['id'] }})"
-                                                                                                                        data-jstree='{"type":"file"}'>
-                                                                                                                        <b>{{ $task['title'] }}
-                                                                                                                        </b>
-                                                                                                                    </li>
-                                                                                                                @endforeach
-
-                                                                                                            </ul>
-                                                                                                        </li>
-                                                                                                    @endforeach
-
-
-                                                                                                </ul>
-                                                                                            </li>
-                                                                                        @endforeach
-
-                                                                                    </ul>
-                                                                                </li>
-                                                                            @endforeach
-
-                                                                        </ul>
-                                                                    </li>
-                                                                @endforeach
+                                                    <div class="form-group row mt-3">
+                                                        <label class="col-sm-2 col-form-label">Avaiable Review</label>
+                                                        <div class="col-sm-10">
+                                                            <ul id="avaiableReview">
 
                                                             </ul>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            </li>
+                                                        </div>
+                                                    </div>
 
+                                                    <div class="form-group row mt-3">
+                                                        <label class="col-sm-2 col-form-label">Review</label>
+                                                        <div class="col-sm-10">
+                                                            <textarea id="myTextarea" rows="5" cols="5" class="form-control" placeholder="Default textarea"></textarea>
+                                                        </div>
+                                                    </div>
 
-                                        </ul>
+                                                    {{-- <button class="btn btn-primary" type="button">Submit</button> --}}
 
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default waves-effect "
+                                                    data-dismiss="modal">Close</button>
+                                                <button type="button" onclick="updateReviewadd()"
+                                                    class="btn btn-primary waves-effect waves-light ">Save
+                                                    changes</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
+                                <div class="card-block">
+                                    <div class="card-block tree-view">
+                                        <div id="basicTree">
+
+                                            <ul>
+                                                <li>Goals
+                                                    <ul>
+                                                        @foreach ($dataset as $goal)
+                                                            <li>{{ $goal['name'] }}
+                                                                <ul>
+                                                                    @foreach ($goal['objectives'] as $objective)
+                                                                        <li>{{ $objective['name'] }}
+                                                                            <ul>
+
+                                                                                @foreach ($objective['strategies'] as $strategy)
+                                                                                    <li>{{ $strategy['name'] }}
+                                                                                        <ul>
+                                                                                            @foreach ($strategy['actions'] as $action)
+                                                                                                <li>{{ $action['name'] }}
+                                                                                                    <ul>
+                                                                                                        @foreach ($action['subactions'] as $subaction)
+                                                                                                            <li>{{ $subaction['name'] }}
+                                                                                                                <ul>
+
+                                                                                                                    @foreach ($subaction['tasks'] as $task)
+                                                                                                                        <li onclick="loadmodeldata({{ $task['id'] }})"
+                                                                                                                            data-jstree='{"type":"file"}'>
+                                                                                                                            <b>{{ $task['title'] }}
+                                                                                                                            </b>
+                                                                                                                        </li>
+                                                                                                                    @endforeach
+
+                                                                                                                </ul>
+                                                                                                            </li>
+                                                                                                        @endforeach
+
+
+                                                                                                    </ul>
+                                                                                                </li>
+                                                                                            @endforeach
+
+                                                                                        </ul>
+                                                                                    </li>
+                                                                                @endforeach
+
+                                                                            </ul>
+                                                                        </li>
+                                                                    @endforeach
+
+                                                                </ul>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </li>
+
+
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
+                    <!-- Page body end -->
                 </div>
-                <!-- Page body end -->
             </div>
         </div>
     </div>
-</div>
-
 @endsection
 
 @section('scriptjs')
@@ -263,6 +269,17 @@
 
                 const data = await response.json();
                 // console.log(data);
+                const reviews = JSON.parse(data[0][0].review);
+                const ul = document.getElementById("avaiableReview");
+                ul.innerHTML = "";
+                // Loop through each review in the array and add it as a list item
+                reviews.forEach(review => {
+                    const li = document.createElement("li");
+                    li.innerHTML = `<b>${review[0]}</b> - ${review[1]}`;
+                    ul.appendChild(li);
+                });
+
+
 
                 document.getElementById('responsible').value = data[0][0].name;
                 document.getElementById('taskid').value = data[0][0].id;
