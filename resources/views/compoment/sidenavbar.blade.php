@@ -20,6 +20,13 @@
                         <span class="pcoded-mtext">View Goal</span>
                     </a>
                 </li>
+
+                <li class=" ">
+                    <a href="{{ url('/admin_addtask') }}">
+                        <span class="pcoded-mtext">Add Task</span>
+                    </a>
+                </li>
+
                 {{-- <li class=" ">
                     <a href="form-elements-add-on.htm">
                         <span class="pcoded-mtext">Create Goal</span>
@@ -62,12 +69,12 @@
 
             </ul>
         </li>
-        <li class="{{ Request::is('test') ? 'active' : '' }}">
+        {{-- <li class="{{ Request::is('test') ? 'active' : '' }}">
             <a href="{{ url('/test') }}">
                 <span class="pcoded-micon"><i class="feather icon-menu"></i></span>
                 <span class="pcoded-mtext">Navigation</span>
             </a>
-        </li>
+        </li> --}}
 
     </ul>
 

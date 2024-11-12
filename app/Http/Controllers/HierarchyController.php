@@ -253,6 +253,14 @@ class HierarchyController extends Controller
         return view('user.Selectpath', compact('goals'));
     }
 
+
+    public function admingetallGoaltouser(Request $request)
+    {
+        $goals = Goal::all();
+        return view('Addtask', compact('goals'));
+    }
+
+
     public function getallObjectivetouser($goalId)
     {
         $objectives = Objective::where('goal_id', $goalId)->pluck('name', 'id');

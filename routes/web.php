@@ -53,7 +53,14 @@ Route::middleware(['login'])->group(function () {
     Route::delete('/deleteSubaction/{id}', [HierarchyController::class, 'deleteSubaction'])->middleware('checkAdmin');
     Route::put('/editSubaction/{id}', [HierarchyController::class, 'editSubaction'])->middleware('checkAdmin');
 
+    //form
+    Route::get('/Admin/addnewtask/first', function () {return view('Admin_task_form');})->middleware('checkAdmin');
+    Route::post('/admin/addnewtask/first', [TaskController::class, 'Adminstore'])->middleware('checkAdmin');
+    Route::get('/admin/addnewtask/second', function () {return view('Tabledatainsert');})->middleware('checkAdmin');
+    Route::post('/admin/addnewtask/final', [TaskController::class, 'AdminstoreFinalForm'])->middleware('checkAdmin');
+
     Route::get('/admin_addtask', [HierarchyController::class, 'admingetallGoaltouser'])->middleware('checkAdmin');
+
 
     // admin route end here
 
@@ -61,10 +68,10 @@ Route::middleware(['login'])->group(function () {
     Route::get('/user',[UserController::class, 'dashboardDataload'] )->middleware('checkUser');
 
     Route::get('/addtask', [HierarchyController::class, 'getallGoaltouser'])->middleware('checkUser');
-    Route::get('/getObjectives/{goalId}', [HierarchyController::class, 'getallObjectivetouser']) ->middleware('checkUser');
-    Route::get('/getStrategy/{objective}', [HierarchyController::class, 'getallgetStrategytouser'])->middleware('checkUser');
-    Route::get('/getAction/{strategy}', [HierarchyController::class, 'getallgetActiontouser'])->middleware('checkUser');
-    Route::get('/getSubAction/{action}', [HierarchyController::class, 'getallgetSubActiontouser'])->middleware('checkUser');
+    Route::get('/getObjectives/{goalId}', [HierarchyController::class, 'getallObjectivetouser']) ;//admin and user both
+    Route::get('/getStrategy/{objective}', [HierarchyController::class, 'getallgetStrategytouser']);//admin and user both
+    Route::get('/getAction/{strategy}', [HierarchyController::class, 'getallgetActiontouser']);//admin and user both
+    Route::get('/getSubAction/{action}', [HierarchyController::class, 'getallgetSubActiontouser']);//admin and user both
 
     //user add the new task
     Route::get('/addnewtask/first', function () {return view('user.TaskAdding');})->middleware('checkUser');

@@ -31,7 +31,7 @@
                         </div>
                         <ul class="show-notification profile-notification dropdown-menu"
                             data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                            <li>
+                            {{-- <li>
                                 <a href="#!">
                                     <i class="feather icon-settings"></i> Settings
                                 </a>
@@ -50,7 +50,7 @@
                                 <a href="auth-lock-screen.htm">
                                     <i class="feather icon-lock"></i> Lock Screen
                                 </a>
-                            </li>
+                            </li> --}}
                             <li>
                                 <a href="{{ url('/logout') }}">
                                     <i class="feather icon-log-out"></i> Logout
