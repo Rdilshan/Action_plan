@@ -386,6 +386,38 @@ class TaskController extends Controller
         return view('user.EditTask1', compact('task', 'goals', 'funding', 'expense', 'subaction_name', 'action_name', 'strategy_name', 'objective_name', 'goal_name'));
     }
 
+    public function admineditTask($id)
+    {
+
+        $task = Task::find($id);
+        $goals = Goal::all();
+        $funding = funding::where('task_id', $id)->get();
+        $expense = Expense::where('task_id', $id)->get();
+
+        $subaction_id = $task->subaction_id;
+        $subaction = Subaction::find($subaction_id);
+        $subaction_name = $subaction->name;
+
+        $action_id = $subaction->action_id;
+        $action = Action::find($action_id);
+        $action_name = $action->name;
+
+        $Strategy_id = $action->strategy_id;
+        $strategy = Strategy::find($Strategy_id);
+        $strategy_name = $strategy->name;
+
+        $Objective_id = $strategy->objective_id;
+        $objective = Objective::find($Objective_id);
+        $objective_name = $objective->name;
+
+        $goal_id = $objective->goal_id;
+        $goal = Goal::find($goal_id);
+        $goal_name = $goal->name;
+
+
+        return view('EditTask', compact('task', 'goals', 'funding', 'expense', 'subaction_name', 'action_name', 'strategy_name', 'objective_name', 'goal_name'));
+    }
+
     public function vieweoncetTask($id)
     {
 
@@ -577,6 +609,122 @@ class TaskController extends Controller
         ]);
 
         return redirect('/listTask');
+
+    }
+
+
+    public function adminupdateTask(Request $request, $id)
+    {
+        $task = Task::find($id);
+        $taskId = $task->id;
+
+
+        if ($request->input('subaction') == 'opt1') {
+            $subaction_id = $task->subaction_id;
+        } else {
+            $subaction_id = $request->input('subaction');
+        }
+
+        if ($request->file('file') != null) {
+
+            if ($request->hasFile('file') && $request->file('file')->isValid()) {
+                $file = $request->file('file');
+                $filepath = $file->store('uploads', 'public');
+
+            }
+        } else {
+            $filepath = $task->File;
+        }
+
+
+        if ($request->input('FundingDate') != null) {
+
+            $fundingData = $request->input('FundingDate');
+
+            foreach ($fundingData as $row) {
+
+                $fundingdata = funding::create([
+                    'name' => $row['item'],
+                    'unit' => $row['unit'],
+                    'unit_charge' => $row['unitCharge'],
+                    'amount' => $row['amount'],
+                    'task_id' => $taskId
+                ]);
+            }
+
+        }
+
+
+
+        if ($request->input('AccommodationtDate') != null) {
+            $AccommodationtDate = $request->input('AccommodationtDate');
+
+            foreach ($AccommodationtDate as $row) {
+
+                $accommodationtabledata = Expense::create([
+                    'name' => $row['Accommodation'],
+                    'Type' => 'Accommodation',
+                    'no_unit' => $row['nfperson'],
+                    'no_days' => $row['nfday'],
+                    'unit_cost' => $row['unit'],
+                    'amount' => $row['total'],
+                    'task_id' => $taskId
+                ]);
+            }
+        }
+
+
+
+        if ($request->input('TransportDate') != null) {
+            $TransportDate = $request->input('TransportDate');
+
+            foreach ($TransportDate as $row) {
+
+                $transporttabledata = Expense::create([
+                    'name' => $row['Transport'],
+                    'Type' => 'Transport',
+                    'no_unit' => $row['nfvehical'],
+                    'totalKM' => $row['totalkm'],
+                    'unit_cost' => $row['unit'],
+                    'amount' => $row['total'],
+                    'task_id' => $taskId
+                ]);
+            }
+
+        }
+
+        if ($request->input('OtherDate') != null) {
+            $OtherDate = $request->input('OtherDate');
+
+            foreach ($OtherDate as $row) {
+
+                $othertabledata = Expense::create([
+                    'name' => $row['Others'],
+                    'Type' => 'Others',
+                    'no_unit' => $row['Quantity'],
+                    'no_days' => $row['nfday'],
+                    'unit_cost' => $row['unit'],
+                    'amount' => $row['total'],
+                    'task_id' => $taskId
+                ]);
+
+            }
+        }
+
+
+
+        $task->update([
+            'Title' => $request->input('title'),
+            'startDate' => $request->input('start_date'),
+            'endDate' => $request->input('end_date'),
+            'introduction' => $request->input('introduction'),
+            'File' => $filepath,
+            'name' => $request->input('name'),
+            'subaction_id' => $subaction_id,
+            'Note' => $request->input('Note')
+        ]);
+
+        return redirect('/admin_alltask');
 
     }
 

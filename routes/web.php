@@ -63,6 +63,8 @@ Route::middleware(['login'])->group(function () {
     Route::get('/admin_alltask', [TaskController::class, 'Adminviewalltask'])->middleware('checkAdmin');
     Route::get('/admin/view/user/task/{id}', [TaskController::class, 'adminvieweoncetTask'])->middleware('checkAdmin');
     Route::get('/admin_addtask', [HierarchyController::class, 'admingetallGoaltouser'])->middleware('checkAdmin');
+    Route::get('/admin/edit/task/{id}', [TaskController::class, 'admineditTask'])->middleware('checkAdmin');
+    Route::post('/admin/edit/task/{id}', [TaskController::class, 'adminupdateTask'])->middleware('checkAdmin');
 
 
     // admin route end here
@@ -90,7 +92,7 @@ Route::middleware(['login'])->group(function () {
     Route::get('/viewTask/{id}/{id2}', [TaskController::class, 'selecttasklist'])->middleware('checkAdmin');
 
     //task edit by user
-    Route::get('/edit/task/{id}', [TaskController::class, 'editTask']);
+    Route::get('/edit/task/{id}', [TaskController::class, 'editTask'])->middleware('checkUser');
     Route::delete('/deleteTabledata/{id1}/{id2}', [TaskController::class, 'deleteTabledata']);
     Route::post('/edit/task/{id}', [TaskController::class, 'updateTask']);
 

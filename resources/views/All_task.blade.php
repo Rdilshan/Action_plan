@@ -80,19 +80,19 @@
                                                         </label>
 
 
-                                                        <label class="label bg-success" onclick="TaskEdit(1)"
+                                                        <label class="label bg-success" onclick="TaskEditing({{ $task->id }})"
                                                             style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 5px; margin: 5px; cursor: pointer; text-align: center; background-color: green;">
                                                             <i class="icofont icofont-pencil-alt-5"
                                                                 style="font-size: 20px; color: white;"></i>
                                                         </label>
 
-                                                        <span class="label label-danger" onclick="Taskdelete(1)"
+                                                        <span class="label label-danger" onclick="Taskdelete({{ $task->id }})"
                                                             style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 5px; margin: 5px; cursor: pointer; text-align: center; background-color: red;">
                                                             <i class="icofont icofont-ui-delete"
                                                                 style="font-size: 20px; color: white;"></i>
                                                         </span>
 
-                                                        <label class="label" onclick="TaskUpdate(1)"
+                                                        <label class="label" onclick="TaskUpdate({{ $task->id }})"
                                                             style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 5px; margin: 5px; cursor: pointer; text-align: center; background-color: rgb(79, 79, 245);">
                                                             <i class="icofont icofont-recycle"
                                                                 style="font-size: 20px; color: white;"></i>
@@ -176,6 +176,10 @@
 
         async function Createword(id) {
             window.open(`/word/${id}`, '_blank');
+        }
+
+        async function TaskEditing(id) {
+            window.location.href = `/admin/edit/task/${id}`;
         }
     </script>
 @endsection
