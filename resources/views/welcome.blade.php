@@ -269,15 +269,21 @@
 
                 const data = await response.json();
                 // console.log(data);
-                const reviews = JSON.parse(data[0][0].review);
-                const ul = document.getElementById("avaiableReview");
-                ul.innerHTML = "";
-                // Loop through each review in the array and add it as a list item
-                reviews.forEach(review => {
-                    const li = document.createElement("li");
-                    li.innerHTML = `<b>${review[0]}</b> - ${review[1]}`;
-                    ul.appendChild(li);
-                });
+                const reviewData = data[0][0].review;
+                if (reviewData) {
+                    const reviews = JSON.parse(reviewData);
+                    const ul = document.getElementById("avaiableReview");
+                    ul.innerHTML = "";
+                    reviews.forEach(review => {
+                        const li = document.createElement("li");
+                        li.innerHTML = `<b>${review[0]}</b> - ${review[1]}`;
+                        ul.appendChild(li);
+                    });
+                } else {
+
+                    const ul = document.getElementById("avaiableReview");
+                    ul.innerHTML = "<li>No reviews available.</li>";
+                }
 
 
 
