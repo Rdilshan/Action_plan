@@ -17,7 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'login'=>\App\Http\Middleware\LoginUser::class,
             'checkAdmin'=>\App\Http\Middleware\CheckadminMiddleware::class,
             'checkUser'=>\App\Http\Middleware\Checkuser::class,
-
+            'cors' => \App\Http\Middleware\Cors::class
 
         ]);
         //
