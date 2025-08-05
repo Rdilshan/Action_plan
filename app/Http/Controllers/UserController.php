@@ -18,10 +18,19 @@ class UserController extends Controller
 {
     public function login(Request $request)
     {
-        $user = User::where('email', $request->email)->first();
+        // Validate the request
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-        if ($user && Hash::check($request->password, $user->password)) {
-            Auth::login($user);
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            // Regenerate session to prevent session fixation attacks
+            $request->session()->regenerate();
+            
+            $user = Auth::user();
             $role = $user->role;
 
             if($role == 1) {
@@ -35,8 +44,7 @@ class UserController extends Controller
         } else {
             return redirect()->back()
                              ->withInput($request->only('email'))
-                             ->with('error', 'Invalid email or password.');
-
+                             ->withErrors(['email' => 'Invalid email or password.']);
         }
     }
 
@@ -111,7 +119,7 @@ class UserController extends Controller
         $mytaskcount = $mytasks->count();
 
 
-        return view('user.dashboard', compact('goalCount', 'taskCount','formattedTime','mytaskcount'));
+        return view('user.Dashboard', compact('goalCount', 'taskCount','formattedTime','mytaskcount'));
 
 
     }
