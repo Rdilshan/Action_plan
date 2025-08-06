@@ -8,11 +8,21 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TreeController;
 use App\Http\Controllers\WordController;
 
+// Public routes (no authentication required)
+Route::middleware(['web'])->group(function () {
+    Route::get('/login', function () {
+        return view('Login');
+    });
 
+    Route::post('/login', [UserController::class, 'login']);
+    Route::get('/logout', [UserController::class, 'logout']);
+    Route::get('/unauthorized', function () {
+        return view('Authentication.unauthorized');
+    });
+});
 
-
-
-Route::middleware(['login', 'cors'])->group(function () {
+// Protected routes (authentication required)
+Route::middleware(['web', 'login'])->group(function () {
     // admin route start here
     // Route::get('/', function () {return view('welcome');})->middleware('checkAdmin');
     Route::get('/', [TreeController::class, 'welcomeindex'])->middleware('checkAdmin');
@@ -127,19 +137,6 @@ Route::middleware(['login', 'cors'])->group(function () {
         return response()->json(['message' => 'CORS is working!', 'time' => now()]);
     });
     //user route end here
-});
-
-// Add CORS to public routes as well
-Route::middleware(['cors'])->group(function () {
-    Route::get('/login', function () {
-        return view('login');
-    });
-
-    Route::post('/login', [UserController::class, 'login']);
-    Route::get('/logout', [UserController::class, 'logout']);
-    Route::get('/unauthorized', function () {
-        return view('Authentication.unauthorized');
-    });
 });
 
 

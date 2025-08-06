@@ -11,10 +11,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // Enable CSRF protection for web routes
-        $middleware->web(append: [
-            \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
-        ]);
+
 
         $middleware->alias([
             'login'=>\App\Http\Middleware\LoginUser::class,
