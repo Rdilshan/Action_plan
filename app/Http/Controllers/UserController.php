@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\userRegMail;
+use App\Mail\OtpMail;
 use App\Models\Goal;
 use App\Models\Task;
 use App\Models\Otp;
@@ -171,8 +172,7 @@ class UserController extends Controller
                 'name' => $user->fname . ' ' . $user->lname
             ];
 
-            // TODO: Create OTP mail template
-            // Mail::to($request->email)->send(new OtpMail($data));
+            Mail::to($request->email)->send(new OtpMail($data));
 
             return response()->json([
                 'success' => true,
