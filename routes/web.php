@@ -35,6 +35,19 @@ Route::middleware(['web'])->group(function () {
 
 // Protected routes (authentication required)
 Route::middleware(['web', 'login'])->group(function () {
+    // Password change routes (available to all logged-in users)
+    Route::get('/password-change', function () {
+        $user = Auth::user();
+        if ($user->role == 1) {
+            // Admin
+            return view('password-change');
+        } else {
+            // Regular user
+            return view('user.password-change');
+        }
+    });
+    Route::post('/password-change', [UserController::class, 'changePassword']);
+
     // admin route start here
     // Route::get('/', function () {return view('welcome');})->middleware('checkAdmin');
     Route::get('/', [TreeController::class, 'welcomeindex'])->middleware('checkAdmin');
