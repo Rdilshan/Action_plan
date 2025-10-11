@@ -46,7 +46,7 @@ class UserController extends Controller
         } else {
             return redirect()->back()
                 ->withInput($request->only('email'))
-                ->withErrors(['email' => 'Invalid email or password.']);
+                ->withErrors(['email' => 'Your email or password is incorrect. Please try again.']);
         }
     }
 

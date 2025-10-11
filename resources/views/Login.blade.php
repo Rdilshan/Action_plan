@@ -17,6 +17,32 @@
     <link rel="stylesheet" type="text/css" href="{{url('assets\icon\themify-icons\themify-icons.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url('assets\icon\icofont\css\icofont.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url('assets\css\style.css')}}">
+    <style>
+        .alert {
+            border-radius: 4px;
+            margin-bottom: 20px;
+            padding: 15px;
+            animation: slideDown 0.3s ease-out;
+        }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .form-control-danger {
+            border-color: #f44236 !important;
+        }
+        .messages {
+            display: block;
+            margin-top: 5px;
+            font-size: 12px;
+        }
+    </style>
 </head>
 
 <body class="fix-menu">
@@ -42,25 +68,54 @@
                                     </div>
                                      <!-- Display error message -->
                                 @if(session('error'))
-                                <div class="alert alert-danger" role="alert">
-                                    {{ session('error') }}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong><i class="icofont icofont-warning"></i> Error!</strong> {{ session('error') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                @endif
+
+                                <!-- Display validation errors -->
+                                @if($errors->any())
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong><i class="icofont icofont-warning"></i> Login Failed!</strong>
+                                    <ul style="margin-bottom: 0; margin-top: 10px;">
+                                        @foreach($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
                                 @endif
 
                                 <!-- Display success message -->
                                 @if(session('success'))
-                                <div class="alert alert-success" role="alert">
-                                    {{ session('success') }}
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong><i class="icofont icofont-check"></i> Success!</strong> {{ session('success') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
                                 @endif
 
                                     <div class="form-group form-primary">
-                                        <input type="text" name="email" class="form-control" required="" placeholder="Your Email Address">
+                                        <input type="text" name="email" class="form-control @error('email') form-control-danger @enderror"
+                                            required="" placeholder="Your Email Address" value="{{ old('email') }}">
                                         <span class="form-bar"></span>
+                                        @error('email')
+                                            <span class="messages text-danger"><strong>{{ $message }}</strong></span>
+                                        @enderror
                                     </div>
                                     <div class="form-group form-primary">
-                                        <input type="password" name="password" class="form-control" required="" placeholder="Password">
+                                        <input type="password" name="password" class="form-control @error('password') form-control-danger @enderror"
+                                            required="" placeholder="Password">
                                         <span class="form-bar"></span>
+                                        @error('password')
+                                            <span class="messages text-danger"><strong>{{ $message }}</strong></span>
+                                        @enderror
                                     </div>
                                     <div class="row m-t-25 text-left">
                                         <div class="col-12">
@@ -92,6 +147,17 @@
             </div>
         </div>
     </section>
+
+    <!-- Required JavaScript -->
+    <script src="{{url('bower_components/jquery/js/jquery.min.js')}}"></script>
+    <script src="{{url('bower_components/bootstrap/js/bootstrap.min.js')}}"></script>
+
+    <script>
+        // Auto-hide alerts after 5 seconds
+        setTimeout(function() {
+            $('.alert').fadeOut('slow');
+        }, 5000);
+    </script>
 
 </body>
 
