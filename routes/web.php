@@ -19,15 +19,42 @@ Route::middleware(['web'])->group(function () {
     Route::get('/unauthorized', function () {
         return view('Authentication.unauthorized');
     });
+
+    // Password reset routes
+    Route::get('/forgot-password', function () {
+        return view('forgot-password');
+    });
+    Route::post('/send-otp', [UserController::class, 'sendOtp']);
+    Route::post('/verify-otp', [UserController::class, 'verifyOtp']);
+
+    Route::get('/reset-password', function () {
+        return view('reset-password');
+    });
+    Route::post('/update-password', [UserController::class, 'updatePassword']);
 });
 
 // Protected routes (authentication required)
 Route::middleware(['web', 'login'])->group(function () {
+    // Password change routes (available to all logged-in users)
+    Route::get('/password-change', function () {
+        $user = Auth::user();
+        if ($user->role == 1) {
+            // Admin
+            return view('password-change');
+        } else {
+            // Regular user
+            return view('user.password-change');
+        }
+    });
+    Route::post('/password-change', [UserController::class, 'changePassword']);
+
     // admin route start here
     // Route::get('/', function () {return view('welcome');})->middleware('checkAdmin');
     Route::get('/', [TreeController::class, 'welcomeindex'])->middleware('checkAdmin');
 
-    Route::get('/test', function () {return view('test');});
+    Route::get('/test', function () {
+        return view('test');
+    });
     Route::get('/useradding', [RoleController::class, 'index'])->middleware('checkAdmin');
     Route::post('/useradding', [UserController::class, 'register'])->middleware('checkAdmin');
     Route::get('/listuser', [UserController::class, 'getalluser'])->middleware('checkAdmin');
@@ -64,9 +91,13 @@ Route::middleware(['web', 'login'])->group(function () {
     Route::put('/editSubaction/{id}', [HierarchyController::class, 'editSubaction'])->middleware('checkAdmin');
 
     //form
-    Route::get('/Admin/addnewtask/first', function () {return view('Admin_task_form');})->middleware('checkAdmin');
+    Route::get('/Admin/addnewtask/first', function () {
+        return view('Admin_task_form');
+    })->middleware('checkAdmin');
     Route::post('/admin/addnewtask/first', [TaskController::class, 'Adminstore'])->middleware('checkAdmin');
-    Route::get('/admin/addnewtask/second', function () {return view('Tabledatainsert');})->middleware('checkAdmin');
+    Route::get('/admin/addnewtask/second', function () {
+        return view('Tabledatainsert');
+    })->middleware('checkAdmin');
     Route::post('/admin/addnewtask/final', [TaskController::class, 'AdminstoreFinalForm'])->middleware('checkAdmin');
 
     //view all task
@@ -85,16 +116,18 @@ Route::middleware(['web', 'login'])->group(function () {
     // admin route end here
 
     //user route start here
-    Route::get('/user',[UserController::class, 'dashboardDataload'] )->middleware('checkUser');
+    Route::get('/user', [UserController::class, 'dashboardDataload'])->middleware('checkUser');
 
     Route::get('/addtask', [HierarchyController::class, 'getallGoaltouser'])->middleware('checkUser');
-    Route::get('/getObjectives/{goalId}', [HierarchyController::class, 'getallObjectivetouser']) ;//admin and user both
+    Route::get('/getObjectives/{goalId}', [HierarchyController::class, 'getallObjectivetouser']);//admin and user both
     Route::get('/getStrategy/{objective}', [HierarchyController::class, 'getallgetStrategytouser']);//admin and user both
     Route::get('/getAction/{strategy}', [HierarchyController::class, 'getallgetActiontouser']);//admin and user both
     Route::get('/getSubAction/{action}', [HierarchyController::class, 'getallgetSubActiontouser']);//admin and user both
 
     //user add the new task
-    Route::get('/addnewtask/first', function () {return view('user.TaskAdding');})->middleware('checkUser');
+    Route::get('/addnewtask/first', function () {
+        return view('user.TaskAdding');
+    })->middleware('checkUser');
     Route::post('/addnewtask/first', [TaskController::class, 'store'])->middleware('checkUser');
     Route::get('/addnewtask/second', function () {
         return view('user.Tabledatainsert');
