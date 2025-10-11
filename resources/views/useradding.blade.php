@@ -94,9 +94,13 @@
                                                         name="password" required placeholder="Enter your password">
                                                 </div>
                                             </div>
-                                            <button class="btn btn-primary" type="submit"
-                                                style="position: absolute; right: 0; margin: 10px 20px 20px 25px;">Sign
-                                                Up</button>
+                                            <button class="btn btn-primary" type="submit" id="submitBtn"
+                                                style="position: absolute; right: 0; margin: 10px 20px 20px 25px;">
+                                                <span id="btnText">Sign Up</span>
+                                                <span id="btnSpinner" style="display: none;">
+                                                    <i class="fa fa-spinner fa-spin"></i> Processing...
+                                                </span>
+                                            </button>
                                         </form>
                                     </div>
                                 </div>
@@ -112,51 +116,78 @@
 
     <script>
         async function addUser() {
-            const data = {
-                fname: document.getElementById('fname').value,
-                lname: document.getElementById('lname').value,
-                username: document.getElementById('username').value,
-                email: document.getElementById('email').value,
-                selectrole: document.getElementById('selectrole').value,
-                password: document.getElementById('password').value,
+            // Get button and loading elements
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnSpinner = document.getElementById('btnSpinner');
 
-            };
+            // Disable button and show loading state
+            submitBtn.disabled = true;
+            btnText.style.display = 'none';
+            btnSpinner.style.display = 'inline-block';
 
-            const response = await fetch('/useradding', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify(data)
-            });
+            try {
+                const data = {
+                    fname: document.getElementById('fname').value,
+                    lname: document.getElementById('lname').value,
+                    username: document.getElementById('username').value,
+                    email: document.getElementById('email').value,
+                    selectrole: document.getElementById('selectrole').value,
+                    password: document.getElementById('password').value,
+                };
 
-            const result = await response.json();
+                const response = await fetch('/useradding', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify(data)
+                });
 
-            if (response.ok) {
+                const result = await response.json();
+
+                // Reset button state
+                submitBtn.disabled = false;
+                btnText.style.display = 'inline-block';
+                btnSpinner.style.display = 'none';
+
+                if (response.ok) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: "Successfully added the user",
+                        icon: 'success',
+                        confirmButtonColor: 'rgba(0, 146, 255, 0.8)',
+                        timer: 1500,
+                        confirmButtonText: 'Okay'
+                    }).then((result) => {
+                        window.location.href = "/";
+                    })
+                } else {
+                    // Display detailed error message if available
+                    let errorMessage = result.message || JSON.stringify(result.error);
+
+                    Swal.fire({
+                        title: 'Error!',
+                        text: errorMessage,
+                        icon: 'error',
+                        confirmButtonColor: 'rgba(0, 146, 255, 0.8)',
+                        confirmButtonText: 'Okay'
+                    });
+                }
+            } catch (error) {
+                // Reset button state on network error
+                submitBtn.disabled = false;
+                btnText.style.display = 'inline-block';
+                btnSpinner.style.display = 'none';
+
                 Swal.fire({
-                    title: 'success!',
-                    text: "successfully add the user",
-                    icon: 'success',
-                    confirmButtonColor: 'rgba(0, 146, 255, 0.8)',
-                    timer: 1500,
-                    confirmButtonText: 'Okay'
-                }).then((result) => {
-                    window.location.href = "/";
-                })
-            } else {
-
-                Swal.fire({
-                    title: 'Errror!',
-                    text: JSON.stringify(result.error),
+                    title: 'Error!',
+                    text: 'Network error occurred. Please try again.',
                     icon: 'error',
                     confirmButtonColor: 'rgba(0, 146, 255, 0.8)',
-                    timer: 1500,
                     confirmButtonText: 'Okay'
-                }).then((result) => {
-                    window.location.href = "/useradding";
-
-                })
+                });
             }
         }
     </script>
