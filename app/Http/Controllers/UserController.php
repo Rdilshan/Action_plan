@@ -29,74 +29,82 @@ class UserController extends Controller
         if (Auth::attempt($credentials)) {
             // Regenerate session to prevent session fixation attacks
             $request->session()->regenerate();
-            
+
             $user = Auth::user();
             $role = $user->role;
 
-            if($role == 1) {
+            if ($role == 1) {
                 return redirect()->intended('/')
-                             ->with('success', 'Login successful!');
-            } else if($role == 2) {
+                    ->with('success', 'Login successful!');
+            } else if ($role == 2) {
                 return redirect()->intended('/user')
-                             ->with('success', 'Login successful!');
+                    ->with('success', 'Login successful!');
             }
 
         } else {
             return redirect()->back()
-                             ->withInput($request->only('email'))
-                             ->withErrors(['email' => 'Invalid email or password.']);
+                ->withInput($request->only('email'))
+                ->withErrors(['email' => 'Invalid email or password.']);
         }
     }
 
-    public function register(Request $request){
+    public function register(Request $request)
+    {
         // dd($request->all());
 
-       // Validation rules
-    $validator = Validator::make($request->all(), [
-        'fname' => 'required|string|max:255',
-        'lname' => 'required|string|max:255',
-        'username' => 'required|string|max:255|unique:users',
-        'email' => 'required|string|email|max:255|unique:users',
-        'selectrole' => 'required|string|max:255',
-        'password' => 'required|string|max:255',
-    ]);
-
-    // Check if validation fails
-    if ($validator->fails()) {
-        return response()->json(['error' => $validator->errors()], 422);
-    }
-
-    // Try to create the user
-    try {
-        $user = User::create([
-            'fname' => $request->fname,
-            'lname' => $request->lname,
-            'Username' => $request->username,
-            'email' => $request->email,
-            'role' => $request->selectrole,
-            'password' => Hash::make($request->password),
+        // Validation rules
+        $validator = Validator::make($request->all(), [
+            'fname' => 'required|string|max:255',
+            'lname' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users',
+            'selectrole' => 'required|string|max:255',
+            'password' => 'required|string|max:255',
         ]);
 
-        $data = [
-            'password' => $request->password
-        ];
+        // Check if validation fails
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 422);
+        }
 
-        Mail::to($request->email)
-        ->send(new userRegMail($data));
+        // Try to create the user
+        try {
+            $user = User::create([
+                'fname' => $request->fname,
+                'lname' => $request->lname,
+                'Username' => $request->username,
+                'email' => $request->email,
+                'role' => $request->selectrole,
+                'password' => Hash::make($request->password),
+            ]);
 
-        return response()->json(['success' => 'User created successfully!', 'user' => $user], 201);
-    } catch (\Exception $e) {
-        // Return error message
-        return response()->json(['error' => 'User creation failed!'], 500);
+            $data = [
+                'password' => $request->password
+            ];
+
+            Mail::to($request->email)
+                ->send(new userRegMail($data));
+
+            return response()->json(['success' => 'User created successfully!', 'user' => $user], 201);
+        } catch (\Exception $e) {
+            // Return specific error message for debugging
+            return response()->json([
+                'error' => 'User creation failed!',
+                'message' => $e->getMessage(),
+                'line' => $e->getLine(),
+                'file' => $e->getFile()
+            ], 500);
+        }
     }
-    }
 
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         Auth::logout();
         return redirect('/');
     }
 
-    public function getalluser(Request $request){
+    public function getalluser(Request $request)
+    {
 
         $users = User::where('email', '!=', 'admin@example.com')->get();
         return view('Listuser', compact('users'));
@@ -109,7 +117,8 @@ class UserController extends Controller
         return response()->json(['success' => 'User deleted successfully']);
     }
 
-    public function dashboardDataload(Request $request){
+    public function dashboardDataload(Request $request)
+    {
         $goalCount = Goal::count();
         $taskCount = Task::count();
         $now = now();
@@ -119,7 +128,7 @@ class UserController extends Controller
         $mytaskcount = $mytasks->count();
 
 
-        return view('user.Dashboard', compact('goalCount', 'taskCount','formattedTime','mytaskcount'));
+        return view('user.Dashboard', compact('goalCount', 'taskCount', 'formattedTime', 'mytaskcount'));
 
 
     }
